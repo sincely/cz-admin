@@ -1,60 +1,61 @@
 <template>
-    <overlay-scrollbars-component
-        ref="scrollbarRef"
-        :style="cpStyle"
-        :options="cpOptions"
-        @os-scroll="onScroll"
-        @os-initialized="onInitialized"
-        @os-destroyed="onDestroyed"
-        @os-updated="onUpdated">
-        <slot></slot>
-    </overlay-scrollbars-component>
+  <overlay-scrollbars-component
+    ref="scrollbarRef"
+    :style="cpStyle"
+    :options="cpOptions"
+    @os-scroll="onScroll"
+    @os-initialized="onInitialized"
+    @os-destroyed="onDestroyed"
+    @os-updated="onUpdated"
+  >
+    <slot></slot>
+  </overlay-scrollbars-component>
 </template>
 
 <script setup>
-import { computed, ref, useSlots } from 'vue'
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
-import 'overlayscrollbars/overlayscrollbars.css'
+import { computed, ref, useSlots } from "vue";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
+import "overlayscrollbars/overlayscrollbars.css";
 
 defineOptions({
-    name: 'XScrollbar',
-})
+  name: "XScrollbar",
+});
 
 const props = defineProps({
-    height: {
-        type: [Number, String],
-        default: '100%',
-    },
-    maxHeight: {
-        type: [Number, String],
-    },
-    always: {
-        type: Boolean,
-        default: false,
-    },
-})
+  height: {
+    type: [Number, String],
+    default: "100%",
+  },
+  maxHeight: {
+    type: [Number, String],
+  },
+  always: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-const emits = defineEmits(['scroll', 'initialized', 'updated', 'destroyed'])
+const emits = defineEmits(["scroll", "initialized", "updated", "destroyed"]);
 
-useSlots(['default'])
+useSlots(["default"]);
 
-const scrollbarRef = ref()
+const scrollbarRef = ref();
 
 const cpStyle = computed(() => {
-    return {
-        height: formatUnit(props.height),
-        maxHeight: formatUnit(props.maxHeight),
-    }
-})
+  return {
+    height: formatUnit(props.height),
+    maxHeight: formatUnit(props.maxHeight),
+  };
+});
 const cpOptions = computed(() => ({
-    scrollbars: {
-        autoHide: props.always ? 'never' : 'leave',
-        autoHideDelay: 100,
-    },
-}))
+  scrollbars: {
+    autoHide: props.always ? "never" : "leave",
+    autoHideDelay: 100,
+  },
+}));
 
 function onScroll(instance, event) {
-    emits('scroll', instance, event)
+  emits("scroll", instance, event);
 }
 
 /**
@@ -62,7 +63,7 @@ function onScroll(instance, event) {
  * @param {*} instance
  */
 function onInitialized(instance) {
-    emits('initialized', instance)
+  emits("initialized", instance);
 }
 
 /**
@@ -70,7 +71,7 @@ function onInitialized(instance) {
  * @param {*} instance
  */
 function onUpdated(instance) {
-    emits('updated', instance)
+  emits("updated", instance);
 }
 
 /**
@@ -78,20 +79,22 @@ function onUpdated(instance) {
  * @param {*} instance
  */
 function onDestroyed(instance) {
-    emits('destroyed', instance)
+  emits("destroyed", instance);
 }
 
 function formatUnit(value) {
-    return undefined !== value && '' !== value && /.*\d$/.test(value) ? `${value}px` : value
+  return undefined !== value && "" !== value && /.*\d$/.test(value)
+    ? `${value}px`
+    : value;
 }
 
 function scrollTo(payload) {
-    scrollbarRef.value?.osInstance()?.elements()?.viewport?.scrollTo(payload)
+  scrollbarRef.value?.osInstance()?.elements()?.viewport?.scrollTo(payload);
 }
 
 defineExpose({
-    scrollTo,
-})
+  scrollTo,
+});
 </script>
 
 <style scoped lang="less"></style>

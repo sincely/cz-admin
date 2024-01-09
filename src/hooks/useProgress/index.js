@@ -1,10 +1,10 @@
-import NProgress from 'nprogress'
-import './index.less'
+import NProgress from "nprogress";
+import "./index.less";
 
 export default (options) => {
-    NProgress.configure({
-        ...options,
-        showSpinner: false,
-    })
-    return NProgress
-}
+  NProgress.configure({
+    ...options,
+    showSpinner: false,
+  });
+  return NProgress;
+};

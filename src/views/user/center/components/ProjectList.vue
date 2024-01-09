@@ -1,13 +1,13 @@
 <template>
-    <a-list :data-source="listData"></a-list>
+  <a-list :data-source="listData"></a-list>
 </template>
 
 <script setup>
 defineOptions({
-    name: 'ProjectList',
-})
+  name: "ProjectList",
+});
 
-const listData = []
+const listData = [];
 </script>
 
 <style lang="less" scoped></style>

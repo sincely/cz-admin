@@ -1,29 +1,31 @@
 <template>
-    <a-modal
-        destroy-on-close
-        title="裁剪图片"
-        :open="open"
-        :after-close="onAfterClose"
-        :width="568"
-        :confirm-loading="loading"
-        @ok="handleOk"
-        @cancel="handleCancel">
-        <cropper
-            ref="cropperRef"
-            :src="imgSrc"
-            :aspect-ratio="aspectRatio"
-            :quality="quality" />
-    </a-modal>
+  <a-modal
+    destroy-on-close
+    title="裁剪图片"
+    :open="open"
+    :after-close="onAfterClose"
+    :width="568"
+    :confirm-loading="loading"
+    @ok="handleOk"
+    @cancel="handleCancel"
+  >
+    <cropper
+      ref="cropperRef"
+      :src="imgSrc"
+      :aspect-ratio="aspectRatio"
+      :quality="quality"
+    />
+  </a-modal>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-import Cropper from './Cropper.vue'
+import Cropper from "./Cropper.vue";
 
 defineOptions({
-    name: 'XCropperDialog',
-})
+  name: "XCropperDialog",
+});
 
 /**
  * 裁剪图片弹窗
@@ -31,61 +33,61 @@ defineOptions({
  * @property {number} quality 图片质量，取值范围：0-1，默认：1
  */
 defineProps({
-    aspectRatio: {
-        type: Number,
-        default: 0,
-    },
-    quality: {
-        type: Number,
-        default: 1,
-    },
-})
+  aspectRatio: {
+    type: Number,
+    default: 0,
+  },
+  quality: {
+    type: Number,
+    default: 1,
+  },
+});
 
-const emit = defineEmits(['ok', 'cancel'])
+const emit = defineEmits(["ok", "cancel"]);
 
-const open = ref(false)
-const cropperRef = ref()
-const imgSrc = ref('')
-const loading = ref(false)
+const open = ref(false);
+const cropperRef = ref();
+const imgSrc = ref("");
+const loading = ref(false);
 
 /**
  * 打开
  * @param src
  */
 function handleOpen(src) {
-    imgSrc.value = src
-    open.value = true
+  imgSrc.value = src;
+  open.value = true;
 }
 
 /**
  * 确定
  */
 async function handleOk() {
-    loading.value = true
-    const file = await cropperRef.value?.getFile()
-    loading.value = false
-    open.value = false
-    emit('ok', file)
+  loading.value = true;
+  const file = await cropperRef.value?.getFile();
+  loading.value = false;
+  open.value = false;
+  emit("ok", file);
 }
 
 /**
  * 关闭
  */
 function handleCancel() {
-    open.value = false
-    emit('cancel')
+  open.value = false;
+  emit("cancel");
 }
 
 /**
  * 关闭后
  */
 function onAfterClose() {
-    imgSrc.value = ''
+  imgSrc.value = "";
 }
 
 defineExpose({
-    handleOpen,
-})
+  handleOpen,
+});
 </script>
 
 <style scoped></style>

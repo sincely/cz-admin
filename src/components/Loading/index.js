@@ -1,4 +1,4 @@
-import vLoading from './directive'
-import Loading from './loading.js'
+import vLoading from "./directive";
+import Loading from "./loading.js";
 
-export { vLoading, Loading }
+export { vLoading, Loading };
