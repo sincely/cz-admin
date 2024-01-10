@@ -9,8 +9,8 @@
 
 <script setup>
 defineOptions({
-  name: "XActionButton",
-});
+  name: 'XActionButton'
+})
 
 /**
  * 操作按钮
@@ -20,13 +20,13 @@ defineOptions({
 defineProps({
   tag: {
     type: String,
-    default: "span",
+    default: 'span'
   },
   divider: {
     type: Boolean,
-    default: true,
-  },
-});
+    default: true
+  }
+})
 </script>
 
 <style lang="less" scoped>
@@ -38,7 +38,7 @@ defineProps({
   cursor: pointer;
 
   &:hover {
-    background: color(~`colorPalette("@{color-primary}", 1) `);
+    background: color(~`colorPalette('@{color-primary}', 1) `);
   }
 
   &-wrap {

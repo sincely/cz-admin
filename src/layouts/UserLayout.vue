@@ -28,15 +28,15 @@
 </template>
 
 <script setup>
-import { assets } from "@/utils";
-import { config } from "@/config";
+import { assets } from '@/utils'
+import { config } from '@/config'
 
 defineOptions({
-  name: "UserLayout",
-});
+  name: 'UserLayout'
+})
 
-const { version } = __APP_INFO__;
-const title = config("app.title");
+const { version } = __APP_INFO__
+const title = config('app.title')
 </script>
 
 <style lang="less" scoped>
@@ -54,8 +54,7 @@ const title = config("app.title");
     flex: 0 0 538px;
     display: flex;
     flex-direction: column;
-    background: #235bda url("@/assets/login_aside_bg.jpg") no-repeat left top /
-      100% auto;
+    background: #235bda url('@/assets/login_aside_bg.jpg') no-repeat left top / 100% auto;
     position: relative;
 
     .aside {

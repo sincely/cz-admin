@@ -1,30 +1,26 @@
 <template>
   <div class="iframe-container">
     <template v-for="(item, index) in cpIframeList" :key="index">
-      <iframe
-        v-show="url === item.meta.url"
-        :src="item.meta.url"
-        class="iframe"
-      ></iframe>
+      <iframe v-show="url === item.meta.url" :src="item.meta.url" class="iframe"></iframe>
     </template>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { useMultiTabStore } from "@/store";
+import { useMultiTabStore } from '@/store'
 
 defineOptions({
-  name: "iframePage",
-});
+  name: 'iframePage'
+})
 
-const multiTabStore = useMultiTabStore();
-const route = useRoute();
+const multiTabStore = useMultiTabStore()
+const route = useRoute()
 
-const url = ref(route.meta?.url);
-const cpIframeList = computed(() => multiTabStore.iframeList);
+const url = ref(route.meta?.url)
+const cpIframeList = computed(() => multiTabStore.iframeList)
 </script>
 
 <style lang="less" scoped>

@@ -1,6 +1,6 @@
 export const setupException = (app) => {
   app.config.errorHandler = (err) => {
-    console.error(err);
-  };
-  return app;
-};
+    console.error(err)
+  }
+  return app
+}

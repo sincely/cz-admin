@@ -2,13 +2,7 @@
   <div class="x-transfer">
     <div class="x-transfer-list">
       <div class="x-transfer-list-header">
-        <a-checkbox
-          :checked="cpCheckAll"
-          :indeterminate="cpIndeterminate"
-          @change="onCheckAllChange"
-        >
-          全选
-        </a-checkbox>
+        <a-checkbox :checked="cpCheckAll" :indeterminate="cpIndeterminate" @change="onCheckAllChange">全选</a-checkbox>
       </div>
       <template v-if="showSearch">
         <div class="x-transfer-list-search">
@@ -16,7 +10,7 @@
             <template #prefix>
               <search-outlined
                 :style="{
-                  color: token.colorTextPlaceholder,
+                  color: token.colorTextPlaceholder
                 }"
               ></search-outlined>
             </template>
@@ -59,7 +53,7 @@
       <div class="x-transfer-list-header">
         <div class="x-transfer-list-header__label">已选：{{ cpCount }}</div>
         <div class="x-transfer-list-header__extra">
-          <a-button size="small" @click="handleClear"> 清空 </a-button>
+          <a-button size="small" @click="handleClear">清空</a-button>
         </div>
       </div>
       <transfer-list-body direction="right" :data-source="curTargetDataSource">
@@ -77,100 +71,85 @@
 </template>
 
 <script setup>
-import { computed, ref, useSlots, watch } from "vue";
-import { useTransferProvide } from "./context";
-import { SearchOutlined, HomeOutlined } from "@ant-design/icons-vue";
-import { theme } from "ant-design-vue";
-import TransferListBody from "./TransferListBody.vue";
+import { computed, ref, useSlots, watch } from 'vue'
+import { useTransferProvide } from './context'
+import { SearchOutlined, HomeOutlined } from '@ant-design/icons-vue'
+import { theme } from 'ant-design-vue'
+import TransferListBody from './TransferListBody.vue'
 
 defineOptions({
-  name: "XTransfer",
-});
+  name: 'XTransfer'
+})
 
 const props = defineProps({
   modelValue: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   dataSource: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   defaultTargetDataSource: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   showClear: {
     type: Boolean,
-    default: false,
+    default: false
   },
   showSearch: {
     type: Boolean,
-    default: false,
+    default: false
   },
   fieldNames: {
     type: Object,
     default: () => ({
-      label: "label",
-      value: "value",
-      children: "children",
-    }),
-  },
-});
-const emit = defineEmits([
-  "change",
-  "update:modelValue",
-  "next",
-  "check",
-  "search",
-]);
+      label: 'label',
+      value: 'value',
+      children: 'children'
+    })
+  }
+})
+const emit = defineEmits(['change', 'update:modelValue', 'next', 'check', 'search'])
 
-const slots = useSlots(["footer"]);
-const { token } = theme.useToken();
+const slots = useSlots(['footer'])
+const { token } = theme.useToken()
 
-const curValue = ref(props.modelValue);
-const curTargetDataSource = ref(props.defaultTargetDataSource);
-const keyword = ref();
-const list = ref(props.dataSource);
-const breadcrumb = ref([]);
+const curValue = ref(props.modelValue)
+const curTargetDataSource = ref(props.defaultTargetDataSource)
+const keyword = ref()
+const list = ref(props.dataSource)
+const breadcrumb = ref([])
 
-const cpValidList = computed(() => list.value.filter((item) => !item.disabled));
-const cpCount = computed(() => props.modelValue.length);
-const cpShowFooter = computed(() => slots.footer);
+const cpValidList = computed(() => list.value.filter((item) => !item.disabled))
+const cpCount = computed(() => props.modelValue.length)
+const cpShowFooter = computed(() => slots.footer)
 const cpCheckAll = computed(
   () =>
-    !!curValue.value.length &&
-    cpValidList.value.every((item) =>
-      curValue.value.includes(item[props.fieldNames.value]),
-    ),
-);
+    !!curValue.value.length && cpValidList.value.every((item) => curValue.value.includes(item[props.fieldNames.value]))
+)
 const cpIndeterminate = computed(
-  () =>
-    !cpCheckAll.value &&
-    cpValidList.value.some((item) =>
-      curValue.value.includes(item[props.fieldNames.value]),
-    ),
-);
+  () => !cpCheckAll.value && cpValidList.value.some((item) => curValue.value.includes(item[props.fieldNames.value]))
+)
 
 watch(
   () => props.modelValue,
   (val) => {
-    if (val === curValue.value) return;
-    curValue.value = val;
-    curTargetDataSource.value = props.dataSource.filter((item) =>
-      curValue.value.includes(item[props.fieldNames.value]),
-    );
+    if (val === curValue.value) return
+    curValue.value = val
+    curTargetDataSource.value = props.dataSource.filter((item) => curValue.value.includes(item[props.fieldNames.value]))
   },
-  { deep: true },
-);
+  { deep: true }
+)
 
 /**
  * 清空
  */
 function handleClear() {
-  curValue.value = [];
-  curTargetDataSource.value = [];
-  onTrigger();
+  curValue.value = []
+  curTargetDataSource.value = []
+  onTrigger()
 }
 
 /**
@@ -181,12 +160,12 @@ function handleClear() {
 function handleBreadcrumb(record, index) {
   // 根目录
   if (!record) {
-    breadcrumb.value = [];
-    list.value = props.dataSource;
-    return;
+    breadcrumb.value = []
+    list.value = props.dataSource
+    return
   }
-  breadcrumb.value.splice(index + 1);
-  list.value = record?.[props.fieldNames?.children];
+  breadcrumb.value.splice(index + 1)
+  list.value = record?.[props.fieldNames?.children]
 }
 
 /**
@@ -194,22 +173,20 @@ function handleBreadcrumb(record, index) {
  * @param {object} value
  */
 function onCheck(value) {
-  const index = curValue.value.indexOf(value);
-  const valueKey = props.fieldNames.value;
-  const targetIndex = curTargetDataSource.value.findIndex(
-    (item) => item[valueKey] === value,
-  );
-  const record = list.value?.find((item) => item[valueKey] === value);
+  const index = curValue.value.indexOf(value)
+  const valueKey = props.fieldNames.value
+  const targetIndex = curTargetDataSource.value.findIndex((item) => item[valueKey] === value)
+  const record = list.value?.find((item) => item[valueKey] === value)
 
   if (index === -1) {
-    curValue.value.push(value);
-    curTargetDataSource.value.push(record);
+    curValue.value.push(value)
+    curTargetDataSource.value.push(record)
   } else {
-    curValue.value.splice(index, 1);
-    curTargetDataSource.value.splice(targetIndex, 1);
+    curValue.value.splice(index, 1)
+    curTargetDataSource.value.splice(targetIndex, 1)
   }
 
-  onTrigger();
+  onTrigger()
 }
 
 /**
@@ -217,70 +194,62 @@ function onCheck(value) {
  * @param {object} record
  */
 function onNext(record) {
-  breadcrumb.value.push(record);
-  list.value = record?.[props.fieldNames?.children];
-  emit("next", record);
+  breadcrumb.value.push(record)
+  list.value = record?.[props.fieldNames?.children]
+  emit('next', record)
 }
 
 /**
  * 全选发生改变
  */
 function onCheckAllChange(e) {
-  const { checked } = e.target;
+  const { checked } = e.target
   if (checked) {
     // 全选
     cpValidList.value.forEach((item) => {
-      const value = item[props.fieldNames.value];
-      const index = curValue.value.indexOf(value);
+      const value = item[props.fieldNames.value]
+      const index = curValue.value.indexOf(value)
       if (index === -1) {
-        curValue.value.push(value);
-        curTargetDataSource.value.push(item);
+        curValue.value.push(value)
+        curTargetDataSource.value.push(item)
       }
-    });
+    })
     // curValue.value = cpValidList.value.map((item) => item[props.fieldNames.value])
     // curTargetDataSource.value = list.value?.filter((item) => curValue.value.includes(item[props.fieldNames.value]))
   } else {
     // 取消全选
     curValue.value = curValue.value.filter(
-      (item) =>
-        !cpValidList.value
-          .map((item) => item[props.fieldNames.value])
-          .includes(item),
-    );
+      (item) => !cpValidList.value.map((item) => item[props.fieldNames.value]).includes(item)
+    )
     curTargetDataSource.value = curTargetDataSource.value.filter(
-      (item) =>
-        !cpValidList.value
-          .map((item) => item[props.fieldNames.value])
-          .includes(item[props.fieldNames.value]),
-    );
+      (item) => !cpValidList.value.map((item) => item[props.fieldNames.value]).includes(item[props.fieldNames.value])
+    )
   }
-  onTrigger();
+  onTrigger()
 }
 
 /**
  * 搜索发生改变
  */
 function onSearchChange() {
-  list.value = props.dataSource.filter(
-    (item) => item[props.fieldNames.label].indexOf(keyword.value) > -1,
-  );
-  emit("search", keyword.value);
+  list.value = props.dataSource.filter((item) => item[props.fieldNames.label].indexOf(keyword.value) > -1)
+  emit('search', keyword.value)
 }
 
 /**
  * 触发
  */
 function onTrigger() {
-  emit("update:modelValue", curValue.value);
-  emit("change", curValue.value, { option: curTargetDataSource.value });
+  emit('update:modelValue', curValue.value)
+  emit('change', curValue.value, { option: curTargetDataSource.value })
 }
 
 useTransferProvide({
   modelValue: computed(() => props.modelValue),
   fieldNames: computed(() => props.fieldNames),
   onCheck,
-  onNext,
-});
+  onNext
+})
 </script>
 
 <style lang="less" scoped>

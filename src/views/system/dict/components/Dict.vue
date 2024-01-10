@@ -4,7 +4,7 @@
     :style="{
       position: 'sticky',
       top: appStore.mainOffsetTop,
-      height: appStore.mainHeight,
+      height: appStore.mainHeight
     }"
   >
     <template #title>
@@ -28,9 +28,7 @@
                 </x-action-button>
                 <template #overlay>
                   <a-menu>
-                    <a-menu-item @click="$refs.editDictDialogRef.handleEdit()">
-                      编辑
-                    </a-menu-item>
+                    <a-menu-item @click="$refs.editDictDialogRef.handleEdit()">编辑</a-menu-item>
                     <a-menu-item @click="handleDelete">删除</a-menu-item>
                   </a-menu>
                 </template>
@@ -38,10 +36,7 @@
             </span>
           </template>
         </a-tree>
-        <empty
-          v-if="!listData.length"
-          :image="Empty.PRESENTED_IMAGE_SIMPLE"
-        ></empty>
+        <empty v-if="!listData.length" :image="Empty.PRESENTED_IMAGE_SIMPLE"></empty>
       </a-spin>
     </x-scrollbar>
     <template #actions>
@@ -56,40 +51,40 @@
 </template>
 
 <script setup>
-import { useAppStore } from "@/store";
-import { ref, watch } from "vue";
-import { usePagination } from "@/hooks";
-import apis from "@/apis";
-import { Empty, Modal, message } from "ant-design-vue";
-import { config } from "@/config";
-import { head, get, find } from "lodash-es";
-import { MoreOutlined, PlusOutlined } from "@ant-design/icons-vue";
-import EditDictDialog from "./EditDictDialog.vue";
+import { useAppStore } from '@/store'
+import { ref, watch } from 'vue'
+import { usePagination } from '@/hooks'
+import apis from '@/apis'
+import { Empty, Modal, message } from 'ant-design-vue'
+import { config } from '@/config'
+import { head, get, find } from 'lodash-es'
+import { MoreOutlined, PlusOutlined } from '@ant-design/icons-vue'
+import EditDictDialog from './EditDictDialog.vue'
 
 const props = defineProps({
   value: {
     type: String,
-    default: "",
-  },
-});
+    default: ''
+  }
+})
 
-const emit = defineEmits(["change", "update:value"]);
+const emit = defineEmits(['change', 'update:value'])
 
-const appStore = useAppStore();
-const { listData, loading, showLoading, hideLoading } = usePagination();
+const appStore = useAppStore()
+const { listData, loading, showLoading, hideLoading } = usePagination()
 
-const editDictDialogRef = ref();
-const selectedKeys = ref([props.value]);
+const editDictDialogRef = ref()
+const selectedKeys = ref([props.value])
 
 watch(
   () => props.value,
   (val) => {
-    if (val === selectedKeys.value?.[0]) return;
-    selectedKeys.value = [val];
-  },
-);
+    if (val === selectedKeys.value?.[0]) return
+    selectedKeys.value = [val]
+  }
+)
 
-getList();
+getList()
 
 /**
  * 获取列表
@@ -97,21 +92,21 @@ getList();
  */
 async function getList() {
   try {
-    showLoading();
+    showLoading()
     const { code, data } = await apis.common.getPageList().catch(() => {
-      throw new Error();
-    });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records } = data;
-      listData.value = records;
+      throw new Error()
+    })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records } = data
+      listData.value = records
       if (listData.value.length) {
-        selectedKeys.value = [get(head(listData.value), "id")];
-        trigger();
+        selectedKeys.value = [get(head(listData.value), 'id')]
+        trigger()
       }
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 
@@ -120,45 +115,45 @@ async function getList() {
  */
 function handleDelete({ id }) {
   Modal.confirm({
-    title: "删除提示",
-    content: "确认删除？",
-    okText: "确认",
+    title: '删除提示',
+    content: '确认删除？',
+    okText: '确认',
     onOk: () => {
       return new Promise((resolve, reject) => {
-        (async () => {
+        ;(async () => {
           try {
             const { code } = await apis.common.del(id).catch(() => {
-              throw new Error();
-            });
-            if (config("http.code.success") === code) {
-              resolve();
-              message.success("删除成功");
-              await getList();
+              throw new Error()
+            })
+            if (config('http.code.success') === code) {
+              resolve()
+              message.success('删除成功')
+              await getList()
             }
           } catch (error) {
-            reject();
+            reject()
           }
-        })();
-      });
-    },
-  });
+        })()
+      })
+    }
+  })
 }
 
 function onSelect(keys) {
-  if (!keys.length) return;
-  selectedKeys.value = keys;
-  trigger();
+  if (!keys.length) return
+  selectedKeys.value = keys
+  trigger()
 }
 
 async function onOk() {
-  await getList();
+  await getList()
 }
 
 function trigger() {
-  const value = head(selectedKeys.value);
-  const record = find(listData.value, { id: value });
-  emit("update:value", value);
-  emit("change", record);
+  const value = head(selectedKeys.value)
+  const record = find(listData.value, { id: value })
+  emit('update:value', value)
+  emit('change', record)
 }
 </script>
 

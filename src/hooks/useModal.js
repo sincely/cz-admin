@@ -1,12 +1,12 @@
-import { ref } from "vue";
+import { ref } from 'vue'
 
 export default () => {
   const modal = ref({
-    type: "",
-    title: "",
+    type: '',
+    title: '',
     open: false,
-    confirmLoading: false,
-  });
+    confirmLoading: false
+  })
 
   /**
    * 设置弹窗
@@ -15,8 +15,8 @@ export default () => {
   function setModal(options = {}) {
     modal.value = {
       ...modal.value,
-      ...options,
-    };
+      ...options
+    }
   }
 
   /**
@@ -26,8 +26,8 @@ export default () => {
   function showModal(options = {}) {
     setModal({
       open: true,
-      ...options,
-    });
+      ...options
+    })
   }
 
   /**
@@ -35,10 +35,10 @@ export default () => {
    */
   function hideModal() {
     setModal({
-      type: "",
+      type: '',
       open: false,
-      confirmLoading: false,
-    });
+      confirmLoading: false
+    })
   }
 
   /**
@@ -46,8 +46,8 @@ export default () => {
    */
   function showLoading() {
     setModal({
-      confirmLoading: true,
-    });
+      confirmLoading: true
+    })
   }
 
   /**
@@ -55,8 +55,8 @@ export default () => {
    */
   function hideLoading() {
     setModal({
-      confirmLoading: false,
-    });
+      confirmLoading: false
+    })
   }
 
   return {
@@ -64,6 +64,6 @@ export default () => {
     showModal,
     hideModal,
     showLoading,
-    hideLoading,
-  };
-};
+    hideLoading
+  }
+}

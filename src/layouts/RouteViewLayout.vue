@@ -4,8 +4,8 @@
 
 <script setup>
 defineOptions({
-  name: "RouteViewLayout",
-});
+  name: 'RouteViewLayout'
+})
 </script>
 
 <style lang="less" scoped></style>

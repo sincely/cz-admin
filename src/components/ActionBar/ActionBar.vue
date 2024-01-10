@@ -10,15 +10,15 @@
 </template>
 
 <script setup>
-import { computed, useSlots } from "vue";
+import { computed, useSlots } from 'vue'
 
 defineOptions({
-  name: "XActionBar",
-});
+  name: 'XActionBar'
+})
 
-const slots = useSlots(["default", "extra"]);
+const slots = useSlots(['default', 'extra'])
 
-const cpShowExtra = computed(() => !!slots.extra);
+const cpShowExtra = computed(() => !!slots.extra)
 </script>
 
 <style lang="less" scoped></style>

@@ -1,23 +1,23 @@
-import * as layouts from "@/layouts";
+import * as layouts from '@/layouts'
 
 /**
  * 白名单
  * @type {string[]}
  */
-export const whiteList = ["login", "logout", "404"];
+export const whiteList = ['login', 'logout', '404']
 
 /**
  * 未找到页面路由
  * @type {{redirect: string, path: string, hidden: boolean}}
  */
 export const notFoundRoute = {
-  path: "/:pathMatch(.*)*",
-  redirect: "/exception/404",
+  path: '/:pathMatch(.*)*',
+  redirect: '/exception/404',
   meta: {
     isLogin: false,
-    isMenu: false,
-  },
-};
+    isMenu: false
+  }
+}
 
 /**
  * 基础路由
@@ -26,26 +26,26 @@ export const notFoundRoute = {
  */
 export const constantRoutes = [
   {
-    path: "/",
-    name: "index",
-    redirect: "/login",
+    path: '/',
+    name: 'index',
+    redirect: '/login'
   },
   {
-    path: "/base",
+    path: '/base',
     component: layouts.UserLayout,
     children: [
       {
-        path: "/login",
-        name: "login",
-        component: () => import("@/views/login/index.vue"),
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/login/index.vue'),
         meta: {
-          title: "登录",
-        },
-      },
-    ],
+          title: '登录'
+        }
+      }
+    ]
   },
   {
-    path: "/exception/404",
-    component: () => import("@/views/exception/404.vue"),
-  },
-];
+    path: '/exception/404',
+    component: () => import('@/views/exception/404.vue')
+  }
+]

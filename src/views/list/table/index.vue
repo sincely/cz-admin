@@ -1,11 +1,7 @@
 <template>
   <x-search-bar class="mb-8-2">
     <template #default="{ gutter, colSpan }">
-      <a-form
-        :label-col="{ style: { width: '100px' } }"
-        :model="searchFormData"
-        layout="inline"
-      >
+      <a-form :label-col="{ style: { width: '100px' } }" :model="searchFormData" layout="inline">
         <a-row :gutter="gutter">
           <a-col v-bind="colSpan">
             <a-form-item name="title">
@@ -43,9 +39,7 @@
           <a-col class="align-right" v-bind="colSpan">
             <a-space>
               <a-button>重置</a-button>
-              <a-button ghost type="primary" @click="handleSearch">
-                搜索
-              </a-button>
+              <a-button ghost type="primary" @click="handleSearch">搜索</a-button>
               <a @click="() => (searchBarExpand = !searchBarExpand)">
                 展开
                 <template v-if="searchBarExpand">
@@ -115,9 +109,7 @@
     >
       <template #bodyCell="{ column, record }">
         <template v-if="'action' === column.key">
-          <x-action-button @click="$refs.editDialogRef.handleEdit(record)"
-            >编辑</x-action-button
-          >
+          <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
           <x-action-button @click="handleDelete(record)">删除</x-action-button>
           <x-action-button>
             <a-dropdown :trigger="['click']">
@@ -140,8 +132,8 @@
 </template>
 
 <script setup>
-import { message, Modal } from "ant-design-vue";
-import { ref } from "vue";
+import { message, Modal } from 'ant-design-vue'
+import { ref } from 'vue'
 import {
   ColumnHeightOutlined,
   DownOutlined,
@@ -150,61 +142,54 @@ import {
   SettingOutlined,
   UpOutlined,
   PlusOutlined,
-  MoreOutlined,
-} from "@ant-design/icons-vue";
-import apis from "@/apis";
-import { config } from "@/config";
-import { usePagination } from "@/hooks";
-import EditDialog from "./components/EditDialog.vue";
+  MoreOutlined
+} from '@ant-design/icons-vue'
+import apis from '@/apis'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
+import EditDialog from './components/EditDialog.vue'
 
 defineOptions({
-  name: "listTable",
-});
+  name: 'listTable'
+})
 
 const columns = [
-  { title: "规则名称", dataIndex: "title" },
-  { title: "描述", dataIndex: "sentence" },
-  { title: "状态", dataIndex: "status" },
-  { title: "操作", key: "action", width: 160 },
-];
-const {
-  listData,
-  paginationState,
-  loading,
-  showLoading,
-  hideLoading,
-  resetPagination,
-  searchFormData,
-} = usePagination();
-const editDialogRef = ref();
-const searchBarExpand = ref(false);
-const size = ref("default");
+  { title: '规则名称', dataIndex: 'title' },
+  { title: '描述', dataIndex: 'sentence' },
+  { title: '状态', dataIndex: 'status' },
+  { title: '操作', key: 'action', width: 160 }
+]
+const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
+  usePagination()
+const editDialogRef = ref()
+const searchBarExpand = ref(false)
+const size = ref('default')
 
-getPageList();
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
   try {
-    showLoading();
-    const { pageSize, current } = paginationState;
+    showLoading()
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.common
       .getPageList({
         pageSize,
-        page: current,
+        page: current
       })
       .catch(() => {
-        throw new Error();
-      });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records, pagination } = data;
-      listData.value = records;
-      paginationState.total = pagination.total;
+        throw new Error()
+      })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records, pagination } = data
+      listData.value = records
+      paginationState.total = pagination.total
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 
@@ -212,8 +197,8 @@ async function getPageList() {
  * 搜索
  */
 function handleSearch() {
-  resetPagination();
-  getPageList();
+  resetPagination()
+  getPageList()
 }
 
 /**
@@ -221,27 +206,27 @@ function handleSearch() {
  */
 function handleDelete({ id }) {
   Modal.confirm({
-    title: "删除提示",
-    content: "确认删除？",
+    title: '删除提示',
+    content: '确认删除？',
     onOk: () => {
       return new Promise((resolve, reject) => {
-        (async () => {
+        ;(async () => {
           try {
             const { code } = await apis.common.del(id).catch(() => {
-              throw new Error();
-            });
-            if (config("http.code.success") === code) {
-              resolve();
-              message.success("删除成功");
-              await getPageList();
+              throw new Error()
+            })
+            if (config('http.code.success') === code) {
+              resolve()
+              message.success('删除成功')
+              await getPageList()
             }
           } catch (error) {
-            reject();
+            reject()
           }
-        })();
-      });
-    },
-  });
+        })()
+      })
+    }
+  })
 }
 
 /**
@@ -249,7 +234,7 @@ function handleDelete({ id }) {
  * @param {string} key
  */
 function handleSize({ key }) {
-  size.value = key;
+  size.value = key
 }
 
 /**
@@ -258,16 +243,16 @@ function handleSize({ key }) {
  * @param pageSize
  */
 function onTableChange({ current, pageSize }) {
-  paginationState.current = current;
-  paginationState.pageSize = pageSize;
-  getPageList();
+  paginationState.current = current
+  paginationState.pageSize = pageSize
+  getPageList()
 }
 
 /**
  * 完成
  */
 function onOk() {
-  getPageList();
+  getPageList()
 }
 </script>
 

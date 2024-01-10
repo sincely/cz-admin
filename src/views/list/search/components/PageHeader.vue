@@ -3,7 +3,7 @@
     <div
       :style="{
         width: '520px',
-        margin: '0 auto',
+        margin: '0 auto'
       }"
     >
       <a-input-search placeholder="请输入" enter-button="搜索" size="large" />
@@ -19,21 +19,21 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 defineOptions({
-  name: "PageHeader",
-});
+  name: 'PageHeader'
+})
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const cpPageTitle = computed(() => route?.meta?.title);
-const cpActiveKey = computed(() => route?.name);
+const cpPageTitle = computed(() => route?.meta?.title)
+const cpActiveKey = computed(() => route?.name)
 
 function onTabChange(_activeKey) {
-  router.push({ name: _activeKey });
+  router.push({ name: _activeKey })
 }
 </script>
 

@@ -3,7 +3,7 @@
     class="x-qrcode"
     :style="{
       width: `${size}px`,
-      height: `${size}px`,
+      height: `${size}px`
     }"
   >
     <template v-if="'active' !== status">
@@ -13,11 +13,7 @@
         </template>
         <template v-if="'expired' === status">
           <div>二维码已过期</div>
-          <a-button
-            type="link"
-            class="x-qrcode__reload-btn"
-            @click="handleRefresh"
-          >
+          <a-button type="link" class="x-qrcode__reload-btn" @click="handleRefresh">
             <template #icon>
               <reload-outlined></reload-outlined>
             </template>
@@ -31,14 +27,14 @@
 </template>
 
 <script setup>
-import QRCode from "qrcode";
-import { onMounted, ref, toRefs, watch } from "vue";
+import QRCode from 'qrcode'
+import { onMounted, ref, toRefs, watch } from 'vue'
 
-import { ReloadOutlined } from "@ant-design/icons-vue";
+import { ReloadOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: "XQrCode",
-});
+  name: 'XQrCode'
+})
 /**
  * 二维码
  * @property {string} value 内容
@@ -56,74 +52,74 @@ const props = defineProps({
   value: {
     type: String,
     required: true,
-    default: "",
+    default: ''
   },
   size: {
     type: Number,
-    default: 120,
+    default: 120
   },
   color: {
     type: String,
-    default: "#000",
+    default: '#000'
   },
   backgroundColor: {
     type: String,
-    default: "#fff",
+    default: '#fff'
   },
   icon: {
     type: String,
-    default: "",
+    default: ''
   },
   iconSize: {
     type: Number,
-    default: 30,
+    default: 30
   },
   iconPadding: {
     type: Number,
-    default: 0,
+    default: 0
   },
   iconBackgroundColor: {
     type: String,
-    default: "",
+    default: ''
   },
   errorLevel: {
     type: String,
-    default: "M",
+    default: 'M'
   },
   status: {
     type: String,
-    default: "active",
-  },
-});
+    default: 'active'
+  }
+})
 
-const emit = defineEmits(["refresh"]);
+const emit = defineEmits(['refresh'])
 
-const qrCodeRef = ref();
+const qrCodeRef = ref()
 
 watch(
   () => toRefs(props),
   () => {
-    init();
+    init()
   },
   {
-    deep: true,
-  },
-);
+    deep: true
+  }
+)
 
 onMounted(() => {
-  init();
-});
+  init()
+})
 
 /**
  * 初始化
  * @return {Promise<void>}
  */
 async function init() {
-  await renderQRCode();
+  await renderQRCode()
   if (props.icon) {
-    await renderIcon();
+    await renderIcon()
   }
-  emit("ready", qrCodeRef.value);
+  emit('ready', qrCodeRef.value)
 }
 
 /**
@@ -132,19 +128,19 @@ async function init() {
  */
 async function renderQRCode() {
   return new Promise((resolve) => {
-    (async () => {
+    ;(async () => {
       await QRCode.toCanvas(qrCodeRef.value, props.value, {
         width: props.size,
         color: {
           dark: props.color,
-          light: props.backgroundColor,
+          light: props.backgroundColor
         },
         errorCorrectionLevel: props.errorLevel,
-        margin: 0,
-      });
-      resolve();
-    })();
-  });
+        margin: 0
+      })
+      resolve()
+    })()
+  })
 }
 
 /**
@@ -153,28 +149,28 @@ async function renderQRCode() {
  */
 async function renderIcon() {
   return new Promise((resolve) => {
-    let img = new Image();
-    img.src = props.icon;
-    const logoPos = (props.size - props.iconSize) / 2;
-    const rectSize = props.iconSize + props.iconPadding;
-    const rectPos = (props.size - rectSize) / 2;
-    let ctx = qrCodeRef.value.getContext("2d");
+    let img = new Image()
+    img.src = props.icon
+    const logoPos = (props.size - props.iconSize) / 2
+    const rectSize = props.iconSize + props.iconPadding
+    const rectPos = (props.size - rectSize) / 2
+    let ctx = qrCodeRef.value.getContext('2d')
     img.onload = () => {
       if (props.iconBackgroundColor) {
-        ctx.fillStyle = props.iconBackgroundColor;
-        ctx.fillRect(rectPos, rectPos, rectSize, rectSize);
+        ctx.fillStyle = props.iconBackgroundColor
+        ctx.fillRect(rectPos, rectPos, rectSize, rectSize)
       }
-      ctx.drawImage(img, logoPos, logoPos, props.iconSize, props.iconSize);
-      resolve();
-    };
-  });
+      ctx.drawImage(img, logoPos, logoPos, props.iconSize, props.iconSize)
+      resolve()
+    }
+  })
 }
 
 /**
  * 刷新
  */
 function handleRefresh() {
-  emit("refresh");
+  emit('refresh')
 }
 
 /**
@@ -182,12 +178,12 @@ function handleRefresh() {
  * @returns {Promise<*>}
  */
 async function toDataURL() {
-  return qrCodeRef.value.toDataURL("image/png");
+  return qrCodeRef.value.toDataURL('image/png')
 }
 
 defineExpose({
-  toDataURL,
-});
+  toDataURL
+})
 </script>
 
 <style lang="less" scoped>

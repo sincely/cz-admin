@@ -26,7 +26,7 @@
                     </a-form-item>
                   </a-col>
                   <a-col>
-                    <a-button ghost type="primary">搜索 </a-button>
+                    <a-button ghost type="primary">搜索</a-button>
                   </a-col>
                 </a-row>
               </a-form>
@@ -42,12 +42,8 @@
         >
           <template #bodyCell="{ column, record }">
             <template v-if="'action' === column.key">
-              <x-action-button @click="$refs.editDialogRef.handleEdit(record)"
-                >编辑</x-action-button
-              >
-              <x-action-button @click="handleDelete(record)"
-                >删除</x-action-button
-              >
+              <x-action-button @click="$refs.editDialogRef.handleEdit(record)">编辑</x-action-button>
+              <x-action-button @click="handleDelete(record)">删除</x-action-button>
             </template>
           </template>
         </a-table>
@@ -59,38 +55,31 @@
 </template>
 
 <script setup>
-import { message, Modal } from "ant-design-vue";
-import { ref } from "vue";
-import { PlusOutlined } from "@ant-design/icons-vue";
-import apis from "@/apis";
-import { config } from "@/config";
-import { usePagination } from "@/hooks";
-import EditDialog from "./components/EditDialog.vue";
-import Dict from "./components/Dict.vue";
+import { message, Modal } from 'ant-design-vue'
+import { ref } from 'vue'
+import { PlusOutlined } from '@ant-design/icons-vue'
+import apis from '@/apis'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
+import EditDialog from './components/EditDialog.vue'
+import Dict from './components/Dict.vue'
 
 defineOptions({
-  name: "systemDict",
-});
+  name: 'systemDict'
+})
 
 const columns = [
-  { title: "名称", dataIndex: "title", fixed: "left" },
-  { title: "唯一值", dataIndex: "key", width: 160 },
-  { title: "状态", dataIndex: "status", width: 160 },
-  { title: "操作", key: "action", fixed: "right", width: 120 },
-];
+  { title: '名称', dataIndex: 'title', fixed: 'left' },
+  { title: '唯一值', dataIndex: 'key', width: 160 },
+  { title: '状态', dataIndex: 'status', width: 160 },
+  { title: '操作', key: 'action', fixed: 'right', width: 120 }
+]
 
-const {
-  listData,
-  loading,
-  showLoading,
-  hideLoading,
-  paginationState,
-  resetPagination,
-  searchFormData,
-} = usePagination();
+const { listData, loading, showLoading, hideLoading, paginationState, resetPagination, searchFormData } =
+  usePagination()
 
-const editDialogRef = ref();
-const selectedDict = ref(null);
+const editDialogRef = ref()
+const selectedDict = ref(null)
 
 /**
  * 获取用户列表
@@ -98,24 +87,24 @@ const selectedDict = ref(null);
  */
 async function getPageList() {
   try {
-    showLoading();
-    const { pageSize, current } = paginationState;
+    showLoading()
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.common
       .getPageList({
         pageSize,
-        page: current,
+        page: current
       })
       .catch(() => {
-        throw new Error();
-      });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records, pagination } = data;
-      listData.value = records;
-      paginationState.total = pagination.total;
+        throw new Error()
+      })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records, pagination } = data
+      listData.value = records
+      paginationState.total = pagination.total
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 
@@ -124,54 +113,54 @@ async function getPageList() {
  */
 function handleDelete({ id }) {
   Modal.confirm({
-    title: "删除提示",
-    content: "确认删除？",
-    okText: "确认",
+    title: '删除提示',
+    content: '确认删除？',
+    okText: '确认',
     onOk: () => {
       return new Promise((resolve, reject) => {
-        (async () => {
+        ;(async () => {
           try {
             const { code } = await apis.common.del(id).catch(() => {
-              throw new Error();
-            });
-            if (config("http.code.success") === code) {
-              resolve();
-              message.success("删除成功");
-              await getPageList();
+              throw new Error()
+            })
+            if (config('http.code.success') === code) {
+              resolve()
+              message.success('删除成功')
+              await getPageList()
             }
           } catch (error) {
-            reject();
+            reject()
           }
-        })();
-      });
-    },
-  });
+        })()
+      })
+    }
+  })
 }
 
 /**
  * 分页
  */
 function onTableChange({ current, pageSize }) {
-  paginationState.current = current;
-  paginationState.pageSize = pageSize;
-  getPageList();
+  paginationState.current = current
+  paginationState.pageSize = pageSize
+  getPageList()
 }
 
 /**
  * 字典发生改变
  */
 function onDictChange(payload) {
-  selectedDict.value = payload;
-  console.log(payload);
-  resetPagination();
-  getPageList();
+  selectedDict.value = payload
+  console.log(payload)
+  resetPagination()
+  getPageList()
 }
 
 /**
  * 编辑完成
  */
 async function onOk() {
-  await getPageList();
+  await getPageList()
 }
 </script>
 

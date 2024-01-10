@@ -7,17 +7,17 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
 defineOptions({
-  name: "404",
-});
+  name: '404'
+})
 
-const router = useRouter();
+const router = useRouter()
 
 const handleBack = () => {
-  router.back();
-};
+  router.back()
+}
 </script>
 
 <style lang="less" scoped></style>

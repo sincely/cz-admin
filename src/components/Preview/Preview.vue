@@ -10,14 +10,7 @@
   >
     <div class="x-preview__content" :style="cpContentStyle">
       <template v-if="cpFileType === 'image'">
-        <img
-          ref="imgRef"
-          alt=""
-          class="x-preview__image"
-          :src="cpUrl"
-          :style="cpImageStyle"
-          @mousedown="onMoveStart"
-        />
+        <img ref="imgRef" alt="" class="x-preview__image" :src="cpUrl" :style="cpImageStyle" @mousedown="onMoveStart" />
       </template>
       <template v-if="cpFileType === 'video'">
         <video controls :src="cpUrl"></video>
@@ -32,7 +25,7 @@
       <div
         class="x-preview__action-btn x-preview__prev-btn"
         :class="{
-          'x-preview__action-btn--disabled': cpPrevBtnDisabled,
+          'x-preview__action-btn--disabled': cpPrevBtnDisabled
         }"
         @click="handlePrev"
       >
@@ -42,7 +35,7 @@
       <div
         class="x-preview__action-btn x-preview__next-btn"
         :class="{
-          'x-preview__action-btn--disabled': cpNextBtnDisabled,
+          'x-preview__action-btn--disabled': cpNextBtnDisabled
         }"
         @click="handleNext"
       >
@@ -59,7 +52,7 @@
           <div
             class="x-preview__action-btn"
             :class="{
-              'x-preview__action-btn--disabled': cpZoomOutBtnDisabled,
+              'x-preview__action-btn--disabled': cpZoomOutBtnDisabled
             }"
             @click="handleZoomOut"
           >
@@ -88,8 +81,8 @@
 </template>
 
 <script setup>
-import { Modal as AModal } from "ant-design-vue";
-import { computed, reactive, ref } from "vue";
+import { Modal as AModal } from 'ant-design-vue'
+import { computed, reactive, ref } from 'vue'
 
 import {
   CloseOutlined,
@@ -98,12 +91,12 @@ import {
   RotateLeftOutlined,
   RotateRightOutlined,
   ZoomInOutlined,
-  ZoomOutOutlined,
-} from "@ant-design/icons-vue";
+  ZoomOutOutlined
+} from '@ant-design/icons-vue'
 
 defineOptions({
-  name: "XPreview",
-});
+  name: 'XPreview'
+})
 /**
  * @property {array} urls 文件
  * @property {number} current 当前显示
@@ -112,23 +105,23 @@ defineOptions({
 const props = defineProps({
   urls: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   current: {
     type: Number,
-    default: 0,
+    default: 0
   },
   afterClose: {
     type: Function,
-    default: () => {},
-  },
-});
+    default: () => {}
+  }
+})
 
-const open = ref(false);
-const scale = ref(1);
-const rotate = ref(0);
-const imgRef = ref();
-const cur = ref(0);
+const open = ref(false)
+const scale = ref(1)
+const rotate = ref(0)
+const imgRef = ref()
+const cur = ref(0)
 
 const state = reactive({
   startLeft: 0,
@@ -136,114 +129,111 @@ const state = reactive({
   startX: null,
   startY: null,
   left: 0,
-  top: 0,
-});
+  top: 0
+})
 
 const cpContentStyle = computed(() => {
-  if (cpFileType.value === "image") {
+  if (cpFileType.value === 'image') {
     return {
-      transform: `translate3d(${state.left}px, ${state.top}px, 0)`,
-    };
+      transform: `translate3d(${state.left}px, ${state.top}px, 0)`
+    }
   }
-  return {};
-});
+  return {}
+})
 const cpImageStyle = computed(() => ({
-  transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)`,
-}));
-const cpUrl = computed(() => props.urls?.[cur.value]);
-const cpShowPrevNextBtn = computed(() => props.urls.length > 1);
-const cpZoomOutBtnDisabled = computed(() => scale.value <= 1);
-const cpPrevBtnDisabled = computed(() => cur.value <= 0);
-const cpNextBtnDisabled = computed(() => cur.value >= props.urls.length - 1);
+  transform: `scale3d(${scale.value}, ${scale.value}, 1) rotate(${rotate.value}deg)`
+}))
+const cpUrl = computed(() => props.urls?.[cur.value])
+const cpShowPrevNextBtn = computed(() => props.urls.length > 1)
+const cpZoomOutBtnDisabled = computed(() => scale.value <= 1)
+const cpPrevBtnDisabled = computed(() => cur.value <= 0)
+const cpNextBtnDisabled = computed(() => cur.value >= props.urls.length - 1)
 const cpFileType = computed(() => {
-  const suffix = cpUrl.value
-    .slice(cpUrl.value.lastIndexOf(".") + 1)
-    .toLowerCase();
-  if (["mp4"].includes(suffix)) {
-    return "video";
+  const suffix = cpUrl.value.slice(cpUrl.value.lastIndexOf('.') + 1).toLowerCase()
+  if (['mp4'].includes(suffix)) {
+    return 'video'
   }
-  if (["mp3"].includes(suffix)) {
-    return "audio";
+  if (['mp3'].includes(suffix)) {
+    return 'audio'
   }
-  return "image";
-});
+  return 'image'
+})
 
-init();
+init()
 
 /**
  * 初始化
  */
 function init() {
-  const urlsLen = props.urls.length;
-  cur.value =
-    props.current < urlsLen - 1 ? props.current : props.current % urlsLen;
+  const urlsLen = props.urls.length
+  cur.value = props.current < urlsLen - 1 ? props.current : props.current % urlsLen
 }
 
 /**
  * 打开
  */
 function handleOpen() {
-  open.value = true;
+  open.value = true
 }
 
 /**
  * 关闭
  */
 function handleClose() {
-  open.value = false;
+  open.value = false
 }
 
 /**
  * 上一个
  */
 function handlePrev() {
-  if (cpPrevBtnDisabled.value) return;
-  cur.value -= 1;
+  if (cpPrevBtnDisabled.value) return
+  cur.value -= 1
 }
 
 /**
  * 下一个
  */
 function handleNext() {
-  if (cpNextBtnDisabled.value) return;
-  cur.value += 1;
+  if (cpNextBtnDisabled.value) return
+  cur.value += 1
 }
 
 /**
  * 放大
  */
 function handleZoomIn() {
-  scale.value += 1;
+  scale.value += 1
 }
 
 /**
  * 缩小
  */
 function handleZoomOut() {
-  if (cpZoomOutBtnDisabled.value) return;
-  if (scale.value <= 1) return;
-  scale.value -= 1;
+  if (cpZoomOutBtnDisabled.value) return
+  if (scale.value <= 1) return
+  scale.value -= 1
 }
 
 /**
  * 左旋转
  */
 function handleRotateLeft() {
-  rotate.value -= 90;
+  rotate.value -= 90
 }
 
 /**
  * 右旋转
  */
 function handleRotateRight() {
-  rotate.value += 90;
+  rotate.value += 90
 }
 
 /**
  * 关闭后
  */
 function onAfterClose() {
-  props.afterClose?.();
+  props.afterClose?.()
 }
 
 /**
@@ -251,12 +241,12 @@ function onAfterClose() {
  * @param {HTMLElement} e
  */
 function onMoveStart(e) {
-  e.preventDefault();
-  state.startX = e.pageX;
-  state.startY = e.pageY;
+  e.preventDefault()
+  state.startX = e.pageX
+  state.startY = e.pageY
 
-  window.addEventListener("mousemove", onMoving);
-  window.addEventListener("mouseup", onMoveEnd);
+  window.addEventListener('mousemove', onMoving)
+  window.addEventListener('mouseup', onMoveEnd)
 }
 
 /**
@@ -264,27 +254,27 @@ function onMoveStart(e) {
  * @param {HTMLElement} e
  */
 function onMoving(e) {
-  const offsetX = e.pageX - state.startX;
-  const offsetY = e.pageY - state.startY;
+  const offsetX = e.pageX - state.startX
+  const offsetY = e.pageY - state.startY
 
-  state.left = state.startLeft + offsetX;
-  state.top = state.startTop + offsetY;
+  state.left = state.startLeft + offsetX
+  state.top = state.startTop + offsetY
 }
 
 /**
  * 移动结束
  */
 function onMoveEnd() {
-  state.startLeft = state.left;
-  state.startTop = state.top;
-  window.removeEventListener("mousemove", onMoving);
-  window.removeEventListener("mouseup", onMoveEnd);
+  state.startLeft = state.left
+  state.startTop = state.top
+  window.removeEventListener('mousemove', onMoving)
+  window.removeEventListener('mouseup', onMoveEnd)
 }
 
 defineExpose({
   open,
-  handleOpen,
-});
+  handleOpen
+})
 </script>
 
 <style lang="less">

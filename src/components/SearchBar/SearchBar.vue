@@ -5,25 +5,25 @@
 </template>
 
 <script setup>
-import { computed, ref, useAttrs, useSlots } from "vue";
+import { computed, ref, useAttrs, useSlots } from 'vue'
 
 defineOptions({
-  name: "XSearchBar",
-});
+  name: 'XSearchBar'
+})
 
 /**
  * 搜索条
  */
-useSlots(["default"]);
+useSlots(['default'])
 
-const gutter = ref([16, 12]);
-const colSpan = ref({ sm: 24, md: 24, xl: 8 });
+const gutter = ref([16, 12])
+const colSpan = ref({ sm: 24, md: 24, xl: 8 })
 
-const attrs = useAttrs();
+const attrs = useAttrs()
 
 const cpAttrs = computed(() => ({
-  ...attrs,
-}));
+  ...attrs
+}))
 </script>
 
 <style lang="less" scoped>

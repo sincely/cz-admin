@@ -8,8 +8,8 @@
 
 <script setup>
 defineOptions({
-  name: "500",
-});
+  name: '500'
+})
 </script>
 
 <style lang="less" scoped></style>

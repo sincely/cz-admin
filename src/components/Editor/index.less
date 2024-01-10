@@ -69,7 +69,7 @@
     }
 
     &--active {
-      background: color(~`colorPalette("@{color-primary}", 1) `);
+      background: color(~`colorPalette('@{color-primary}', 1) `);
     }
   }
 
@@ -82,7 +82,7 @@
     gap: 4px;
   }
 
-  &:not([dir="rtl"]) {
+  &:not([dir='rtl']) {
     .tox-toolbar__group {
       &:not(:last-of-type) {
         border: none;
@@ -108,7 +108,7 @@
     &--enabled {
       &,
       &:hover {
-        background: color(~`colorPalette("@{color-primary}", 1) `);
+        background: color(~`colorPalette('@{color-primary}', 1) `);
       }
     }
   }
@@ -254,11 +254,11 @@
         box-sizing: border-box;
 
         &--active {
-          background: color(~`colorPalette("@{color-primary}", 1) `);
+          background: color(~`colorPalette('@{color-primary}', 1) `);
           color: @color-primary;
 
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             bottom: 0;
@@ -279,8 +279,8 @@
     transition: all 0.2s;
 
     &:hover {
-      background: color(~`colorPalette("@{color-primary}", 5) `);
-      border-color: color(~`colorPalette("@{color-primary}", 5) `);
+      background: color(~`colorPalette('@{color-primary}', 5) `);
+      border-color: color(~`colorPalette('@{color-primary}', 5) `);
     }
 
     &--secondary {
@@ -321,7 +321,7 @@
 
     &:focus-within,
     &:focus {
-      box-shadow: 0 0 0 2px color(~`colorPalette("@{color-primary}", 1) `);
+      box-shadow: 0 0 0 2px color(~`colorPalette('@{color-primary}', 1) `);
       border-color: @color-primary;
     }
   }

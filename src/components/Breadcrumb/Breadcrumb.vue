@@ -7,25 +7,25 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { onBeforeRouteUpdate, useRoute } from "vue-router";
+import { ref } from 'vue'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 
 defineOptions({
-  name: "XBreadcrumb",
-});
+  name: 'XBreadcrumb'
+})
 
-const route = useRoute();
+const route = useRoute()
 
-const breadcrumbData = ref([]);
+const breadcrumbData = ref([])
 
-update();
+update()
 
 onBeforeRouteUpdate((to) => {
-  update(to);
-});
+  update(to)
+})
 
 function update(_route = route) {
-  breadcrumbData.value = _route?.meta?.breadcrumb;
+  breadcrumbData.value = _route?.meta?.breadcrumb
 }
 </script>
 

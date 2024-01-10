@@ -10,26 +10,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useMenu } from "@/hooks";
+import { ref } from 'vue'
+import { useMenu } from '@/hooks'
 
 defineOptions({
-  name: "otherBadge",
-});
+  name: 'otherBadge'
+})
 
-const { setBadge } = useMenu();
+const { setBadge } = useMenu()
 
 const form = ref({
-  name: "welcome",
-  count: 10,
-});
+  name: 'welcome',
+  count: 10
+})
 
 function handleSet() {
-  setBadge(form.value?.name, form.value?.count);
+  setBadge(form.value?.name, form.value?.count)
 }
 
 function handleClear() {
-  setBadge(form.value?.name, 0);
+  setBadge(form.value?.name, 0)
 }
 </script>
 

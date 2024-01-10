@@ -15,16 +15,16 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch, h } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { mapping } from "@/utils";
-import { Badge } from "ant-design-vue";
-import { useAppStore } from "@/store";
-import { storeToRefs } from "pinia";
+import { computed, onMounted, ref, watch, h } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { mapping } from '@/utils'
+import { Badge } from 'ant-design-vue'
+import { useAppStore } from '@/store'
+import { storeToRefs } from 'pinia'
 
 defineOptions({
-  name: "BasicMenu",
-});
+  name: 'BasicMenu'
+})
 
 /**
  * @property {string} theme 主题，【dark=暗色，light=亮色】
@@ -34,83 +34,79 @@ defineOptions({
 const props = defineProps({
   theme: {
     type: String,
-    default: "dark",
+    default: 'dark'
   },
   mode: {
     type: String,
-    default: "inline",
+    default: 'inline'
   },
   dataList: {
     type: Array,
-    default: () => [],
-  },
-});
+    default: () => []
+  }
+})
 
-const emit = defineEmits(["click"]);
+const emit = defineEmits(['click'])
 
-const route = useRoute();
-const router = useRouter();
-const appStore = useAppStore();
+const route = useRoute()
+const router = useRouter()
+const appStore = useAppStore()
 
-const { config } = storeToRefs(appStore);
-const openKeys = ref([]);
-const selectedKeys = ref([]);
-const items = ref([]);
-const basicMenuRef = ref();
+const { config } = storeToRefs(appStore)
+const openKeys = ref([])
+const selectedKeys = ref([])
+const items = ref([])
+const basicMenuRef = ref()
 
-const cpIsHorizontal = computed(() => props.mode === "horizontal");
-const rootSubmenuKeys = computed(() =>
-  props.dataList?.map((item) => item.name),
-);
+const cpIsHorizontal = computed(() => props.mode === 'horizontal')
+const rootSubmenuKeys = computed(() => props.dataList?.map((item) => item.name))
 const cpOpenKeys = computed(() => {
   if (cpIsHorizontal.value) {
-    return [];
+    return []
   }
-  return openKeys.value;
-});
+  return openKeys.value
+})
 
-watch(route, () => setSelectedMenu());
+watch(route, () => setSelectedMenu())
 watch(
   () => props.dataList,
   () => {
     items.value = mapping({
       data: props.dataList || [],
       fieldNames: {
-        key: "name",
+        key: 'name',
         label: (item) =>
-          h("span", { class: "basic-menu__title" }, [
-            h("span", { class: "basic-menu__name" }, item?.meta?.title),
-            h(Badge, { count: item?.meta?.badge || 0 }),
+          h('span', { class: 'basic-menu__title' }, [
+            h('span', { class: 'basic-menu__name' }, item?.meta?.title),
+            h(Badge, { count: item?.meta?.badge || 0 })
           ]),
         icon: (item) => {
-          const icon = item?.meta?.icon;
+          const icon = item?.meta?.icon
           if (icon) {
-            return h(icon);
+            return h(icon)
           }
-          return "";
+          return ''
         },
-        children: "children",
+        children: 'children'
       },
-      treeFieldName: "children",
-      keepOtherFields: true,
-    });
+      treeFieldName: 'children',
+      keepOtherFields: true
+    })
   },
-  { immediate: true, deep: true },
-);
+  { immediate: true, deep: true }
+)
 
 onMounted(() => {
-  setSelectedMenu();
-});
+  setSelectedMenu()
+})
 
 /**
  * 设置选中菜单
  */
 function setSelectedMenu() {
-  const { meta } = route || {};
-  openKeys.value = meta?.openKeys || [];
-  selectedKeys.value = meta?.breadcrumb?.map(
-    (item) => item?.meta?.active || item.name,
-  );
+  const { meta } = route || {}
+  openKeys.value = meta?.openKeys || []
+  selectedKeys.value = meta?.breadcrumb?.map((item) => item?.meta?.active || item.name)
 }
 
 /**
@@ -118,34 +114,34 @@ function setSelectedMenu() {
  * @param item
  */
 function handleClick({ item }) {
-  const { path, meta, name, props } = item?.originItemValue || {};
+  const { path, meta, name, props } = item?.originItemValue || {}
 
   if (props) {
-    props?.click?.call(null, item?.originItemValue);
+    props?.click?.call(null, item?.originItemValue)
   }
 
   if (path) {
-    const isBlank = meta?.target === "_blank";
+    const isBlank = meta?.target === '_blank'
     if (meta?.isLink) {
       if (isBlank) {
-        window.open(path);
+        window.open(path)
       } else {
-        window.location.href = path;
+        window.location.href = path
       }
     } else {
-      const { href } = router.resolve({ name, query: meta?.query || {} });
+      const { href } = router.resolve({ name, query: meta?.query || {} })
       if (isBlank) {
-        window.open(href);
+        window.open(href)
       } else {
         router.push({
           path,
-          query: meta?.query ?? {},
-        });
+          query: meta?.query ?? {}
+        })
       }
     }
   }
 
-  emit("click", item?.originItemValue);
+  emit('click', item?.originItemValue)
 }
 
 /**
@@ -153,12 +149,12 @@ function handleClick({ item }) {
  * @param value
  */
 function onOpenChange(value) {
-  if (cpIsHorizontal.value) return;
-  const latestOpenKey = value.find((key) => openKeys.value.indexOf(key) === -1);
+  if (cpIsHorizontal.value) return
+  const latestOpenKey = value.find((key) => openKeys.value.indexOf(key) === -1)
   if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
-    openKeys.value = value;
+    openKeys.value = value
   } else {
-    openKeys.value = latestOpenKey ? [latestOpenKey] : [];
+    openKeys.value = latestOpenKey ? [latestOpenKey] : []
   }
 }
 </script>

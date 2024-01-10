@@ -5,7 +5,6 @@ import pkg from './package.json'
 import useCompressPlugin from './config/useCompressPlugin'
 import useProgressPlugin from './config/useProgressPlugin'
 import useVuePlugin from './config/useVuePlugin'
-import useVisualizerPlugin from './config/useVisualizerPlugin'
 import useServer from './config/useServer'
 
 export default ({ mode }) => {
@@ -52,7 +51,7 @@ export default ({ mode }) => {
         version: pkg.version
       })
     },
-    plugins: [useVuePlugin(), useProgressPlugin(), useCompressPlugin(), useVisualizerPlugin()],
+    plugins: [useVuePlugin(), useProgressPlugin(), useCompressPlugin()],
     server: useServer(), // 开发服务器配置
     resolve: {
       alias: {

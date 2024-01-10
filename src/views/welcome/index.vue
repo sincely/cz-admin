@@ -24,11 +24,7 @@
       </a-card>
 
       <a-card class="mt-8-2" title="动态">
-        <a-list
-          item-layout="horizontal"
-          :loading="loading"
-          :data-source="listData"
-        >
+        <a-list item-layout="horizontal" :loading="loading" :data-source="listData">
           <template #renderItem="{ item }">
             <a-list-item>
               <a-list-item-meta :description="item.datetime">
@@ -46,16 +42,10 @@
     </a-col>
     <a-col :lg="6">
       <a-card title="关于">
-        <div>
-          高性能 / 精致 / 优雅。基于 vue3 + ant-design-vue
-          的中后台前端解决方案。
-        </div>
+        <div>高性能 / 精致 / 优雅。基于 vue3 + ant-design-vue 的中后台前端解决方案。</div>
       </a-card>
       <a-card class="mt-8-2" title="版本信息">
-        <a-result
-          :sub-title="`最新版本 ${version}`"
-          :title="`${title} ${version}`"
-        >
+        <a-result :sub-title="`最新版本 ${version}`" :title="`${title} ${version}`">
           <template #icon>
             <img :src="assets('upgrade.svg')" alt="" />
           </template>
@@ -66,38 +56,38 @@
 </template>
 
 <script setup>
-import { config } from "@/config";
-import { useUserStore } from "@/store";
-import { assets } from "@/utils";
-import { storeToRefs } from "pinia";
-import apis from "@/apis";
-import usePagination from "@/hooks/usePagination";
+import { config } from '@/config'
+import { useUserStore } from '@/store'
+import { assets } from '@/utils'
+import { storeToRefs } from 'pinia'
+import apis from '@/apis'
+import usePagination from '@/hooks/usePagination'
 
 defineOptions({
-  name: "welcome",
-});
+  name: 'welcome'
+})
 
-const userStore = useUserStore();
-const { loading, listData, showLoading, hideLoading } = usePagination();
-const title = config("app.title");
-const { version } = __APP_INFO__;
+const userStore = useUserStore()
+const { loading, listData, showLoading, hideLoading } = usePagination()
+const title = config('app.title')
+const { version } = __APP_INFO__
 
-const { userInfo } = storeToRefs(userStore);
+const { userInfo } = storeToRefs(userStore)
 
-getDynamicList();
+getDynamicList()
 
 async function getDynamicList() {
   try {
-    showLoading();
+    showLoading()
     const { code, data } = await apis.common.getDynamicList().catch(() => {
-      throw new Error();
-    });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      listData.value = data;
+      throw new Error()
+    })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      listData.value = data
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 </script>

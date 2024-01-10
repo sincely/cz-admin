@@ -8,7 +8,7 @@
             { label: '我自己', value: 0 },
             { label: '张三', value: 1 },
             { label: '李四', value: 2 },
-            { label: '王五', value: 3 },
+            { label: '王五', value: 3 }
           ]"
           @change="handleSearch"
         ></x-tag-select>
@@ -23,7 +23,7 @@
               { label: '我自己', value: 0 },
               { label: '张三', value: 1 },
               { label: '李四', value: 2 },
-              { label: '王五', value: 3 },
+              { label: '王五', value: 3 }
             ]"
           ></a-select>
           <a @click="() => (searchFormData.owner = [0])">只看自己的</a>
@@ -32,18 +32,12 @@
       <a-row>
         <a-col>
           <a-form-item label="活跃用户">
-            <a-select
-              placeholder="不限"
-              :style="{ minWidth: '120px' }"
-            ></a-select>
+            <a-select placeholder="不限" :style="{ minWidth: '120px' }"></a-select>
           </a-form-item>
         </a-col>
         <a-col>
           <a-form-item label="好评度">
-            <a-select
-              placeholder="不限"
-              :style="{ minWidth: '120px' }"
-            ></a-select>
+            <a-select placeholder="不限" :style="{ minWidth: '120px' }"></a-select>
           </a-form-item>
         </a-col>
       </a-row>
@@ -61,10 +55,17 @@
       <template #renderItem="{ item }">
         <a-list-item key="item.title">
           <template #actions>
-            <span> <star-outlined></star-outlined> {{ item.count1 }} </span>
-            <span> <like-outlined></like-outlined> {{ item.count2 }} </span>
             <span>
-              <message-outlined></message-outlined> {{ item.count3 }}
+              <star-outlined></star-outlined>
+              {{ item.count1 }}
+            </span>
+            <span>
+              <like-outlined></like-outlined>
+              {{ item.count2 }}
+            </span>
+            <span>
+              <message-outlined></message-outlined>
+              {{ item.count3 }}
             </span>
           </template>
           <a-list-item-meta>
@@ -92,29 +93,18 @@
 </template>
 
 <script setup>
-import {
-  LikeOutlined,
-  MessageOutlined,
-  StarOutlined,
-} from "@ant-design/icons-vue";
-import { config } from "@/config";
-import { usePagination } from "@/hooks";
-import apis from "@/apis";
-import PageHeader from "../components/PageHeader.vue";
+import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons-vue'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
+import apis from '@/apis'
+import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
-  name: "listSearchArticles",
-});
+  name: 'listSearchArticles'
+})
 
-const {
-  listData,
-  paginationState,
-  loading,
-  showLoading,
-  hideLoading,
-  resetPagination,
-  searchFormData,
-} = usePagination();
+const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
+  usePagination()
 
 // const filterData = ref([
 //     {
@@ -143,40 +133,40 @@ const {
 // ])
 
 paginationState.onChange = (page, pageSize) => {
-  paginationState.current = page;
-  paginationState.pageSize = pageSize;
-  getPageList();
-};
+  paginationState.current = page
+  paginationState.pageSize = pageSize
+  getPageList()
+}
 
 searchFormData.value = {
-  owner: [1, 2],
-};
+  owner: [1, 2]
+}
 
-getPageList();
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
   try {
-    showLoading();
-    const { pageSize, current } = paginationState;
+    showLoading()
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.common
       .getPageList({
         pageSize,
-        page: current,
+        page: current
       })
       .catch(() => {
-        throw new Error();
-      });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records, pagination } = data;
-      listData.value = records;
-      paginationState.total = pagination.total;
+        throw new Error()
+      })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records, pagination } = data
+      listData.value = records
+      paginationState.total = pagination.total
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 
@@ -184,8 +174,8 @@ async function getPageList() {
  * 搜索
  */
 function handleSearch() {
-  resetPagination();
-  getPageList();
+  resetPagination()
+  getPageList()
 }
 </script>
 

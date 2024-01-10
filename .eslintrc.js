@@ -20,8 +20,6 @@ module.exports = defineConfig({
     'import/no-extraneous-dependencies': 0, // 禁止使用多余的包
     'import/extensions': 0, // 确保在导入路径内一致使用文件扩展名
     'import/no-unresolved': 0, // 确保导入指向可以解析的文件/模块
-    'no-console': 0, // 禁用console
-    'prefer-destructuring': ['error', { object: true, array: false }], // 只强制对象解构，不强制数组解构
     'vue/no-unused-components': 'error', // 禁止出现未使用的组件
     'no-self-compare': 'error', // 禁止自身比较
     'no-unused-vars': 'error', // 禁止出现未使用过的变量

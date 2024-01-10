@@ -1,7 +1,7 @@
-import { useRouterStore } from "@/store";
+import { useRouterStore } from '@/store'
 
 export default () => {
-  const routerStore = useRouterStore();
+  const routerStore = useRouterStore()
 
   /**
    * 设置徽标
@@ -9,10 +9,10 @@ export default () => {
    * @param {number} count 数量
    */
   function setBadge(name, count) {
-    routerStore.setBadge({ name, count });
+    routerStore.setBadge({ name, count })
   }
 
   return {
-    setBadge,
-  };
-};
+    setBadge
+  }
+}

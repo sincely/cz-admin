@@ -26,24 +26,15 @@
 </template>
 
 <script setup>
-import {
-  ref,
-  reactive,
-  onMounted,
-  nextTick,
-  computed,
-  watch,
-  toRefs,
-  onBeforeUnmount,
-} from "vue";
-import { Form } from "ant-design-vue";
-import TagSelectOption from "./TagSelectOption.vue";
-import { useTagSelectProvide } from "./context";
-import { head, debounce } from "lodash-es";
+import { ref, reactive, onMounted, nextTick, computed, watch, toRefs, onBeforeUnmount } from 'vue'
+import { Form } from 'ant-design-vue'
+import TagSelectOption from './TagSelectOption.vue'
+import { useTagSelectProvide } from './context'
+import { head, debounce } from 'lodash-es'
 
 defineOptions({
-  name: "XTagSelect",
-});
+  name: 'XTagSelect'
+})
 
 /**
  * @property {array} options
@@ -56,200 +47,187 @@ defineOptions({
  */
 const props = defineProps({
   modelValue: {
-    type: [Array, Number, String],
+    type: [Array, Number, String]
   },
   multiple: {
     type: Boolean,
-    default: false,
+    default: false
   },
   options: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   collapsible: {
     type: Boolean,
-    default: true,
+    default: true
   },
   collapsed: {
     type: Boolean,
-    default: true,
+    default: true
   },
   fieldNames: {
     type: Object,
     default: () => ({
-      label: "label",
-      value: "value",
-    }),
-  },
-});
+      label: 'label',
+      value: 'value'
+    })
+  }
+})
 
-const emit = defineEmits([
-  "update:collapsed",
-  "update:modelValue",
-  "collapse",
-  "change",
-]);
+const emit = defineEmits(['update:collapsed', 'update:modelValue', 'collapse', 'change'])
 
-const { onFieldChange } = Form.useInjectFormItemContext();
+const { onFieldChange } = Form.useInjectFormItemContext()
 
-const tagSelectRef = ref();
-const contentRef = ref();
-const curCollapsed = ref(props.collapsed);
-const curValue = ref();
-const curCollapsible = ref(props.collapsible);
+const tagSelectRef = ref()
+const contentRef = ref()
+const curCollapsed = ref(props.collapsed)
+const curValue = ref()
+const curCollapsible = ref(props.collapsible)
 
 const state = reactive({
   defaultHeight: null,
   height: null,
-  observer: null,
-});
+  observer: null
+})
 
 const cpTagSelectStyle = computed(() => {
   return {
-    height: props.collapsible
-      ? curCollapsed.value
-        ? `${state.defaultHeight}px`
-        : ""
-      : "",
-  };
-});
+    height: props.collapsible ? (curCollapsed.value ? `${state.defaultHeight}px` : '') : ''
+  }
+})
 
 watch(
   () => props.modelValue,
   (val) => {
-    if (val === curValue.value) return;
-    curValue.value = val;
+    if (val === curValue.value) return
+    curValue.value = val
   },
-  { immediate: true },
-);
+  { immediate: true }
+)
 
 watch(
   () => props.collapsed,
   (val) => {
-    if (val === curCollapsed.value) return;
-    curCollapsed.value = val;
-  },
-);
+    if (val === curCollapsed.value) return
+    curCollapsed.value = val
+  }
+)
 
 watch(
   () => props.collapsible,
   (val) => {
-    curCollapsible.value = val;
-  },
-);
+    curCollapsible.value = val
+  }
+)
 
 onMounted(async () => {
-  await nextTick();
-  state.defaultHeight = parseInt(
-    window.getComputedStyle(tagSelectRef.value).getPropertyValue("line-height"),
-  );
-  state.height = tagSelectRef.value.offsetHeight;
+  await nextTick()
+  state.defaultHeight = parseInt(window.getComputedStyle(tagSelectRef.value).getPropertyValue('line-height'))
+  state.height = tagSelectRef.value.offsetHeight
 
   if (props.collapsible) {
     state.observer = new ResizeObserver(
       debounce((entries) => {
-        const entry = head(entries);
-        const { contentRect } = entry || {};
-        curCollapsible.value = contentRect.height > state.defaultHeight;
-      }, 100),
-    );
+        const entry = head(entries)
+        const { contentRect } = entry || {}
+        curCollapsible.value = contentRect.height > state.defaultHeight
+      }, 100)
+    )
 
-    state.observer.observe(contentRef.value);
+    state.observer.observe(contentRef.value)
   }
-});
+})
 
 onBeforeUnmount(() => {
-  state.observer?.unobserve?.(contentRef.value);
-  state.observer = null;
-});
+  state.observer?.unobserve?.(contentRef.value)
+  state.observer = null
+})
 
 /**
  * 展开收起
  */
 function handleCollapse() {
-  curCollapsed.value = !curCollapsed.value;
-  emit("update:collapsed", curCollapsed.value);
-  emit("collapse", curCollapsed.value);
+  curCollapsed.value = !curCollapsed.value
+  emit('update:collapsed', curCollapsed.value)
+  emit('collapse', curCollapsed.value)
 }
 
 /**
  * 选择
  */
 function onSelect(value) {
-  const { multiple, options, fieldNames } = toRefs(props);
-  const valueKey = fieldNames.value?.value;
-  const record = options.value.find((item) => item[valueKey] === value);
-  const isUnlimited = record?.unlimited;
+  const { multiple, options, fieldNames } = toRefs(props)
+  const valueKey = fieldNames.value?.value
+  const record = options.value.find((item) => item[valueKey] === value)
+  const isUnlimited = record?.unlimited
 
   // 多选
   if (multiple.value) {
-    curValue.value = Array.isArray(curValue.value) ? curValue.value : [];
-    const index = curValue.value?.indexOf(value);
-    const unlimitedOptions = options.value.filter((item) => item.unlimited);
+    curValue.value = Array.isArray(curValue.value) ? curValue.value : []
+    const index = curValue.value?.indexOf(value)
+    const unlimitedOptions = options.value.filter((item) => item.unlimited)
 
     if (isUnlimited) {
       // 点击的是不限选项，清空已选
-      curValue.value = [];
+      curValue.value = []
 
-      if (typeof record[valueKey] === "undefined") {
-        trigger();
-        return;
+      if (typeof record[valueKey] === 'undefined') {
+        trigger()
+        return
       }
     } else {
       // 点击的是其他，从已选中将不限选项移除
       unlimitedOptions.forEach((item) => {
-        const index = curValue.value?.indexOf(item[valueKey]);
+        const index = curValue.value?.indexOf(item[valueKey])
         if (index > -1) {
-          curValue.value.splice(index, 1);
+          curValue.value.splice(index, 1)
         }
-      });
+      })
     }
 
     if (index === -1) {
-      curValue.value?.push(value);
+      curValue.value?.push(value)
     } else {
-      curValue.value?.splice(index, 1);
+      curValue.value?.splice(index, 1)
     }
 
     // 如果选中项为空，默认选中不限选项
     if (!curValue.value.length) {
       unlimitedOptions.forEach((item) => {
-        if (typeof item[valueKey] !== "undefined") {
-          curValue.value.push(item[valueKey]);
+        if (typeof item[valueKey] !== 'undefined') {
+          curValue.value.push(item[valueKey])
         }
-      });
+      })
     }
 
-    trigger();
-    return;
+    trigger()
+    return
   }
 
-  curValue.value = value;
-  trigger();
+  curValue.value = value
+  trigger()
 }
 
 function trigger() {
-  const { multiple, fieldNames, options } = props;
-  const { value: valueKey } = fieldNames;
-  let selectedOptions;
+  const { multiple, fieldNames, options } = props
+  const { value: valueKey } = fieldNames
+  let selectedOptions
 
   if (multiple) {
-    selectedOptions = options.filter((item) =>
-      curValue.value?.includes(item[valueKey]),
-    );
+    selectedOptions = options.filter((item) => curValue.value?.includes(item[valueKey]))
   } else {
-    selectedOptions = options.find((item) => item[valueKey] === curValue.value);
+    selectedOptions = options.find((item) => item[valueKey] === curValue.value)
   }
-  emit("update:modelValue", curValue.value);
-  emit("change", curValue.value, selectedOptions);
-  onFieldChange();
+  emit('update:modelValue', curValue.value)
+  emit('change', curValue.value, selectedOptions)
+  onFieldChange()
 }
 
 useTagSelectProvide({
   onSelect,
   modelValue: computed(() => props.modelValue),
-  multiple: computed(() => props.multiple),
-});
+  multiple: computed(() => props.multiple)
+})
 </script>
 
 <style lang="less" scoped>

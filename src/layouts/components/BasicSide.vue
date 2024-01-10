@@ -11,9 +11,7 @@
   >
     <template #trigger>
       <div class="basic-side__trigger">
-        <component
-          :is="config.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"
-        ></component>
+        <component :is="config.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"></component>
       </div>
     </template>
     <div class="basic-side__header">
@@ -29,47 +27,47 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
-import { computed, useSlots } from "vue";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
-import { useAppStore } from "@/store";
-import { theme as antTheme } from "ant-design-vue";
+import { storeToRefs } from 'pinia'
+import { computed, useSlots } from 'vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
+import { useAppStore } from '@/store'
+import { theme as antTheme } from 'ant-design-vue'
 
 defineOptions({
-  name: "BasicSide",
-});
+  name: 'BasicSide'
+})
 
 /**
  * @property {boolean} showHeader 显示头部
  */
 defineProps({
   theme: {
-    type: String,
+    type: String
   },
   showHeader: {
     type: Boolean,
-    default: true,
-  },
-});
-const slots = useSlots();
-const appStore = useAppStore();
-const { token } = antTheme.useToken();
+    default: true
+  }
+})
+const slots = useSlots()
+const appStore = useAppStore()
+const { token } = antTheme.useToken()
 
-const { config } = storeToRefs(appStore);
+const { config } = storeToRefs(appStore)
 
 const cpStyles = computed(() => {
   const styles = {
-    zIndex: config.value.layout === "topBottom" ? 110 : 120,
-  };
-
-  if (config.value.sideTheme === "light") {
-    styles.boxShadow = `0 0 0 1px ${token.value.colorSplit}`;
+    zIndex: config.value.layout === 'topBottom' ? 110 : 120
   }
 
-  return styles;
-});
-const cpShowDefaultSlot = computed(() => !!slots.default);
-const cpShowFooterSlot = computed(() => !!slots.footer);
+  if (config.value.sideTheme === 'light') {
+    styles.boxShadow = `0 0 0 1px ${token.value.colorSplit}`
+  }
+
+  return styles
+})
+const cpShowDefaultSlot = computed(() => !!slots.default)
+const cpShowFooterSlot = computed(() => !!slots.footer)
 </script>
 
 <style lang="less" scoped>

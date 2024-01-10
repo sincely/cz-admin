@@ -8,19 +8,19 @@
 </template>
 
 <script setup>
-import { computed, useSlots } from "vue";
+import { computed, useSlots } from 'vue'
 
 defineOptions({
-  name: "ActionButton",
-});
+  name: 'ActionButton'
+})
 
-const emit = defineEmits(["click"]);
-const slots = useSlots();
+const emit = defineEmits(['click'])
+const slots = useSlots()
 
-const cpShowIconSlot = computed(() => !!slots.icon);
+const cpShowIconSlot = computed(() => !!slots.icon)
 
 function handleClick() {
-  emit("click");
+  emit('click')
 }
 </script>
 

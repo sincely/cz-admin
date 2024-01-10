@@ -4,22 +4,22 @@
  * @param {object} fieldNames
  * @return {*[]}
  */
-export const toList = (data = [], fieldNames = { children: "children" }) => {
-  let result = [];
-  if (!Array.isArray(data)) return result;
+export const toList = (data = [], fieldNames = { children: 'children' }) => {
+  let result = []
+  if (!Array.isArray(data)) return result
   data.forEach((item) => {
-    let temp = [];
-    result.push(item);
+    let temp = []
+    result.push(item)
     if (item[fieldNames.children] && item[fieldNames.children].length) {
-      let children = toList(item[fieldNames.children], fieldNames);
+      let children = toList(item[fieldNames.children], fieldNames)
       if (children.length) {
-        temp = children;
+        temp = children
       }
     }
-    result.push(...temp);
-  });
-  return result;
-};
+    result.push(...temp)
+  })
+  return result
+}
 
 /**
  * 线形数据转树形数据
@@ -30,23 +30,23 @@ export const toList = (data = [], fieldNames = { children: "children" }) => {
  */
 export const toTree = (
   data = [],
-  parentValue = "0",
+  parentValue = '0',
   fieldNames = {
-    key: "id",
-    children: "children",
-    parentKey: "parentId",
-  },
+    key: 'id',
+    children: 'children',
+    parentKey: 'parentId'
+  }
 ) => {
-  const result = [];
+  const result = []
   data.forEach((item) => {
     if (item[fieldNames.parentKey] === parentValue) {
-      let temp = item;
-      let children = toTree(data, item[fieldNames.key]);
+      let temp = item
+      let children = toTree(data, item[fieldNames.key])
       if (children.length) {
-        temp[fieldNames.children] = children;
+        temp[fieldNames.children] = children
       }
-      result.push(temp);
+      result.push(temp)
     }
-  });
-  return result;
-};
+  })
+  return result
+}

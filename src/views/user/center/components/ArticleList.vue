@@ -1,17 +1,20 @@
 <template>
-  <a-list
-    row-key="id"
-    item-layout="vertical"
-    :data-source="listData"
-    :loading="loading"
-    :pagination="paginationState"
-  >
+  <a-list row-key="id" item-layout="vertical" :data-source="listData" :loading="loading" :pagination="paginationState">
     <template #renderItem="{ item }">
       <a-list-item key="item.title">
         <template #actions>
-          <span> <star-outlined></star-outlined> {{ item.count1 }} </span>
-          <span> <like-outlined></like-outlined> {{ item.count2 }} </span>
-          <span> <message-outlined></message-outlined> {{ item.count3 }} </span>
+          <span>
+            <star-outlined></star-outlined>
+            {{ item.count1 }}
+          </span>
+          <span>
+            <like-outlined></like-outlined>
+            {{ item.count2 }}
+          </span>
+          <span>
+            <message-outlined></message-outlined>
+            {{ item.count3 }}
+          </span>
         </template>
         <a-list-item-meta>
           <template #title>
@@ -37,53 +40,48 @@
 </template>
 
 <script setup>
-import {
-  LikeOutlined,
-  MessageOutlined,
-  StarOutlined,
-} from "@ant-design/icons-vue";
-import apis from "@/apis";
-import { config } from "@/config";
-import { usePagination } from "@/hooks";
+import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons-vue'
+import apis from '@/apis'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
 
 defineOptions({
-  name: "ArticleList",
-});
+  name: 'ArticleList'
+})
 
-const { listData, loading, showLoading, hideLoading, paginationState } =
-  usePagination();
+const { listData, loading, showLoading, hideLoading, paginationState } = usePagination()
 
 paginationState.onChange = (page, pageSize) => {
-  paginationState.current = page;
-  paginationState.pageSize = pageSize;
-  getPageList();
-};
+  paginationState.current = page
+  paginationState.pageSize = pageSize
+  getPageList()
+}
 
-getPageList();
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
   try {
-    showLoading();
-    const { pageSize, current } = paginationState;
+    showLoading()
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.common
       .getPageList({
         pageSize,
-        page: current,
+        page: current
       })
       .catch(() => {
-        throw new Error();
-      });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records, pagination } = data;
-      listData.value = records;
-      paginationState.total = pagination.total;
+        throw new Error()
+      })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records, pagination } = data
+      listData.value = records
+      paginationState.total = pagination.total
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 </script>

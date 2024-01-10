@@ -28,64 +28,64 @@
 </template>
 
 <script setup>
-import dayjs from "dayjs";
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import { useMultiTab } from "@/hooks";
+import dayjs from 'dayjs'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useMultiTab } from '@/hooks'
 
 defineOptions({
-  name: "otherMultiTab",
-});
+  name: 'otherMultiTab'
+})
 
-const router = useRouter();
-const { reload, close, closeOther, setTitle } = useMultiTab();
-const date = ref("");
-const title = ref("自定义名称");
+const router = useRouter()
+const { reload, close, closeOther, setTitle } = useMultiTab()
+const date = ref('')
+const title = ref('自定义名称')
 
 onMounted(() => {
-  date.value = dayjs().format("YYYY-MM-DD HH:mm:ss");
-});
+  date.value = dayjs().format('YYYY-MM-DD HH:mm:ss')
+})
 
 /**
  * 打开欢迎页
  */
 function handleOpen() {
-  router.push({ name: "welcome" });
+  router.push({ name: 'welcome' })
 }
 
 /**
  * 刷新当前
  */
 function handleReload() {
-  reload();
+  reload()
 }
 
 /**
  * 关闭
  */
 function handleClose() {
-  close();
+  close()
 }
 
 /**
  * 关闭其他
  */
 function handleCloseOther() {
-  closeOther();
+  closeOther()
 }
 
 /**
  * 设置标题
  */
 function handleSetTitle() {
-  setTitle(title.value);
+  setTitle(title.value)
 }
 
 /**
  * 还原标题
  */
 function handleRevertTitle() {
-  setTitle(router.currentRoute.value.meta?.title);
+  setTitle(router.currentRoute.value.meta?.title)
 }
 </script>
 

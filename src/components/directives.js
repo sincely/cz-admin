@@ -1,1 +1,1 @@
-export { vLoading } from "./Loading";
+export { vLoading } from './Loading'

@@ -1,22 +1,17 @@
-import { defineStore } from "pinia";
-import { notFoundRoute } from "@/router/config";
-import {
-  formatRoutes,
-  generateMenuList,
-  generateRoutes,
-  getFirstValidRoute,
-} from "@/router/util";
-import { findTree } from "@/utils";
-import { config } from "@/config";
-import router from "@/router";
-import apis from "@/apis";
-import routes from "@/router/routes";
+import { defineStore } from 'pinia'
+import { notFoundRoute } from '@/router/config'
+import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } from '@/router/util'
+import { findTree } from '@/utils'
+import { config } from '@/config'
+import router from '@/router'
+import apis from '@/apis'
+import routes from '@/router/routes'
 
-const useRouterStore = defineStore("router", {
+const useRouterStore = defineStore('router', {
   state: () => ({
     routeList: [],
     menuList: [],
-    indexRoute: null,
+    indexRoute: null
   }),
   getters: {},
   actions: {
@@ -26,30 +21,30 @@ const useRouterStore = defineStore("router", {
      */
     getRouterList() {
       return new Promise((resolve, reject) => {
-        (async () => {
+        ;(async () => {
           try {
             const { code, data } = await apis.user.getAuthList().catch(() => {
-              throw new Error();
-            });
-            if (config("http.code.success") === code) {
-              const validRoutes = formatRoutes(routes, data);
-              console.log(validRoutes);
-              const menuList = generateMenuList(validRoutes);
-              const routeList = [...generateRoutes(validRoutes), notFoundRoute];
-              const indexRoute = getFirstValidRoute(menuList);
+              throw new Error()
+            })
+            if (config('http.code.success') === code) {
+              const validRoutes = formatRoutes(routes, data)
+              console.log(validRoutes)
+              const menuList = generateMenuList(validRoutes)
+              const routeList = [...generateRoutes(validRoutes), notFoundRoute]
+              const indexRoute = getFirstValidRoute(menuList)
               routeList.forEach((route) => {
-                router.addRoute(route);
-              });
-              this.routeList = routeList;
-              this.menuList = menuList;
-              this.indexRoute = indexRoute;
-              resolve();
+                router.addRoute(route)
+              })
+              this.routeList = routeList
+              this.menuList = menuList
+              this.indexRoute = indexRoute
+              resolve()
             }
           } catch (error) {
-            reject();
+            reject()
           }
-        })();
-      });
+        })()
+      })
     },
     /**
      * 设置徽标
@@ -61,12 +56,12 @@ const useRouterStore = defineStore("router", {
         this.menuList,
         name,
         (item) => {
-          item.meta.badge = count;
+          item.meta.badge = count
         },
-        { key: "name", children: "children" },
-      );
-    },
-  },
-});
+        { key: 'name', children: 'children' }
+      )
+    }
+  }
+})
 
-export default useRouterStore;
+export default useRouterStore

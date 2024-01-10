@@ -5,11 +5,11 @@
 </template>
 
 <script setup>
-import { Form as AForm } from "ant-design-vue";
+import { Form as AForm } from 'ant-design-vue'
 
 defineOptions({
-  name: "XFilterForm",
-});
+  name: 'XFilterForm'
+})
 </script>
 
 <style lang="less" scoped>

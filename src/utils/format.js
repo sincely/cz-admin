@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { zipObject } from "./index";
+import dayjs from 'dayjs'
+import { zipObject } from './index'
 
 /**
  * 格式化日期
@@ -7,8 +7,7 @@ import { zipObject } from "./index";
  * @param def {*} 默认值
  * @return {string}
  */
-export const formatDateTime = (dateTime, def = null) =>
-  dateTime ? dayjs(dateTime).format("YYYY-MM-DD HH:mm:ss") : def;
+export const formatDateTime = (dateTime, def = null) => (dateTime ? dayjs(dateTime).format('YYYY-MM-DD HH:mm:ss') : def)
 
 /**
  * 格式化一天的开始时间
@@ -17,7 +16,7 @@ export const formatDateTime = (dateTime, def = null) =>
  * @return {string}
  */
 export const formatStartTimeOfDay = (dateTime, def = null) =>
-  dateTime ? dayjs(dateTime).startOf("day").format("YYYY-MM-DD HH:mm:ss") : def;
+  dateTime ? dayjs(dateTime).startOf('day').format('YYYY-MM-DD HH:mm:ss') : def
 
 /**
  * 格式化一天的结束时间
@@ -26,7 +25,7 @@ export const formatStartTimeOfDay = (dateTime, def = null) =>
  * @return {string}
  */
 export const formatEndTimeOfDay = (dateTime, def = null) =>
-  dateTime ? dayjs(dateTime).endOf("day").format("YYYY-MM-DD HH:mm:ss") : def;
+  dateTime ? dayjs(dateTime).endOf('day').format('YYYY-MM-DD HH:mm:ss') : def
 
 /**
  * 格式化字段，无数据是返回自定义空值
@@ -34,7 +33,7 @@ export const formatEndTimeOfDay = (dateTime, def = null) =>
  * @param def
  * @returns {string}
  */
-export const formatField = (data, def = "-") => data ?? def;
+export const formatField = (data, def = '-') => data ?? def
 
 /**
  * 格式化时间区间
@@ -42,5 +41,4 @@ export const formatField = (data, def = "-") => data ?? def;
  * @param {array} values
  * @return {{}}
  */
-export const formatRangeTime = (keys, values) =>
-  zipObject(keys, values, [formatStartTimeOfDay, formatEndTimeOfDay]);
+export const formatRangeTime = (keys, values) => zipObject(keys, values, [formatStartTimeOfDay, formatEndTimeOfDay])

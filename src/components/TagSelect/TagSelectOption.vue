@@ -5,40 +5,38 @@
 </template>
 
 <script setup>
-import { theme } from "ant-design-vue";
-import { useTagSelectInject } from "./context";
-import { computed } from "vue";
+import { theme } from 'ant-design-vue'
+import { useTagSelectInject } from './context'
+import { computed } from 'vue'
 
 defineOptions({
-  name: "XTagSelectOption",
-});
+  name: 'XTagSelectOption'
+})
 
 const props = defineProps({
   record: {
     type: Object,
-    default: () => ({}),
+    default: () => ({})
   },
   value: {
-    type: [String, Number],
-  },
-});
+    type: [String, Number]
+  }
+})
 
-const { token } = theme.useToken();
-const { onSelect, modelValue, multiple } = useTagSelectInject();
+const { token } = theme.useToken()
+const { onSelect, modelValue, multiple } = useTagSelectInject()
 
 const cpClass = computed(() => {
   return {
-    "x-tag-select-option--active": multiple.value
+    'x-tag-select-option--active': multiple.value
       ? modelValue.value?.includes(props.value) ||
-        (typeof props.value === "undefined" &&
-          !modelValue.value?.length &&
-          props.record?.unlimited)
-      : modelValue.value === props.value,
-  };
-});
+        (typeof props.value === 'undefined' && !modelValue.value?.length && props.record?.unlimited)
+      : modelValue.value === props.value
+  }
+})
 
 function handleClick() {
-  onSelect(props.value);
+  onSelect(props.value)
 }
 </script>
 
@@ -54,11 +52,11 @@ function handleClick() {
   margin-right: 8px;
 
   &:hover:not(.x-tag-select-option--active) {
-    background: v-bind("token.controlItemBgHover");
+    background: v-bind('token.controlItemBgHover');
   }
 
   &--active {
-    background: v-bind("token.controlItemBgActive");
+    background: v-bind('token.controlItemBgActive');
     color: @color-primary;
   }
 }

@@ -5,12 +5,12 @@
 </template>
 
 <script setup>
-import { Spin, theme } from "ant-design-vue";
-import { computed } from "vue";
+import { Spin, theme } from 'ant-design-vue'
+import { computed } from 'vue'
 
 defineOptions({
-  name: "XLoading",
-});
+  name: 'XLoading'
+})
 
 const props = defineProps({
   /**
@@ -18,17 +18,17 @@ const props = defineProps({
    */
   type: {
     type: String,
-    default: "fullscreen",
-  },
-});
+    default: 'fullscreen'
+  }
+})
 
-const { token } = theme.useToken();
+const { token } = theme.useToken()
 
 const classComputed = computed(() => {
   return {
-    [`x-loading--${props.type}`]: true,
-  };
-});
+    [`x-loading--${props.type}`]: true
+  }
+})
 </script>
 
 <style lang="less" scoped>
@@ -38,7 +38,7 @@ const classComputed = computed(() => {
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background: v-bind("token.colorBgMask");
+    background: v-bind('token.colorBgMask');
     z-index: 1000;
     display: flex;
     align-items: center;

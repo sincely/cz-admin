@@ -27,15 +27,9 @@
           <a-descriptions-item label="创建人">曲丽丽</a-descriptions-item>
           <a-descriptions-item label="订购产品">XX 服务</a-descriptions-item>
           <a-descriptions-item label="创建时间">2017-07-07</a-descriptions-item>
-          <a-descriptions-item label="关联单据"
-            ><a>12421</a></a-descriptions-item
-          >
-          <a-descriptions-item label="生效日期"
-            >2017-07-07 ~ 2017-08-08</a-descriptions-item
-          >
-          <a-descriptions-item label="备注">
-            请于两个工作日内确认</a-descriptions-item
-          >
+          <a-descriptions-item label="关联单据"><a>12421</a></a-descriptions-item>
+          <a-descriptions-item label="生效日期">2017-07-07 ~ 2017-08-08</a-descriptions-item>
+          <a-descriptions-item label="备注">请于两个工作日内确认</a-descriptions-item>
         </a-descriptions>
       </a-col>
       <a-col class="align-right pr-8-5">
@@ -86,12 +80,8 @@
   <a-card class="mt-8-2" title="用户信息">
     <a-descriptions>
       <a-descriptions-item label="用户姓名">曲丽丽</a-descriptions-item>
-      <a-descriptions-item label="会员卡号"
-        >32943898021309809423</a-descriptions-item
-      >
-      <a-descriptions-item label="身份证"
-        >3321944288191034921</a-descriptions-item
-      >
+      <a-descriptions-item label="会员卡号">32943898021309809423</a-descriptions-item>
+      <a-descriptions-item label="身份证">3321944288191034921</a-descriptions-item>
       <a-descriptions-item label="联系方式">18112345678</a-descriptions-item>
       <a-descriptions-item :span="2" label="联系地址">
         曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口
@@ -99,19 +89,15 @@
     </a-descriptions>
     <a-descriptions class="mt-8-1" title="信息组">
       <a-descriptions-item label="某某数据">725</a-descriptions-item>
-      <a-descriptions-item label="该数据更新时间"
-        >2017-08-08</a-descriptions-item
-      >
+      <a-descriptions-item label="该数据更新时间">2017-08-08</a-descriptions-item>
       <a-descriptions-item label="某某数据">725</a-descriptions-item>
-      <a-descriptions-item label="该数据更新时间"
-        >2017-08-08</a-descriptions-item
-      >
+      <a-descriptions-item label="该数据更新时间">2017-08-08</a-descriptions-item>
     </a-descriptions>
     <h4 class="mt-8-1">信息组</h4>
     <a-card
       :body-style="{
         paddingLeft: '24px',
-        paddingRight: '24px',
+        paddingRight: '24px'
       }"
       size="small"
       title="多层级信息组"
@@ -119,9 +105,7 @@
       <a-descriptions class="mt-8-1" title="组名称">
         <a-descriptions-item label="负责人">林东东</a-descriptions-item>
         <a-descriptions-item label="角色码">1234567</a-descriptions-item>
-        <a-descriptions-item label="所属部门"
-          >XX公司 - YY部</a-descriptions-item
-        >
+        <a-descriptions-item label="所属部门">XX公司 - YY部</a-descriptions-item>
         <a-descriptions-item label="过期时间">2017-08-08</a-descriptions-item>
         <a-descriptions-item :span="2" label="描述">
           这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...
@@ -130,8 +114,7 @@
       <a-divider class="mt-8-1"></a-divider>
       <a-descriptions :column="1" class="mt-8-1" title="组名称">
         <a-descriptions-item label="学名">
-          Citrullus lanatus (Thunb.) Matsum. et
-          Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..
+          Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..
         </a-descriptions-item>
       </a-descriptions>
       <a-divider class="mt-8-1"></a-divider>
@@ -146,41 +129,36 @@
     <a-empty></a-empty>
   </a-card>
 
-  <a-card
-    :active-tab-key="activeTabKey"
-    :tab-list="tabList"
-    class="mt-8-2"
-    @tabChange="(key) => (activeTabKey = key)"
-  >
+  <a-card :active-tab-key="activeTabKey" :tab-list="tabList" class="mt-8-2" @tabChange="(key) => (activeTabKey = key)">
     <a-empty :description="`暂无操作日志 ${activeTabKey}`"></a-empty>
   </a-card>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-import { DingdingOutlined, EllipsisOutlined } from "@ant-design/icons-vue";
+import { DingdingOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: "profileAdvanced",
-});
+  name: 'profileAdvanced'
+})
 
 const tabList = [
   {
-    key: "1",
-    tab: "操作日志一",
+    key: '1',
+    tab: '操作日志一'
   },
   {
-    key: "2",
-    tab: "操作日志二",
+    key: '2',
+    tab: '操作日志二'
   },
   {
-    key: "3",
-    tab: "操作日志三",
-  },
-];
+    key: '3',
+    tab: '操作日志三'
+  }
+]
 
-const activeTabKey = ref("1");
+const activeTabKey = ref('1')
 </script>
 
 <style lang="less" scoped></style>

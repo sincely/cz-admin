@@ -14,7 +14,7 @@
             { label: '类目5', value: 5 },
             { label: '类目6', value: 6 },
             { label: '类目7', value: 7 },
-            { label: '类目8', value: 8 },
+            { label: '类目8', value: 8 }
           ]"
           @change="handleSearch"
         ></x-tag-select>
@@ -22,20 +22,12 @@
       <a-row>
         <a-col>
           <a-form-item label="作者">
-            <a-select
-              :style="{ minWidth: '100px' }"
-              placeholder="不限"
-              @change="handleSearch"
-            ></a-select>
+            <a-select :style="{ minWidth: '100px' }" placeholder="不限" @change="handleSearch"></a-select>
           </a-form-item>
         </a-col>
         <a-col>
           <a-form-item label="好评度">
-            <a-select
-              :style="{ minWidth: '100px' }"
-              placeholder="不限"
-              @change="handleSearch"
-            ></a-select>
+            <a-select :style="{ minWidth: '100px' }" placeholder="不限" @change="handleSearch"></a-select>
           </a-form-item>
         </a-col>
       </a-row>
@@ -66,8 +58,7 @@
                   </a-statistic>
                 </a-col>
                 <a-col flex="1">
-                  <a-statistic :value="item.count2" title="新增用户">
-                  </a-statistic>
+                  <a-statistic :value="item.count2" title="新增用户"></a-statistic>
                 </a-col>
               </a-row>
             </template>
@@ -94,62 +85,50 @@
 </template>
 
 <script setup>
-import {
-  DownloadOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-  ShareAltOutlined,
-} from "@ant-design/icons-vue";
-import { config } from "@/config";
-import { usePagination } from "@/hooks";
-import apis from "@/apis";
-import PageHeader from "../components/PageHeader.vue";
+import { DownloadOutlined, EditOutlined, EllipsisOutlined, ShareAltOutlined } from '@ant-design/icons-vue'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
+import apis from '@/apis'
+import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
-  name: "listSearchApplications",
-});
+  name: 'listSearchApplications'
+})
 
-const {
-  listData,
-  paginationState,
-  loading,
-  showLoading,
-  hideLoading,
-  resetPagination,
-  searchFormData,
-} = usePagination();
+const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
+  usePagination()
 
 paginationState.onChange = (page, pageSize) => {
-  paginationState.current = page;
-  paginationState.pageSize = pageSize;
-  getPageList();
-};
+  paginationState.current = page
+  paginationState.pageSize = pageSize
+  getPageList()
+}
 
-getPageList();
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
   try {
-    showLoading();
-    const { pageSize, current } = paginationState;
+    showLoading()
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.common
       .getPageList({
         pageSize,
-        page: current,
+        page: current
       })
       .catch(() => {
-        throw new Error();
-      });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records, pagination } = data;
-      listData.value = records;
-      paginationState.total = pagination.total;
+        throw new Error()
+      })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records, pagination } = data
+      listData.value = records
+      paginationState.total = pagination.total
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 
@@ -157,8 +136,8 @@ async function getPageList() {
  * 搜索
  */
 function handleSearch() {
-  resetPagination();
-  getPageList();
+  resetPagination()
+  getPageList()
 }
 </script>
 

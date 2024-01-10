@@ -14,27 +14,19 @@
             { label: '类目5', value: 5 },
             { label: '类目6', value: 6 },
             { label: '类目7', value: 7 },
-            { label: '类目8', value: 8 },
+            { label: '类目8', value: 8 }
           ]"
         ></x-tag-select>
       </a-form-item>
       <a-row :gutter="40">
         <a-col>
           <a-form-item label="作者">
-            <a-select
-              placeholder="不限"
-              :style="{ minWidth: '120px' }"
-              @change="handleSearch"
-            ></a-select>
+            <a-select placeholder="不限" :style="{ minWidth: '120px' }" @change="handleSearch"></a-select>
           </a-form-item>
         </a-col>
         <a-col>
           <a-form-item label="好评度">
-            <a-select
-              placeholder="不限"
-              :style="{ minWidth: '120px' }"
-              @change="handleSearch"
-            ></a-select>
+            <a-select placeholder="不限" :style="{ minWidth: '120px' }" @change="handleSearch"></a-select>
           </a-form-item>
         </a-col>
       </a-row>
@@ -57,24 +49,13 @@
           <a-card-meta :title="item.title">
             <template #description>
               <div>{{ item.sentence }}</div>
-              <a-row
-                :style="{ lineHeight: 1 }"
-                align="middle"
-                class="mt-4-3"
-                justify="space-between"
-                type="flex"
-              >
+              <a-row :style="{ lineHeight: 1 }" align="middle" class="mt-4-3" justify="space-between" type="flex">
                 <a-col class="fs-12">
                   {{ item.datetime }}
                 </a-col>
                 <a-col>
                   <a-avatar-group>
-                    <a-avatar
-                      v-for="user in item.users"
-                      :key="user.id"
-                      :size="22"
-                      :src="user.avatar"
-                    ></a-avatar>
+                    <a-avatar v-for="user in item.users" :key="user.id" :size="22" :src="user.avatar"></a-avatar>
                   </a-avatar-group>
                 </a-col>
               </a-row>
@@ -87,24 +68,17 @@
 </template>
 
 <script setup>
-import apis from "@/apis";
-import { config } from "@/config";
-import { usePagination } from "@/hooks";
-import PageHeader from "../components/PageHeader.vue";
+import apis from '@/apis'
+import { config } from '@/config'
+import { usePagination } from '@/hooks'
+import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
-  name: "listSearchProjects",
-});
+  name: 'listSearchProjects'
+})
 
-const {
-  listData,
-  paginationState,
-  loading,
-  showLoading,
-  hideLoading,
-  resetPagination,
-  searchFormData,
-} = usePagination();
+const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
+  usePagination()
 
 // const filterData = ref([
 //     {
@@ -129,36 +103,36 @@ const {
 // ])
 
 paginationState.onChange = (page, pageSize) => {
-  paginationState.current = page;
-  paginationState.pageSize = pageSize;
-  getPageList();
-};
+  paginationState.current = page
+  paginationState.pageSize = pageSize
+  getPageList()
+}
 
-getPageList();
+getPageList()
 
 /**
  * 获取分页列表
  */
 async function getPageList() {
   try {
-    showLoading();
-    const { pageSize, current } = paginationState;
+    showLoading()
+    const { pageSize, current } = paginationState
     const { code, data } = await apis.common
       .getPageList({
         pageSize,
-        page: current,
+        page: current
       })
       .catch(() => {
-        throw new Error();
-      });
-    hideLoading();
-    if (config("http.code.success") === code) {
-      const { records, pagination } = data;
-      listData.value = records;
-      paginationState.total = pagination.total;
+        throw new Error()
+      })
+    hideLoading()
+    if (config('http.code.success') === code) {
+      const { records, pagination } = data
+      listData.value = records
+      paginationState.total = pagination.total
     }
   } catch (error) {
-    hideLoading();
+    hideLoading()
   }
 }
 
@@ -166,8 +140,8 @@ async function getPageList() {
  * 搜索
  */
 function handleSearch() {
-  resetPagination();
-  getPageList();
+  resetPagination()
+  getPageList()
 }
 </script>
 

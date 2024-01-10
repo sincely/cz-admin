@@ -5,13 +5,13 @@
 </template>
 
 <script setup>
-import dayjs from "dayjs";
-import "dayjs/locale/zh-cn";
-import { useConfigProvider } from "@/hooks";
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+import { useConfigProvider } from '@/hooks'
 
-dayjs.locale("zh-cn");
+dayjs.locale('zh-cn')
 
-const { configProviderAttrs } = useConfigProvider();
+const { configProviderAttrs } = useConfigProvider()
 </script>
 
 <style lang="less"></style>

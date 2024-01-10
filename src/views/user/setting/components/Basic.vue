@@ -33,10 +33,7 @@
     </a-col>
     <a-col class="align-center">
       <div>
-        <a-avatar
-          src="http://cdn.xuanyunet.com/images/avatar.jpg"
-          :size="144"
-        ></a-avatar>
+        <a-avatar src="http://cdn.xuanyunet.com/images/avatar.jpg" :size="144"></a-avatar>
       </div>
       <div class="mt-8-2">
         <a-upload :show-upload-list="false">
@@ -53,11 +50,11 @@
 </template>
 
 <script setup>
-import { UploadOutlined } from "@ant-design/icons-vue";
+import { UploadOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: "Basic",
-});
+  name: 'Basic'
+})
 </script>
 
 <style lang="less" scoped></style>

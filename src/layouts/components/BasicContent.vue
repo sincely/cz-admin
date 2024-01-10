@@ -2,11 +2,7 @@
   <a-layout-content class="basic-content">
     <router-view v-slot="{ Component, route }">
       <keep-alive :include="cpCacheList">
-        <component
-          v-if="cpKeepAlive"
-          :is="Component"
-          :key="route.name"
-        ></component>
+        <component v-if="cpKeepAlive" :is="Component" :key="route.name"></component>
       </keep-alive>
     </router-view>
     <iframe-view></iframe-view>
@@ -14,23 +10,23 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useMultiTabStore } from "@/store";
-import IframeView from "./IframeView.vue";
-import useAppStore from "../../store/modules/app";
-import { storeToRefs } from "pinia";
+import { computed } from 'vue'
+import { useMultiTabStore } from '@/store'
+import IframeView from './IframeView.vue'
+import useAppStore from '../../store/modules/app'
+import { storeToRefs } from 'pinia'
 
 defineOptions({
-  name: "BasicContent",
-});
+  name: 'BasicContent'
+})
 
-const appStore = useAppStore();
-const multiTabStore = useMultiTabStore();
+const appStore = useAppStore()
+const multiTabStore = useMultiTabStore()
 
-const { config } = storeToRefs(appStore);
+const { config } = storeToRefs(appStore)
 
-const cpCacheList = computed(() => multiTabStore.cacheList);
-const cpKeepAlive = computed(() => multiTabStore.keepAlive);
+const cpCacheList = computed(() => multiTabStore.cacheList)
+const cpKeepAlive = computed(() => multiTabStore.keepAlive)
 </script>
 
 <style lang="less" scoped>

@@ -1,33 +1,15 @@
 <template>
-  <a-table
-    class="x-form-table"
-    size="middle"
-    v-bind="$attrs"
-    :data-source="listData"
-    :pagination="false"
-  >
+  <a-table class="x-form-table" size="middle" v-bind="$attrs" :data-source="listData" :pagination="false">
     <a-table-column key="action" align="center" :width="44">
       <template #title>
-        <a-button
-          size="small"
-          type="primary"
-          shape="circle"
-          class="fs-12"
-          @click="handleAdd"
-        >
+        <a-button size="small" type="primary" shape="circle" class="fs-12" @click="handleAdd">
           <plus-outlined />
         </a-button>
       </template>
       <template #default="{ index }">
         <div class="action">
           <span class="action__txt">{{ index + 1 }}</span>
-          <a-button
-            size="small"
-            danger
-            shape="circle"
-            class="fs-12 action__btn"
-            @click="handleDelete(index)"
-          >
+          <a-button size="small" danger shape="circle" class="fs-12 action__btn" @click="handleDelete(index)">
             <delete-outlined />
           </a-button>
         </div>
@@ -38,14 +20,14 @@
 </template>
 
 <script setup>
-import { cloneDeep } from "lodash-es";
-import { onMounted, ref, watch } from "vue";
+import { cloneDeep } from 'lodash-es'
+import { onMounted, ref, watch } from 'vue'
 
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons-vue";
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: "XFormTable",
-});
+  name: 'XFormTable'
+})
 
 /**
  * 表单表格
@@ -55,39 +37,39 @@ defineOptions({
 const props = defineProps({
   modelValue: {
     type: Array,
-    default: () => [],
+    default: () => []
   },
   rowTpl: {
     type: Object,
-    default: () => ({}),
-  },
-});
+    default: () => ({})
+  }
+})
 
-const emit = defineEmits(["update:modelValue", "add", "delete"]);
+const emit = defineEmits(['update:modelValue', 'add', 'delete'])
 
-const listData = ref([]);
+const listData = ref([])
 
-watch(listData, (val) => emit("update:modelValue", val), { deep: true });
+watch(listData, (val) => emit('update:modelValue', val), { deep: true })
 
 onMounted(() => {
-  listData.value = props.modelValue;
-});
+  listData.value = props.modelValue
+})
 
 /**
  * 新增
  */
 function handleAdd() {
-  listData.value.push(cloneDeep(props.rowTpl));
-  emit("add");
+  listData.value.push(cloneDeep(props.rowTpl))
+  emit('add')
 }
 
 /**
  * 删除
  */
 function handleDelete(index) {
-  const delRecord = props.modelValue[index];
-  listData.value.splice(index, 1);
-  emit("delete", { record: delRecord });
+  const delRecord = props.modelValue[index]
+  listData.value.splice(index, 1)
+  emit('delete', { record: delRecord })
 }
 </script>
 

@@ -4,7 +4,7 @@
     class="x-upload x-upload-image"
     :class="{
       'x-upload--round': round,
-      'x-upload--disabled': disabled,
+      'x-upload--disabled': disabled
     }"
   >
     <a-upload
@@ -20,11 +20,11 @@
         <div
           class="x-upload-btn"
           :class="{
-            'x-upload-btn--hover': !disabled,
+            'x-upload-btn--hover': !disabled
           }"
           :style="{
             width: `${width}px`,
-            height: `${height}px`,
+            height: `${height}px`
           }"
         >
           <div class="x-upload-btn__icon">
@@ -45,30 +45,20 @@
       class="x-upload-item j-upload-item"
       :key="item.key"
       :class="{
-        'x-upload-item--error': STATUS_ENUM.is('error', item.status),
+        'x-upload-item--error': STATUS_ENUM.is('error', item.status)
       }"
       :style="{
         width: `${width}px`,
-        height: `${height}px`,
+        height: `${height}px`
       }"
     >
       <img :src="item.src" alt="" />
-      <template
-        v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))"
-      >
+      <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
         <div class="x-upload-actions">
-          <div
-            v-if="STATUS_ENUM.is('done', item.status)"
-            class="x-upload-action"
-            @click="handlePreview(item, index)"
-          >
+          <div v-if="STATUS_ENUM.is('done', item.status)" class="x-upload-action" @click="handlePreview(item, index)">
             <eye-outlined />
           </div>
-          <div
-            v-if="!disabled"
-            class="x-upload-action"
-            @click="handleRemove(index)"
-          >
+          <div v-if="!disabled" class="x-upload-action" @click="handleRemove(index)">
             <delete-outlined />
           </div>
         </div>
@@ -77,17 +67,11 @@
         <div class="x-upload-status">
           <template v-if="STATUS_ENUM.is('uploading', item.status)">
             <div>{{ item.percent }}%</div>
-            <a-progress
-              :show-info="false"
-              :stroke-width="4"
-              :percent="item.percent"
-            />
+            <a-progress :show-info="false" :stroke-width="4" :percent="item.percent" />
           </template>
           <template v-if="STATUS_ENUM.is('wait', item.status)">
             <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
-            <span class="x-upload-action" @click="handleCancel(item)">
-              取消上传
-            </span>
+            <span class="x-upload-action" @click="handleCancel(item)">取消上传</span>
           </template>
         </div>
       </template>
@@ -105,26 +89,22 @@
 </template>
 
 <script setup>
-import { Form, message } from "ant-design-vue";
-import { filesize } from "filesize";
-import filesizeParser from "filesize-parser";
-import { findIndex, includes, some } from "lodash-es";
-import { nanoid } from "nanoid";
-import Sortable from "sortablejs";
-import { computed, onMounted, ref, useSlots, watch } from "vue";
-import {
-  DeleteOutlined,
-  EyeOutlined,
-  PlusOutlined,
-} from "@ant-design/icons-vue";
-import { deepMerge } from "@/utils";
-import CropperDialog from "../Cropper/CropperDialog.vue";
-import { Preview } from "../Preview";
-import { STATUS_ENUM } from "./config";
+import { Form, message } from 'ant-design-vue'
+import { filesize } from 'filesize'
+import filesizeParser from 'filesize-parser'
+import { findIndex, includes, some } from 'lodash-es'
+import { nanoid } from 'nanoid'
+import Sortable from 'sortablejs'
+import { computed, onMounted, ref, useSlots, watch } from 'vue'
+import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
+import { deepMerge } from '@/utils'
+import CropperDialog from '../Cropper/CropperDialog.vue'
+import { Preview } from '../Preview'
+import { STATUS_ENUM } from './config'
 
 defineOptions({
-  name: "XUploadImage",
-});
+  name: 'XUploadImage'
+})
 /**
  * 图片上传
  * @property {string | array} modelValue v-model
@@ -144,93 +124,91 @@ defineOptions({
 const props = defineProps({
   modelValue: {
     type: [String, Array],
-    default: "",
+    default: ''
   },
   multiple: {
     type: Boolean,
-    default: false,
+    default: false
   },
   width: {
     type: Number,
-    default: 120,
+    default: 120
   },
   height: {
     type: Number,
-    default: 120,
+    default: 120
   },
   text: {
     type: String,
-    default: "",
+    default: ''
   },
   maxSize: {
     type: [String, Number],
-    default: "2M",
+    default: '2M'
   },
   accept: {
     type: String,
-    default: "image/*",
+    default: 'image/*'
   },
   disabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   round: {
     type: Boolean,
-    default: false,
+    default: false
   },
   cropper: {
     type: Boolean,
-    default: false,
+    default: false
   },
   aspectRatio: {
     type: Number,
-    default: 0,
+    default: 0
   },
   quality: {
     type: Number,
-    default: 1,
+    default: 1
   },
   dragSort: {
     type: Boolean,
-    default: false,
-  },
-});
+    default: false
+  }
+})
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue'])
 
-useSlots(["icon", "text"]);
+useSlots(['icon', 'text'])
 
-const { onFieldChange } = Form.useInjectFormItemContext();
+const { onFieldChange } = Form.useInjectFormItemContext()
 
-const fileList = ref([]);
-const cropperDialogRef = ref();
-const uploadImageRef = ref();
-const sortable = ref(null);
+const fileList = ref([])
+const cropperDialogRef = ref()
+const uploadImageRef = ref()
+const sortable = ref(null)
 
-const loading = computed(() =>
-  fileList.value.some((o) => STATUS_ENUM.is("uploading", o.status)),
-);
-const showUploadBtn = computed(() => props.multiple || !fileList.value.length);
-const dragSortDisabled = computed(() => !(props.dragSort && !props.disabled));
+const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
+const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
+const dragSortDisabled = computed(() => !(props.dragSort && !props.disabled))
 
 watch(
   () => props.modelValue,
   () => {
-    init();
-  },
-);
+    init()
+  }
+)
 
 watch(
   () => dragSortDisabled.value,
   () => {
-    initDragSort();
-  },
-);
+    initDragSort()
+  }
+)
 
 onMounted(() => {
-  init();
-  initDragSort();
-});
+  init()
+  initDragSort()
+})
 
 /**
  * 初始化
@@ -240,26 +218,23 @@ function init() {
     ? props.modelValue instanceof Array
       ? props.modelValue
       : [props.modelValue]
-    : [];
+    : []
   if (currentValue.length) {
     // 移除不存在的文件
     fileList.value.forEach((item, index) => {
       // 已完成 && 不存在与 modelValue 中
-      if (
-        STATUS_ENUM.is("done", item.status) &&
-        !includes(currentValue, item.src)
-      ) {
-        fileList.value.splice(index, 1);
+      if (STATUS_ENUM.is('done', item.status) && !includes(currentValue, item.src)) {
+        fileList.value.splice(index, 1)
       }
-    });
+    })
     // 添加不存在与 modelValue 中的文件
     currentValue.forEach((item) => {
       if (!some(fileList.value, { src: item })) {
-        fileList.value.push(getItem({ src: item }));
+        fileList.value.push(getItem({ src: item }))
       }
-    });
+    })
   } else {
-    fileList.value = [];
+    fileList.value = []
   }
 }
 
@@ -268,19 +243,19 @@ function init() {
  */
 function initDragSort() {
   if (sortable.value) {
-    sortable.value.destroy();
-    sortable.value = null;
+    sortable.value.destroy()
+    sortable.value = null
   }
   sortable.value = Sortable.create(uploadImageRef.value, {
-    handle: ".j-upload-item",
+    handle: '.j-upload-item',
     animation: 200,
     disabled: dragSortDisabled.value,
     onEnd: ({ newIndex, oldIndex }) => {
-      const dragData = fileList.value.splice(oldIndex - 1, 1)[0];
-      fileList.value.splice(newIndex - 1, 0, dragData);
-      trigger();
-    },
-  });
+      const dragData = fileList.value.splice(oldIndex - 1, 1)[0]
+      fileList.value.splice(newIndex - 1, 0, dragData)
+      trigger()
+    }
+  })
 }
 
 /**
@@ -293,11 +268,11 @@ function handlePreview(record, index) {
     // 多选
     Preview.open({
       urls: props.modelValue,
-      current: index,
-    });
+      current: index
+    })
   } else {
     // 单选
-    Preview.open(record.src);
+    Preview.open(record.src)
   }
 }
 
@@ -306,39 +281,36 @@ function handlePreview(record, index) {
  * @param index
  */
 function handleRemove(index) {
-  fileList.value.splice(index, 1);
-  trigger();
+  fileList.value.splice(index, 1)
+  trigger()
 }
 
 /**
  * 取消上传
  */
 function handleCancel({ key }) {
-  const index = fileList.value.findIndex((o) => o.key === key);
-  fileList.value.splice(index, 1);
+  const index = fileList.value.findIndex((o) => o.key === key)
+  fileList.value.splice(index, 1)
 }
 
 /**
  * 上传前
  */
 function onBeforeUpload(file) {
-  const maxFileSize =
-    props.maxSize instanceof Number
-      ? props.maxSize
-      : filesizeParser(props.maxSize);
-  const checkFileSize = file?.size < maxFileSize;
+  const maxFileSize = props.maxSize instanceof Number ? props.maxSize : filesizeParser(props.maxSize)
+  const checkFileSize = file?.size < maxFileSize
   if (!checkFileSize) {
-    message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`);
+    message.warning(`已忽略超过 ${filesize(maxFileSize)} 的文件`)
   }
-  const checkCropper = props.cropper ? props.multiple : true;
+  const checkCropper = props.cropper ? props.multiple : true
   if (props.cropper && !props.multiple) {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
+    const fileReader = new FileReader()
+    fileReader.readAsDataURL(file)
     fileReader.onload = (e) => {
-      cropperDialogRef.value?.handleOpen(e.target.result);
-    };
+      cropperDialogRef.value?.handleOpen(e.target.result)
+    }
   }
-  return checkFileSize && checkCropper;
+  return checkFileSize && checkCropper
 }
 
 /**
@@ -355,20 +327,20 @@ function customRequest(file) {
   const record = getItem({
     key: file.uid,
     src: URL.createObjectURL(file),
-    status: STATUS_ENUM.getValue("wait"),
+    status: STATUS_ENUM.getValue('wait'),
     percent: 0,
-    file,
-  });
+    file
+  })
   // 判断是否批量上传
   if (props.multiple) {
     // 批量上传
-    fileList.value.push(record);
+    fileList.value.push(record)
   } else {
     // 单文件上传
-    fileList.value = [record];
+    fileList.value = [record]
   }
   if (!loading.value) {
-    doUpload();
+    doUpload()
   }
 }
 
@@ -377,20 +349,20 @@ function customRequest(file) {
  */
 async function doUpload() {
   // 判断是否还有待上传文件
-  if (!some(fileList.value, { status: STATUS_ENUM.getValue("wait") })) {
-    return;
+  if (!some(fileList.value, { status: STATUS_ENUM.getValue('wait') })) {
+    return
   }
   const index = findIndex(fileList.value, {
-    status: STATUS_ENUM.getValue("wait"),
-  });
-  const record = fileList.value[index];
-  record.status = STATUS_ENUM.getValue("uploading");
+    status: STATUS_ENUM.getValue('wait')
+  })
+  const record = fileList.value[index]
+  record.status = STATUS_ENUM.getValue('uploading')
 
   // 模拟示例
-  record.percent = 100;
-  record.status = STATUS_ENUM.getValue("done");
-  trigger();
-  await doUpload();
+  record.percent = 100
+  record.status = STATUS_ENUM.getValue('done')
+  trigger()
+  await doUpload()
 
   // 接口示例
   // const { code } = await apis.common.upload({
@@ -418,33 +390,29 @@ function getItem(obj) {
   return deepMerge(
     {
       key: nanoid(),
-      src: "",
-      status: STATUS_ENUM.getValue("done"),
-      percent: 100,
+      src: '',
+      status: STATUS_ENUM.getValue('done'),
+      percent: 100
     },
-    obj,
-  );
+    obj
+  )
 }
 
 /**
  * 触发
  */
 function trigger() {
-  let value;
+  let value
   // 判断是否多选
   if (props.multiple) {
     // 多选
-    value = fileList.value
-      .filter((item) => STATUS_ENUM.is("done", item.status))
-      .map((item) => item?.src ?? item);
+    value = fileList.value.filter((item) => STATUS_ENUM.is('done', item.status)).map((item) => item?.src ?? item)
   } else {
     // 单选
-    value =
-      (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ??
-      "";
+    value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
   }
-  emit("update:modelValue", value);
-  onFieldChange();
+  emit('update:modelValue', value)
+  onFieldChange()
 }
 </script>
 
@@ -520,7 +488,7 @@ function trigger() {
     &--error {
       &::before {
         position: absolute;
-        content: "";
+        content: '';
         width: 100%;
         height: 100%;
         border: @color-error dashed 1px;

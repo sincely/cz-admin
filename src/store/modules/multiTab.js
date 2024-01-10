@@ -1,18 +1,18 @@
-import { message } from "ant-design-vue";
-import { cloneDeep, findIndex, isEmpty } from "lodash-es";
-import { defineStore } from "pinia";
+import { message } from 'ant-design-vue'
+import { cloneDeep, findIndex, isEmpty } from 'lodash-es'
+import { defineStore } from 'pinia'
 
-import router from "@/router";
+import router from '@/router'
 
-import useAppStore from "./app";
+import useAppStore from './app'
 
-const useMultiTabStore = defineStore("multiTab", {
+const useMultiTabStore = defineStore('multiTab', {
   state: () => ({
     list: [],
     cacheList: [],
     iframeList: [],
     current: 0,
-    keepAlive: true,
+    keepAlive: true
   }),
   getters: {},
   actions: {
@@ -21,16 +21,16 @@ const useMultiTabStore = defineStore("multiTab", {
      * @param {object} route
      */
     open({ route } = {}) {
-      const index = findIndex(this.list, { path: route?.path });
+      const index = findIndex(this.list, { path: route?.path })
       // 判断是否已存在
       if (index > -1) {
         // 已存在
-        this._setCurrent(index);
+        this._setCurrent(index)
         this._setList({
           index,
           length: 1,
-          value: route,
-        });
+          value: route
+        })
       } else {
         // 不存在，判断是否第一个标签页
         if (this.list.length) {
@@ -38,18 +38,18 @@ const useMultiTabStore = defineStore("multiTab", {
           this._setList({
             index: this.current + 1,
             length: 0,
-            value: route,
-          });
-          this._setCurrent(this.current + 1);
+            value: route
+          })
+          this._setCurrent(this.current + 1)
         } else {
           // 是第一个标签页
           this._setList({
-            value: route,
-          });
-          this._setCurrent(0);
+            value: route
+          })
+          this._setCurrent(0)
         }
       }
-      this._setIframeList();
+      this._setIframeList()
     },
     /**
      * 关闭
@@ -57,10 +57,10 @@ const useMultiTabStore = defineStore("multiTab", {
      */
     close({ route } = {}) {
       // 如果未传入路由，则默认当前路由
-      route = route || this.list[this.current];
-      const index = findIndex(this.list, { path: route?.path });
+      route = route || this.list[this.current]
+      const index = findIndex(this.list, { path: route?.path })
       // 判断标签页是否存在
-      if (index < 0) return;
+      if (index < 0) return
 
       // 禁止关闭最后一个标签页
       // if (this.list.length === 1) {
@@ -70,27 +70,27 @@ const useMultiTabStore = defineStore("multiTab", {
 
       this._setList({
         index,
-        length: 1,
-      });
+        length: 1
+      })
 
       // 关闭当前标签页
       if (this.current === index) {
         // 关闭最右侧标签页
         if (this.current === this.list.length) {
-          this._setCurrent(this.current - 1);
+          this._setCurrent(this.current - 1)
         }
-        const next = this.list[this.current];
+        const next = this.list[this.current]
         if (next) {
-          router.push(next);
+          router.push(next)
         }
       }
 
       // 关闭左侧标签页
       if (this.current > index) {
-        this._setCurrent(this.current - 1);
+        this._setCurrent(this.current - 1)
       }
 
-      this._setIframeList();
+      this._setIframeList()
     },
     /**
      * 关闭左侧
@@ -98,21 +98,21 @@ const useMultiTabStore = defineStore("multiTab", {
      */
     closeLeft({ route } = {}) {
       return new Promise((resolve) => {
-        const index = findIndex(this.list, { path: route?.path });
+        const index = findIndex(this.list, { path: route?.path })
         this._setList({
           index: 0,
-          length: index,
-        });
+          length: index
+        })
         if (this.current <= index) {
-          this._setCurrent(0);
+          this._setCurrent(0)
         } else {
-          this._setCurrent(this.current - index);
+          this._setCurrent(this.current - index)
         }
-        this._setIframeList();
+        this._setIframeList()
         if (this.current < index) {
-          resolve({ route });
+          resolve({ route })
         }
-      });
+      })
     },
     /**
      * 关闭右侧
@@ -120,18 +120,18 @@ const useMultiTabStore = defineStore("multiTab", {
      */
     closeRight({ route } = {}) {
       return new Promise((resolve) => {
-        const index = findIndex(this.list, { path: route?.path });
-        const length = this.list.length - index;
+        const index = findIndex(this.list, { path: route?.path })
+        const length = this.list.length - index
         this._setList({
           index: index + 1,
-          length,
-        });
-        this._setIframeList();
+          length
+        })
+        this._setIframeList()
         if (this.current > index) {
-          this._setCurrent(index);
-          resolve({ route });
+          this._setCurrent(index)
+          resolve({ route })
         }
-      });
+      })
     },
     /**
      * 关闭其他
@@ -141,17 +141,17 @@ const useMultiTabStore = defineStore("multiTab", {
       this._setList({
         index: 0,
         length: this.list.length,
-        value: route,
-      });
-      this._setCurrent(0);
-      this._setIframeList();
+        value: route
+      })
+      this._setCurrent(0)
+      this._setIframeList()
     },
     /**
      * 刷新
      * @param {object} route
      */
     reload({ route }) {
-      this._setCacheList({ route });
+      this._setCacheList({ route })
     },
     /**
      * 设置标题
@@ -160,15 +160,15 @@ const useMultiTabStore = defineStore("multiTab", {
      */
     setTitle({ route, title }) {
       if (isEmpty(title)) {
-        message.warning("标题不能为空");
-        return;
+        message.warning('标题不能为空')
+        return
       }
-      const index = findIndex(this.list, { path: route.path });
+      const index = findIndex(this.list, { path: route.path })
       if (index === -1) {
-        message.warning("标签页不存在");
-        return;
+        message.warning('标签页不存在')
+        return
       }
-      this.list[index].meta.title = title;
+      this.list[index].meta.title = title
     },
     /**
      * 设置当前页
@@ -176,7 +176,7 @@ const useMultiTabStore = defineStore("multiTab", {
      * @constructor
      */
     _setCurrent(current) {
-      this.current = current;
+      this.current = current
     },
     /**
      * 设置列表
@@ -186,30 +186,28 @@ const useMultiTabStore = defineStore("multiTab", {
      * @constructor
      */
     _setList({ index, length, value }) {
-      const appStore = useAppStore();
+      const appStore = useAppStore()
       // 判断是否第一个标签页
       if (this.list.length) {
         // 不是第一个标签页，判断是删除还是替换
         if (value) {
           // 替换
-          this.list.splice(index, length, value);
+          this.list.splice(index, length, value)
         } else {
           // 删除
-          this.list.splice(index, length);
+          this.list.splice(index, length)
         }
       } else {
         // 是第一个标签页
-        this.list.push(value);
+        this.list.push(value)
       }
       // 判断是否禁用了标签页
       if (!appStore.config.multiTab) {
-        this.cacheList = [];
-        return;
+        this.cacheList = []
+        return
       }
       // 更新缓存列表
-      this.cacheList = this.list
-        .filter((item) => item?.meta?.keepAlive)
-        .map((item) => item.name);
+      this.cacheList = this.list.filter((item) => item?.meta?.keepAlive).map((item) => item.name)
     },
     /**
      * 设置缓存列表
@@ -220,39 +218,37 @@ const useMultiTabStore = defineStore("multiTab", {
       // 判断是否是需要缓存的页面
       if (route?.meta?.keepAlive) {
         // 是需要缓存的页面
-        const index = findIndex(this.cacheList, (o) => o === route.name);
+        const index = findIndex(this.cacheList, (o) => o === route.name)
         // 判断是移除或添加
         if (index > -1) {
           // 已存在，执行移除操作
-          this.cacheList.splice(index, 1);
-          this.keepAlive = false;
+          this.cacheList.splice(index, 1)
+          this.keepAlive = false
         } else {
           // 不存在，执行添加操作
-          this.cacheList.push(route.name);
-          this.keepAlive = true;
+          this.cacheList.push(route.name)
+          this.keepAlive = true
         }
       } else {
         // 不是需要缓存的页面
-        this.keepAlive = !this.keepAlive;
+        this.keepAlive = !this.keepAlive
       }
       // 如果刷新的是 iframe
       if (route?.meta?.isIframe) {
-        const iframeIndex = findIndex(this.iframeList, { path: route?.path });
-        this.iframeList[iframeIndex].meta.url = "";
+        const iframeIndex = findIndex(this.iframeList, { path: route?.path })
+        this.iframeList[iframeIndex].meta.url = ''
         setTimeout(() => {
-          this.iframeList[iframeIndex].meta.url = route?.meta?.url;
-        }, 200);
+          this.iframeList[iframeIndex].meta.url = route?.meta?.url
+        }, 200)
       }
     },
     /**
      * 设置 iframe 列表
      */
     _setIframeList() {
-      this.iframeList = cloneDeep(this.list).filter(
-        (item) => item?.meta?.isIframe,
-      );
-    },
-  },
-});
+      this.iframeList = cloneDeep(this.list).filter((item) => item?.meta?.isIframe)
+    }
+  }
+})
 
-export default useMultiTabStore;
+export default useMultiTabStore

@@ -1,35 +1,35 @@
-import { message } from "ant-design-vue";
-import { config } from "@/config";
-import { useUserStore } from "@/store";
-import jschardet from "jschardet";
-import XYHttp from "xy-http";
+import { message } from 'ant-design-vue'
+import { config } from '@/config'
+import { useUserStore } from '@/store'
+import jschardet from 'jschardet'
+import XYHttp from 'xy-http'
 
-const MSG_ERROR_KEY = Symbol("GLOBAL_ERROR");
+const MSG_ERROR_KEY = Symbol('GLOBAL_ERROR')
 
 const options = {
   enableAbortController: true,
   interceptorRequest: (request) => {
-    const userStore = useUserStore();
-    const isLogin = userStore.isLogin;
-    const token = userStore.token;
+    const userStore = useUserStore()
+    const isLogin = userStore.isLogin
+    const token = userStore.token
 
     if (isLogin) {
-      request.headers["AUTH-TOKEN"] = token;
+      request.headers['AUTH-TOKEN'] = token
     }
   },
   interceptorRequestCatch: () => {},
   interceptorResponse: (response) => {
     // 错误处理
-    const { code, msg = "Network Error" } = response.data || {};
+    const { code, msg = 'Network Error' } = response.data || {}
     if (![200].includes(code)) {
       message.error({
         content: msg,
-        key: MSG_ERROR_KEY,
-      });
+        key: MSG_ERROR_KEY
+      })
     }
   },
-  interceptorResponseCatch: () => {},
-};
+  interceptorResponseCatch: () => {}
+}
 
 /**
  * 读取文件
@@ -37,21 +37,21 @@ const options = {
 class ReadFile extends XYHttp {
   constructor() {
     super({
-      baseURL: "",
-      responseType: "blob",
+      baseURL: '',
+      responseType: 'blob',
       transformResponse: [
         async (data) => {
-          const encoding = await this._encoding(data);
+          const encoding = await this._encoding(data)
           return new Promise((resolve) => {
-            let reader = new FileReader();
-            reader.readAsText(data, encoding);
+            let reader = new FileReader()
+            reader.readAsText(data, encoding)
             reader.onload = function () {
-              resolve(reader.result);
-            };
-          });
-        },
-      ],
-    });
+              resolve(reader.result)
+            }
+          })
+        }
+      ]
+    })
   }
 
   /**
@@ -62,23 +62,23 @@ class ReadFile extends XYHttp {
    */
   _encoding(data) {
     return new Promise((resolve) => {
-      let reader = new FileReader();
-      reader.readAsBinaryString(data);
+      let reader = new FileReader()
+      reader.readAsBinaryString(data)
       reader.onload = function () {
-        resolve(jschardet.detect(reader?.result).encoding);
-      };
-    });
+        resolve(jschardet.detect(reader?.result).encoding)
+      }
+    })
   }
 }
 
 const basic = new XYHttp({
   ...options,
-  baseURL: config("http.apiBasic"),
-});
+  baseURL: config('http.apiBasic')
+})
 
-const readFile = new ReadFile();
+const readFile = new ReadFile()
 
 export default {
   basic,
-  readFile,
-};
+  readFile
+}

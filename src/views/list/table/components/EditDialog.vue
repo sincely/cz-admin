@@ -22,27 +22,27 @@
 </template>
 
 <script setup>
-import { cloneDeep } from "lodash-es";
-import apis from "@/apis";
-import { useForm, useModal } from "@/hooks";
+import { cloneDeep } from 'lodash-es'
+import apis from '@/apis'
+import { useForm, useModal } from '@/hooks'
 
-const emit = defineEmits(["ok"]);
+const emit = defineEmits(['ok'])
 
-const { modal, showModal, hideModal, showLoading, hideLoading } = useModal();
-const { formRef, formRules, formRecord, formData, resetForm } = useForm();
+const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { formRef, formRules, formRecord, formData, resetForm } = useForm()
 
 formRules.value = {
-  title: { required: true, message: "请输入标题" },
-};
+  title: { required: true, message: '请输入标题' }
+}
 
 /**
  * 新建
  */
 function handleCreate() {
   showModal({
-    type: "create",
-    title: "新建",
-  });
+    type: 'create',
+    title: '新建'
+  })
 }
 
 /**
@@ -50,11 +50,11 @@ function handleCreate() {
  */
 function handleEdit(record = {}) {
   showModal({
-    type: "edit",
-    title: "编辑",
-  });
-  formRecord.value = record;
-  formData.value = cloneDeep(record);
+    type: 'edit',
+    title: '编辑'
+  })
+  formRecord.value = record
+  formData.value = cloneDeep(record)
 }
 
 /**
@@ -65,57 +65,55 @@ function handleOk() {
     .validateFields()
     .then(async (values) => {
       try {
-        showLoading();
+        showLoading()
         const params = {
-          ...values,
-        };
-        let result = null;
-        switch (modal.value.type) {
-          case "create":
-            result = await apis.common.create(params).catch(() => {
-              throw new Error();
-            });
-            break;
-          case "edit":
-            result = await apis.common
-              .update(formRecord.value.id, params)
-              .catch(() => {
-                throw new Error();
-              });
-            break;
+          ...values
         }
-        hideLoading();
+        let result = null
+        switch (modal.value.type) {
+          case 'create':
+            result = await apis.common.create(params).catch(() => {
+              throw new Error()
+            })
+            break
+          case 'edit':
+            result = await apis.common.update(formRecord.value.id, params).catch(() => {
+              throw new Error()
+            })
+            break
+        }
+        hideLoading()
         if (200 === result?.code) {
-          hideModal();
-          emit("ok");
+          hideModal()
+          emit('ok')
         }
       } catch (error) {
-        hideLoading();
+        hideLoading()
       }
     })
     .catch(() => {
-      hideLoading();
-    });
+      hideLoading()
+    })
 }
 
 /**
  * 取消
  */
 function handleCancel() {
-  hideModal();
+  hideModal()
 }
 
 /**
  * 关闭后
  */
 function onAfterClose() {
-  resetForm();
+  resetForm()
 }
 
 defineExpose({
   handleCreate,
-  handleEdit,
-});
+  handleEdit
+})
 </script>
 
 <style lang="less" scoped></style>

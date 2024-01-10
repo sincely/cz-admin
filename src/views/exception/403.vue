@@ -8,8 +8,8 @@
 
 <script setup>
 defineOptions({
-  name: "403",
-});
+  name: '403'
+})
 </script>
 
 <style lang="less" scoped></style>

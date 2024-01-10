@@ -13,7 +13,7 @@
       :model="formData"
       :rules="formRules"
       :label-col="{
-        style: { width: '100px' },
+        style: { width: '100px' }
       }"
     >
       <a-form-item label="名称" name="title">
@@ -23,24 +23,16 @@
         <template #label>
           <span class="mr-4-1">key</span>
           <a-tooltip title="系统唯一且与内置组件名一致，否则导致缓存失效">
-            <question-circle-outlined
-              class="color-secondary"
-            ></question-circle-outlined>
+            <question-circle-outlined class="color-secondary"></question-circle-outlined>
           </a-tooltip>
         </template>
         <a-input v-model:value="formData.key"></a-input>
       </a-form-item>
       <a-form-item label="所属上级">
-        <a-tree-select
-          v-model:value="formData.parent_id"
-          tree-default-expand-all
-        ></a-tree-select>
+        <a-tree-select v-model:value="formData.parent_id" tree-default-expand-all></a-tree-select>
       </a-form-item>
       <a-form-item label="类型" name="menu_type">
-        <a-radio-group
-          v-model:value="formData.menu_type"
-          :options="menuTypeEnum.getOptions()"
-        ></a-radio-group>
+        <a-radio-group v-model:value="formData.menu_type" :options="menuTypeEnum.getOptions()"></a-radio-group>
       </a-form-item>
       <template v-if="menuTypeEnum.is('menu', formData.menu_type)">
         <a-form-item label="跳转方式" name="type">
@@ -49,7 +41,7 @@
             :options="[
               { label: '默认', value: 1 },
               { label: 'iframe', value: 2 },
-              { label: '外部链接', value: 3 },
+              { label: '外部链接', value: 3 }
             ]"
           ></a-radio-group>
         </a-form-item>
@@ -69,9 +61,7 @@
           <template #label>
             <span class="mr-4-1">菜单高亮</span>
             <a-tooltip title="子节点或详情页需要高亮的上级菜单别名">
-              <question-circle-outlined
-                class="color-secondary"
-              ></question-circle-outlined>
+              <question-circle-outlined class="color-secondary"></question-circle-outlined>
             </a-tooltip>
           </template>
           <a-input v-model:value="formData.active"></a-input>
@@ -80,9 +70,7 @@
           <template #label>
             <span class="mr-4-1">隐藏</span>
             <a-tooltip title="不显示在导航中，但依然可以访问，例如详情页">
-              <question-circle-outlined
-                class="color-secondary"
-              ></question-circle-outlined>
+              <question-circle-outlined class="color-secondary"></question-circle-outlined>
             </a-tooltip>
           </template>
           <a-switch v-model:checked="formData.is_menu"></a-switch>
@@ -93,26 +81,26 @@
 </template>
 
 <script setup>
-import { cloneDeep } from "lodash-es";
-import { QuestionCircleOutlined } from "@ant-design/icons-vue";
-import apis from "@/apis";
-import { useModal, useForm } from "@/hooks";
-import { menuTypeEnum } from "@/enums/system";
-import { config } from "@/config";
+import { cloneDeep } from 'lodash-es'
+import { QuestionCircleOutlined } from '@ant-design/icons-vue'
+import apis from '@/apis'
+import { useModal, useForm } from '@/hooks'
+import { menuTypeEnum } from '@/enums/system'
+import { config } from '@/config'
 
-const emit = defineEmits(["ok"]);
+const emit = defineEmits(['ok'])
 
-const { modal, showModal, hideModal, showLoading, hideLoading } = useModal();
-const { formRecord, formData, formRef, formRules, resetForm } = useForm();
+const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { formRecord, formData, formRef, formRules, resetForm } = useForm()
 
 /**
  * 新建
  */
 function handleCreate() {
   showModal({
-    type: "create",
-    title: "新建菜单",
-  });
+    type: 'create',
+    title: '新建菜单'
+  })
 }
 
 /**
@@ -120,11 +108,11 @@ function handleCreate() {
  */
 function handleEdit(record = {}) {
   showModal({
-    type: "edit",
-    title: "编辑菜单",
-  });
-  formData.value = cloneDeep(record);
-  formRecord.value = record;
+    type: 'edit',
+    title: '编辑菜单'
+  })
+  formData.value = cloneDeep(record)
+  formRecord.value = record
 }
 
 /**
@@ -135,56 +123,56 @@ function handleOk() {
     .validateFields()
     .then(async (values) => {
       try {
-        showLoading();
+        showLoading()
         const params = {
-          ...values,
-        };
-        let result = null;
-        switch (modal.value.type) {
-          case "create":
-            result = await apis.common.create(params).catch(() => {
-              throw new Error();
-            });
-            break;
-          case "edit":
-            result = await apis.common.update(params).catch(() => {
-              throw new Error();
-            });
-            break;
+          ...values
         }
-        hideLoading();
-        if (config("http.code.success") === result?.code) {
-          hideModal();
-          emit("ok");
+        let result = null
+        switch (modal.value.type) {
+          case 'create':
+            result = await apis.common.create(params).catch(() => {
+              throw new Error()
+            })
+            break
+          case 'edit':
+            result = await apis.common.update(params).catch(() => {
+              throw new Error()
+            })
+            break
+        }
+        hideLoading()
+        if (config('http.code.success') === result?.code) {
+          hideModal()
+          emit('ok')
         }
       } catch (error) {
-        hideLoading();
+        hideLoading()
       }
     })
     .catch(() => {
-      hideLoading();
-    });
+      hideLoading()
+    })
 }
 
 /**
  * 取消
  */
 function handleCancel() {
-  hideModal();
+  hideModal()
 }
 
 /**
  * 关闭后
  */
 function onAfterClose() {
-  resetForm();
-  hideLoading();
+  resetForm()
+  hideLoading()
 }
 
 defineExpose({
   handleCreate,
-  handleEdit,
-});
+  handleEdit
+})
 </script>
 
 <style lang="less" scoped></style>

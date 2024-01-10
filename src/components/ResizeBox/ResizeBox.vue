@@ -10,8 +10,7 @@
         :key="direction"
         :class="{
           [`x-resize-box-handle--${direction}`]: true,
-          'x-resize-box-handle--active':
-            state.moving && directionEnum.is(direction, state.direction),
+          'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction)
         }"
         @mousedown="(e) => onMoveStart(direction, e)"
       ></div>
@@ -20,12 +19,12 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref } from "vue";
-import { directionEnum } from "./config";
+import { computed, reactive, ref } from 'vue'
+import { directionEnum } from './config'
 
 defineOptions({
-  name: "XResizeBox",
-});
+  name: 'XResizeBox'
+})
 /**
  * @property {number} width 宽
  * @property {number} height 高
@@ -39,50 +38,44 @@ const props = defineProps({
   height: Number,
   minWidth: {
     type: Number,
-    default: 100,
+    default: 100
   },
   minHeight: {
     type: Number,
-    default: 100,
+    default: 100
   },
   maxWidth: Number,
   maxHeight: Number,
   directions: {
     type: Array,
-    default: () => ["right"],
+    default: () => ['right']
   },
   disabled: {
     type: Boolean,
-    default: false,
-  },
-});
+    default: false
+  }
+})
 
-const emit = defineEmits([
-  "movingStart",
-  "moving",
-  "movingEnd",
-  "update:width",
-  "update:height",
-]);
+const emit = defineEmits(['movingStart', 'moving', 'movingEnd', 'update:width', 'update:height'])
 
-const resizeBoxRef = ref();
+const resizeBoxRef = ref()
 
 const state = reactive({
   moving: false,
-  direction: "",
+  direction: '',
   startPageX: 0,
   startPageY: 0,
   startWidth: 0,
   startHeight: 0,
   currentWidth: props.width || props.minWidth,
-  currentHeight: props.height || props.minHeight,
-});
+  currentHeight: props.height || props.minHeight
+})
 
 const styleComputed = computed(() => ({
   width: `${state.currentWidth}px`,
   height: `${state.currentHeight}px`,
-  maxWidth: "100%",
-}));
+  maxWidth: '100%'
+}))
 
 /**
  * 拖动开始
@@ -90,76 +83,74 @@ const styleComputed = computed(() => ({
  * @param {*} e
  */
 function onMoveStart(direction, e) {
-  state.moving = true;
-  state.direction = direction;
-  state.startPageX = e.pageX;
-  state.startPageY = e.pageY;
-  state.startWidth = resizeBoxRef.value.offsetWidth;
-  state.startHeight = resizeBoxRef.value.offsetHeight;
-  document.body.style.cursor = directionEnum.is(["left", "right"], direction)
-    ? "col-resize"
-    : "row-resize";
+  state.moving = true
+  state.direction = direction
+  state.startPageX = e.pageX
+  state.startPageY = e.pageY
+  state.startWidth = resizeBoxRef.value.offsetWidth
+  state.startHeight = resizeBoxRef.value.offsetHeight
+  document.body.style.cursor = directionEnum.is(['left', 'right'], direction) ? 'col-resize' : 'row-resize'
 
-  window.addEventListener("mousemove", onMoving);
-  window.addEventListener("mouseup", onMoveEnd);
-  window.addEventListener("contextmenu", onMoveEnd);
+  window.addEventListener('mousemove', onMoving)
+  window.addEventListener('mouseup', onMoveEnd)
+  window.addEventListener('contextmenu', onMoveEnd)
 
-  emit("movingStart", e);
+  emit('movingStart', e)
 }
 
 /**
  * 拖动中
  */
 function onMoving(e) {
-  const { direction, startPageX, startPageY, startWidth, startHeight } = state;
+  const { direction, startPageX, startPageY, startWidth, startHeight } = state
 
   // 往右移动的距离
-  const offsetX = e.pageX - startPageX;
+  const offsetX = e.pageX - startPageX
   // 往下移动的距离
-  const offsetY = e.pageY - startPageY;
+  const offsetY = e.pageY - startPageY
 
-  let width;
-  let height;
+  let width
+  let height
 
   switch (direction) {
-    case directionEnum.getValue("top"): // 上
-    case directionEnum.getValue("bottom"): // 下
-      height = startHeight + offsetY;
-      state.currentHeight = height;
+    case directionEnum.getValue('top'): // 上
+    case directionEnum.getValue('bottom'): // 下
+      height = startHeight + offsetY
+      state.currentHeight = height
       if (height < props.minHeight) {
-        state.currentHeight = props.minHeight;
+        state.currentHeight = props.minHeight
       }
       if (height > props.maxHeight && props.maxHeight > props.minHeight) {
-        state.currentHeight = props.maxHeight;
+        state.currentHeight = props.maxHeight
       }
-      emit("update:height", state.currentHeight);
-      break;
-    case directionEnum.getValue("left"): // 左
-    case directionEnum.getValue("right"): // 右
-      width = startWidth + offsetX;
-      state.currentWidth = width;
+      emit('update:height', state.currentHeight)
+      break
+    case directionEnum.getValue('left'): // 左
+    case directionEnum.getValue('right'): // 右
+      width = startWidth + offsetX
+      state.currentWidth = width
       if (width < props.minWidth) {
-        state.currentWidth = props.minWidth;
+        state.currentWidth = props.minWidth
       }
       if (width > props.maxWidth && props.maxWidth > props.minWidth) {
-        state.currentWidth = props.maxWidth;
+        state.currentWidth = props.maxWidth
       }
-      emit("update:width", state.currentWidth);
-      break;
+      emit('update:width', state.currentWidth)
+      break
   }
-  emit("moving", { width: state.currentWidth, height: state.currentHeight });
+  emit('moving', { width: state.currentWidth, height: state.currentHeight })
 }
 
 /**
  * 拖动结束
  */
 function onMoveEnd(e) {
-  state.moving = false;
-  document.body.style.cursor = "";
-  window.removeEventListener("mousemove", onMoving);
-  window.removeEventListener("mouseup", onMoveEnd);
-  window.removeEventListener("contextmenu", onMoveEnd);
-  emit("movingEnd", e);
+  state.moving = false
+  document.body.style.cursor = ''
+  window.removeEventListener('mousemove', onMoving)
+  window.removeEventListener('mouseup', onMoveEnd)
+  window.removeEventListener('contextmenu', onMoveEnd)
+  emit('movingEnd', e)
 }
 </script>
 
@@ -181,7 +172,7 @@ function onMoveEnd(e) {
 
     &::after {
       position: absolute;
-      content: "";
+      content: '';
       transition: all 0.2s;
     }
 

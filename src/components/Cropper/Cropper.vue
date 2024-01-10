@@ -11,13 +11,13 @@
 </template>
 
 <script setup>
-import Cropper from "cropperjs";
-import "cropperjs/dist/cropper.min.css";
-import { onMounted, ref, watch } from "vue";
+import Cropper from 'cropperjs'
+import 'cropperjs/dist/cropper.min.css'
+import { onMounted, ref, watch } from 'vue'
 
 defineOptions({
-  name: "XCropper",
-});
+  name: 'XCropper'
+})
 
 /**
  * 图片裁剪
@@ -28,32 +28,32 @@ defineOptions({
 const props = defineProps({
   src: {
     type: String,
-    default: "",
+    default: ''
   },
   aspectRatio: {
     type: Number,
-    default: 0,
+    default: 0
   },
   quality: {
     type: Number,
-    default: 1,
-  },
-});
+    default: 1
+  }
+})
 
-const emit = defineEmits(["init"]);
+const emit = defineEmits(['init'])
 
-const imgRef = ref();
-const previewRef = ref();
-const cropper = ref(null);
+const imgRef = ref()
+const previewRef = ref()
+const cropper = ref(null)
 
 watch(
   () => props.aspectRatio,
-  (val) => cropper.value.setAspectRatio(val),
-);
+  (val) => cropper.value.setAspectRatio(val)
+)
 
 onMounted(() => {
-  init();
-});
+  init()
+})
 
 /**
  * 初始化
@@ -61,14 +61,14 @@ onMounted(() => {
 function init() {
   cropper.value = new Cropper(imgRef.value, {
     viewMode: 2,
-    dragMode: "move",
+    dragMode: 'move',
     responsive: false,
     aspectRatio: props.aspectRatio,
     preview: previewRef.value,
     ready: () => {
-      emit("init", cropper.value);
-    },
-  });
+      emit('init', cropper.value)
+    }
+  })
 }
 
 /**
@@ -76,13 +76,11 @@ function init() {
  * @param type
  * @return {Promise<string>}
  */
-function getBase64(type = "image/jpeg") {
+function getBase64(type = 'image/jpeg') {
   return new Promise((resolve) => {
-    const base64 = cropper.value
-      .getCroppedCanvas()
-      .toDataURL(type, props.quality);
-    resolve(base64);
-  });
+    const base64 = cropper.value.getCroppedCanvas().toDataURL(type, props.quality)
+    resolve(base64)
+  })
 }
 
 /**
@@ -90,16 +88,16 @@ function getBase64(type = "image/jpeg") {
  * @param type
  * @return {Promise<void>}
  */
-function getBlob(type = "image/jpeg") {
+function getBlob(type = 'image/jpeg') {
   return new Promise((resolve) => {
     cropper.value.getCroppedCanvas().toBlob(
       (blob) => {
-        resolve(blob);
+        resolve(blob)
       },
       type,
-      props.quality,
-    );
-  });
+      props.quality
+    )
+  })
 }
 
 /**
@@ -108,24 +106,24 @@ function getBlob(type = "image/jpeg") {
  * @param type
  * @return {Promise<void>}
  */
-function getFile(fileName, type = "image/jpeg") {
+function getFile(fileName, type = 'image/jpeg') {
   return new Promise((resolve) => {
     cropper.value.getCroppedCanvas().toBlob(
       (blob) => {
-        const file = new File([blob], fileName, { type });
-        resolve(file);
+        const file = new File([blob], fileName, { type })
+        resolve(file)
       },
       type,
-      props.quality,
-    );
-  });
+      props.quality
+    )
+  })
 }
 
 defineExpose({
   getBase64,
   getBlob,
-  getFile,
-});
+  getFile
+})
 </script>
 
 <style lang="less" scoped>

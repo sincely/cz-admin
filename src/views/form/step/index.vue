@@ -11,41 +11,37 @@
     <div class="content">
       <step1 v-if="currentTab === 0" @next="handleNext" />
       <step2 v-if="currentTab === 1" @next="handleNext" @prev="handlePrev" />
-      <step3
-        v-if="currentTab === 2"
-        @prev="handlePrev"
-        @finish="handleFinish"
-      />
+      <step3 v-if="currentTab === 2" @prev="handlePrev" @finish="handleFinish" />
     </div>
   </a-card>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import Step1 from "./components/Step1.vue";
-import Step2 from "./components/Step2.vue";
-import Step3 from "./components/Step3.vue";
+import { ref } from 'vue'
+import Step1 from './components/Step1.vue'
+import Step2 from './components/Step2.vue'
+import Step3 from './components/Step3.vue'
 
 defineOptions({
-  name: "formStep",
-});
+  name: 'formStep'
+})
 
-const currentTab = ref(0);
+const currentTab = ref(0)
 
 function handleNext() {
   if (currentTab.value < 2) {
-    currentTab.value += 1;
+    currentTab.value += 1
   }
 }
 
 function handlePrev() {
   if (currentTab.value > 0) {
-    currentTab.value -= 1;
+    currentTab.value -= 1
   }
 }
 
 function handleFinish() {
-  currentTab.value = 0;
+  currentTab.value = 0
 }
 </script>
 

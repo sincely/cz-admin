@@ -21,8 +21,7 @@
               class="mr-8-1 display-inline-flex justify-content-center"
               :size="24"
               :src="userInfo?.avatar"
-            >
-            </a-avatar>
+            ></a-avatar>
             <span>{{ userInfo?.name }}</span>
           </action-button>
           <a-spin />
@@ -41,79 +40,79 @@
 </template>
 
 <script setup>
-import { Modal } from "ant-design-vue";
-import { storeToRefs } from "pinia";
-import { computed, useSlots } from "vue";
-import { useRouter } from "vue-router";
-import { LoginOutlined, SettingOutlined } from "@ant-design/icons-vue";
-import { useAppStore, useUserStore } from "@/store";
-import ActionButton from "./ActionButton.vue";
-import { theme as antTheme } from "ant-design-vue";
+import { Modal } from 'ant-design-vue'
+import { storeToRefs } from 'pinia'
+import { computed, useSlots } from 'vue'
+import { useRouter } from 'vue-router'
+import { LoginOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { useAppStore, useUserStore } from '@/store'
+import ActionButton from './ActionButton.vue'
+import { theme as antTheme } from 'ant-design-vue'
 
 defineOptions({
-  name: "BasicHeader",
-});
+  name: 'BasicHeader'
+})
 
 /**
  * @property {string} theme 主题【light=亮色，dark=暗色】
  */
 const props = defineProps({
   theme: {
-    type: String,
-  },
-});
-const emit = defineEmits(["config"]);
+    type: String
+  }
+})
+const emit = defineEmits(['config'])
 
-const slots = useSlots(["default", "left", "right"]);
+const slots = useSlots(['default', 'left', 'right'])
 
-const userStore = useUserStore();
-const appStore = useAppStore();
-const router = useRouter();
+const userStore = useUserStore()
+const appStore = useAppStore()
+const router = useRouter()
 
-const { config } = storeToRefs(appStore);
-const { userInfo } = storeToRefs(userStore);
-const { token } = antTheme.useToken();
+const { config } = storeToRefs(appStore)
+const { userInfo } = storeToRefs(userStore)
+const { token } = antTheme.useToken()
 
 const cpClassNames = computed(() => ({
-  [`basic-header--${props.theme}`]: true,
-}));
+  [`basic-header--${props.theme}`]: true
+}))
 const cpStyles = computed(() => {
   const styles = {
-    zIndex: config.value.layout === "topBottom" ? 120 : 110,
-  };
-
-  if (config.value.headerTheme === "light") {
-    styles.boxShadow = `0 0 0 1px ${token.value.colorSplit}`;
+    zIndex: config.value.layout === 'topBottom' ? 120 : 110
   }
 
-  return styles;
-});
-const cpShowLeftSlot = computed(() => !!slots.left);
-const cpShowDefaultSlot = computed(() => !!slots.default);
+  if (config.value.headerTheme === 'light') {
+    styles.boxShadow = `0 0 0 1px ${token.value.colorSplit}`
+  }
+
+  return styles
+})
+const cpShowLeftSlot = computed(() => !!slots.left)
+const cpShowDefaultSlot = computed(() => !!slots.default)
 
 /**
  * 退出登录
  */
 function handleLogout() {
   Modal.confirm({
-    title: "注销登录？",
-    okText: "确认",
-    cancelText: "取消",
+    title: '注销登录？',
+    okText: '确认',
+    cancelText: '取消',
     onOk: () => {
       userStore.logout().then(() => {
         router.push({
-          name: "login",
-        });
-      });
-    },
-  });
+          name: 'login'
+        })
+      })
+    }
+  })
 }
 
 /**
  * 配置
  */
 function handleConfig() {
-  emit("config");
+  emit('config')
 }
 </script>
 

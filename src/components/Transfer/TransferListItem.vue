@@ -1,11 +1,7 @@
 <template>
   <div class="x-transfer-list-item" @click="handleClick">
     <template v-if="cpShowCheckbox">
-      <a-checkbox
-        class="x-transfer-list-item__checkbox"
-        :disabled="cpDisabled"
-        :checked="curChecked"
-      ></a-checkbox>
+      <a-checkbox class="x-transfer-list-item__checkbox" :disabled="cpDisabled" :checked="curChecked"></a-checkbox>
     </template>
     <div class="x-transfer-list-item__content">
       <slot>
@@ -33,77 +29,75 @@
 </template>
 
 <script setup>
-import { theme } from "ant-design-vue";
-import { ref, watch, computed } from "vue";
-import { useTransferInject } from "./context";
-import { CloseOutlined, RightOutlined } from "@ant-design/icons-vue";
+import { theme } from 'ant-design-vue'
+import { ref, watch, computed } from 'vue'
+import { useTransferInject } from './context'
+import { CloseOutlined, RightOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps({
   record: {
     type: Object,
-    default: () => ({}),
+    default: () => ({})
   },
   direction: {
-    type: String,
-  },
-});
+    type: String
+  }
+})
 
-const { token } = theme.useToken();
-const { modelValue, fieldNames, onCheck, onNext } = useTransferInject();
+const { token } = theme.useToken()
+const { modelValue, fieldNames, onCheck, onNext } = useTransferInject()
 
-const curChecked = ref(false);
+const curChecked = ref(false)
 
-const cpIsLeft = computed(() => props.direction === "left");
-const cpShowCheckbox = computed(() => cpIsLeft.value);
-const cpShowRemove = computed(() => !cpIsLeft.value);
-const cpShowNext = computed(
-  () => cpIsLeft.value && props.record.children?.length,
-);
-const cpDisabled = computed(() => props.record.disabled);
+const cpIsLeft = computed(() => props.direction === 'left')
+const cpShowCheckbox = computed(() => cpIsLeft.value)
+const cpShowRemove = computed(() => !cpIsLeft.value)
+const cpShowNext = computed(() => cpIsLeft.value && props.record.children?.length)
+const cpDisabled = computed(() => props.record.disabled)
 
 watch(
   () => modelValue.value,
   (val) => {
-    const checked = val.includes(props.record?.[fieldNames.value?.value]);
-    if (curChecked.value === checked) return;
-    curChecked.value = checked;
+    const checked = val.includes(props.record?.[fieldNames.value?.value])
+    if (curChecked.value === checked) return
+    curChecked.value = checked
   },
-  { immediate: true, deep: true },
-);
+  { immediate: true, deep: true }
+)
 
 /**
  * 点击
  */
 function handleClick() {
-  if (!cpIsLeft.value) return;
+  if (!cpIsLeft.value) return
 
-  if (cpDisabled.value) return;
+  if (cpDisabled.value) return
 
-  onToggle();
+  onToggle()
 }
 
 /**
  * 移除
  */
 function handleRemove() {
-  onToggle();
+  onToggle()
 }
 
 /**
  * 下级
  */
 function handleNext() {
-  onNext(props.record);
+  onNext(props.record)
 }
 
 /**
  * 切换选中
  */
 function onToggle() {
-  curChecked.value = !curChecked.value;
+  curChecked.value = !curChecked.value
   onCheck(props.record?.[fieldNames.value?.value], {
-    checked: curChecked.value,
-  });
+    checked: curChecked.value
+  })
 }
 </script>
 
@@ -117,7 +111,7 @@ function onToggle() {
   cursor: pointer;
 
   &:hover {
-    background: v-bind("token.controlItemBgHover");
+    background: v-bind('token.controlItemBgHover');
   }
 
   &__checkbox {

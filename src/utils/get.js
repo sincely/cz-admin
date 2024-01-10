@@ -1,4 +1,4 @@
-import { pick, cloneDeep, keys } from "lodash-es";
+import { pick, cloneDeep, keys } from 'lodash-es'
 
 /**
  * 获取表单数据
@@ -6,20 +6,18 @@ import { pick, cloneDeep, keys } from "lodash-es";
  * @param {object} record
  * @param {object} formData
  */
-export const getFormData = (record = {}, formData = {}) =>
-  pick(cloneDeep(record), keys(formData) || []) || {};
+export const getFormData = (record = {}, formData = {}) => pick(cloneDeep(record), keys(formData) || []) || {}
 
 /**
  * 获取变量类型
  * @param {*} value
  * @returns
  */
-export const getType = (value) =>
-  Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+export const getType = (value) => Object.prototype.toString.call(value).slice(8, -1).toLowerCase()
 
 /**
  * 获取文件后缀
  * @param {*} filename
  * @returns
  */
-export const getSuffix = (filename) => filename.split(".").pop().toLowerCase();
+export const getSuffix = (filename) => filename.split('.').pop().toLowerCase()

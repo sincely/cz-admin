@@ -4,10 +4,10 @@
 
 <script setup>
 defineOptions({
-  name: "ProjectList",
-});
+  name: 'ProjectList'
+})
 
-const listData = [];
+const listData = []
 </script>
 
 <style lang="less" scoped></style>
