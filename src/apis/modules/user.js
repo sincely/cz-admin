@@ -1,8 +1,27 @@
-import request from '@/utils/request'
+
+import request from '@/utils/http'
 
 // 登录
-export const login = (params) => request.basic.post('/user/login', params)
+export function login(params) {
+  return request({
+    url: '/user/login',
+    method: 'post',
+    params
+  })
+}
+
 // 获取用户详情
-export const getUserDetail = () => request.basic.get('/user/detail')
+export function getUserDetail() {
+  return request({
+    url: '/user/detail',
+    method: 'get'
+  })
+}
+
 // 获取权限列表
-export const getAuthList = () => request.basic.get('/user/auth')
+export function getAuthList() {
+  return request({
+    url: '/user/auth',
+    method: 'get'
+  })
+}

@@ -1,12 +1,41 @@
-import request from '@/utils/request'
-
+import request from '@/utils/http'
 // 获取角色列表
-export const getUserRoleList = (params) => request.basic.get('/system/getUserRoleList', params)
+export function getUserRoleList(params) {
+  return request({
+    url: '/system/getUserRoleList',
+    method: 'get',
+    params
+  })
+}
 // 获取用户分页列表
-export const getUserPageList = (params) => request.basic.get('/system/getUserPageList', params)
+export function getUserPageList(params) {
+  return request({
+    url: '/system/getUserPageList',
+    method: 'get',
+    params
+  })
+}
 // 获取菜单列表
-export const getMenuList = (params) => request.basic.get('/system/getMenuList', params)
+export function getMenuList(params) {
+  return request({
+    url: '/system/getMenuList',
+    method: 'get',
+    params
+  })
+}
 // 获取新版菜单列表
-export const getNewMenuList = (params) => request.basic.get('/system/getNewMenuList', params)
+export function getNewMenuList(params) {
+  return request({
+    url: '/system/getNewMenuList',
+    method: 'get',
+    params
+  })
+}
 // 获取字典分类列表
-export const getDictTypeList = (params) => request.basic.get('/system/getDictTypeList', params)
+export function getDictTypeList(params) {
+  return request({
+    url: '/system/getDictTypeList',
+    method: 'get',
+    params
+  })
+}

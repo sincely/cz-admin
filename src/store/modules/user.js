@@ -22,24 +22,25 @@ const useUserStore = defineStore('user', {
      * @returns {Promise<unknown>}
      */
     login(params) {
-      return new Promise((resolve, reject) => {
-        ;(async () => {
-          try {
-            const result = await apis.user.login(params).catch(() => {
-              throw new Error()
-            })
-            const { code, data } = result || {}
-            if (config('http.code.success') === code) {
-              const { token } = data
-              this.token = data.token
-              storage.local.setItem(config('storage.token'), token)
-              await this.getUserInfo()
-            }
-            resolve(result)
-          } catch (error) {
-            reject()
+      return new Promise(async (resolve, reject) => {
+        try {
+          // 真实调试请放开
+          // const result = await apis.user.login(params).catch(() => {
+          //   throw new Error()
+          // })
+          // 假数据
+          const result = { code: 200, msg: 'success', data: { token: '440000201704158168' } }
+          const { code, data } = result || {}
+          if (config('http.code.success') === code) {
+            const { token } = data
+            this.token = data.token
+            storage.local.setItem(config('storage.token'), token)
+            await this.getUserInfo()
           }
-        })()
+          resolve(result)
+        } catch (error) {
+          reject()
+        }
       })
     },
     /**
@@ -63,24 +64,35 @@ const useUserStore = defineStore('user', {
      * 获取用户详情
      */
     getUserInfo() {
-      return new Promise((resolve, reject) => {
-        ;(async () => {
-          try {
-            const result = await apis.user.getUserDetail().catch(() => {
-              throw new Error()
-            })
-            const { code, data } = result || {}
-            if (config('http.code.success') === code) {
-              this.userInfo = data
-              storage.local.setItem(config('storage.userInfo'), this.userInfo)
-              resolve(result)
-            } else {
-              throw new Error()
+      return new Promise(async (resolve, reject) => {
+        try {
+          // const result = await apis.user.getUserDetail().catch(() => {
+          //   throw new Error()
+          // })
+          const result = {
+            code: 200,
+            msg: 'success',
+            data: {
+              user_name: 'f.txjjfyimko@lkgswrz.gu',
+              name: '赵秀兰',
+              id: '510000201208249536',
+              avatar:
+                'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%2260%22%20height%3D%22100%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23aff279%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%2250%22%20font-size%3D%2220%22%20alignment-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3E%E6%9D%A8%3C%2Ftext%3E%3C%2Fsvg%3E'
             }
-          } catch (error) {
-            reject()
           }
-        })()
+
+          console.log('用户信息', result)
+          const { code, data } = result || {}
+          if (config('http.code.success') === code) {
+            this.userInfo = data
+            storage.local.setItem(config('storage.userInfo'), this.userInfo)
+            resolve(result)
+          } else {
+            throw new Error()
+          }
+        } catch (error) {
+          reject()
+        }
       })
     }
   }

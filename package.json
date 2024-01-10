@@ -3,11 +3,9 @@
   "private": true,
   "version": "2.6.1",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build:uat": "vite build --mode uat",
     "build:demo": "vite build --mode demo",
-    "preview": "npm run build:prod && vite preview",
-    "report": "vite build --mode prod",
     "lint": "eslint --config .eslintrc.cjs --ext .js,.vue --no-cache --fix src",
     "prettier:fix": "prettier --write \"src/**/*.{js,vue,less,css,json,html}\""
   },
@@ -22,7 +20,7 @@
     "@ant-design/icons-vue": "7.0.1",
     "@icon-park/vue-next": "1.4.2",
     "@tinymce/tinymce-vue": "5.1.1",
-    "ant-design-vue": "4.0.8",
+    "ant-design-vue": "4.1.0",
     "axios": "1.6.2",
     "cropperjs": "1.6.1",
     "dayjs": "1.11.10",
