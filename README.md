@@ -35,7 +35,7 @@
 ## 使用
 1. 克隆此仓库
 ```bash
-git clone https://github.com/LIjiAngChen8/arco-admin
+git clone https://github.com/sincely/cz-admin.git
 ```
 2. 安装依赖
 ```bash
