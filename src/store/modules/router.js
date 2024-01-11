@@ -271,12 +271,6 @@ const useRouterStore = defineStore('router', {
                     }
                   },
                   {
-                    name: 'editor',
-                    meta: {
-                      title: '编辑器'
-                    }
-                  },
-                  {
                     name: 'filterForm',
                     meta: {
                       title: '筛选表单'

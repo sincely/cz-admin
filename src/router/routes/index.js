@@ -7,5 +7,5 @@ Object.keys(modules).forEach((key) => {
     routes.push(...modules[key].default)
   }
 })
-
+console.log('静态routes', routes)
 export default routes

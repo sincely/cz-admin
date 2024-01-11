@@ -1,8 +1,8 @@
 import { createPinia } from 'pinia'
-export { default as useAppStore } from './modules/app'
-export { default as useMultiTabStore } from './modules/multiTab'
-export { default as useRouterStore } from './modules/router'
-export { default as useUserStore } from './modules/user'
+export { default as useAppStore } from './modules/app' // app store
+export { default as useMultiTabStore } from './modules/multiTab' // 多标签页 store
+export { default as useRouterStore } from './modules/router' // 路由 store
+export { default as useUserStore } from './modules/user' // 用户 store
 
 const store = createPinia()
 

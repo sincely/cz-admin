@@ -75,7 +75,6 @@ module.exports = defineConfig({
     'vue/require-default-prop': 'off'
   },
   globals: {
-    __APP_INFO__: true,
-    tinymce: true
+    __APP_INFO__: true
   }
 })

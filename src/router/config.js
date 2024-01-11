@@ -1,7 +1,7 @@
-import * as layouts from '@/layouts'
+import { UserLayout } from '@/layouts'
 
 /**
- * 白名单
+ * 白名单页面
  * @type {string[]}
  */
 export const whiteList = ['login', 'logout', '404']
@@ -32,7 +32,7 @@ export const constantRoutes = [
   },
   {
     path: '/base',
-    component: layouts.UserLayout,
+    component: UserLayout,
     children: [
       {
         path: '/login',

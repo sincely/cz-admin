@@ -10,7 +10,7 @@ import 'dayjs/locale/zh-cn'
 import { useConfigProvider } from '@/hooks'
 
 dayjs.locale('zh-cn')
-
+// 全局注入
 const { configProviderAttrs } = useConfigProvider()
 </script>
 

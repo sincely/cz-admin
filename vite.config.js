@@ -1,18 +1,14 @@
 import { defineConfig, loadEnv } from 'vite'
 import path from 'path'
 import pkg from './package.json'
-
-import useCompressPlugin from './config/useCompressPlugin'
-import useProgressPlugin from './config/useProgressPlugin'
-import useVuePlugin from './config/useVuePlugin'
-import useServer from './config/useServer'
-
-export default ({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
+import createVitePlugins from './build/plugins'
+import { proxyServer } from './build/config/proxy'
+export default ({ mode, command }) => {
+  const viteEnv = loadEnv(mode, process.cwd(), '')
   return defineConfig({
-    base: env.VITE_PUBLIC_PATH,
+    base: viteEnv.VITE_PUBLIC_PATH,
     build: {
-      outDir: env.VITE_OUT_DIR,
+      outDir: viteEnv.VITE_OUT_DIR,
       target: 'es2015',
       cssTarget: 'chrome80',
       brotliSize: false,
@@ -20,7 +16,6 @@ export default ({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            tinymce: ['tinymce'],
             echarts: ['echarts'],
             'lodash-es': ['lodash-es'],
             'ant-design-vue': ['ant-design-vue'],
@@ -51,8 +46,14 @@ export default ({ mode }) => {
         version: pkg.version
       })
     },
-    plugins: [useVuePlugin(), useProgressPlugin(), useCompressPlugin()],
-    server: useServer(), // 开发服务器配置
+    plugins: createVitePlugins(viteEnv, command === 'build'),
+    server: {
+      https: false, // 是否开启https
+      strictPort: false, // 设为false时，若端口已被占用则会尝试下一个可用端口,而不是直接退出
+      open: true, // 在服务器启动时自动在浏览器中打开应用程序
+      port: 3200, // 指定服务器端口
+      proxy: proxyServer // 设置代理
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src')
