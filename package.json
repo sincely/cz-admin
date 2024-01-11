@@ -8,19 +8,17 @@
     "build:demo": "vite build --mode demo",
     "eslint:fix": "eslint \"src/**/*.{vue,js}\" --fix",
     "lint": "eslint --config .eslintrc.cjs --ext .js,.vue --no-cache --fix src",
-    "prettier:fix": "prettier --write \"src/**/*.{js,vue,less,css,json,html}\""
-  },
-  "lint-staged": {
-    "*.{js,vue}": [
-      "npm run prettier",
-      "npm run lint"
-    ]
+    "prettier:fix": "prettier --write \"src/**/*.{js,vue,less,css,json,html}\"",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
+    "@plugin-web-update-notification/vite": "1.6.6",
     "@ant-design/colors": "7.0.0",
     "@ant-design/icons-vue": "7.0.1",
     "@icon-park/vue-next": "1.4.2",
     "@tinymce/tinymce-vue": "5.1.1",
+    "autoprefixer": "10.4.14",
     "ant-design-vue": "4.1.0",
     "axios": "1.6.2",
     "cropperjs": "1.6.1",
@@ -31,14 +29,14 @@
     "jschardet": "3.0.0",
     "json-bigint": "1.0.0",
     "lodash-es": "4.17.21",
-    "nanoid": "5.0.4",
+    "nanoid": "4.0.2",
     "nprogress": "0.2.0",
     "overlayscrollbars": "2.4.5",
     "overlayscrollbars-vue": "0.5.6",
     "pinia": "2.1.7",
     "qrcode": "1.5.3",
     "sortablejs": "1.15.1",
-    "vue": "3.4.7",
+    "vue": "3.3.9",
     "vue-router": "4.2.5",
     "qs": "6.10.1",
     "xy-enum": "1.4.4",
@@ -54,9 +52,10 @@
     "vite-plugin-restart": "0.4.0"
   },
   "devDependencies": {
-    "@plugin-web-update-notification/vite": "1.6.6",
+    "@commitlint/cli": "17.8.1",
+    "@commitlint/config-conventional": "17.8.1",
     "@vitejs/plugin-legacy": "4.1.1",
-    "@vitejs/plugin-vue": "5.0.2",
+    "@vitejs/plugin-vue": "4.5.2",
     "eslint": "8.54.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-define-config": "2.0.0",
