@@ -37,10 +37,6 @@ defineProps({
   color: @color-primary;
   cursor: pointer;
 
-  &:hover {
-    background: color(~`colorPalette('@{color-primary}', 1) `);
-  }
-
   &-wrap {
     &:last-child {
       :deep(.ant-divider) {
