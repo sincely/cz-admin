@@ -64,7 +64,7 @@ import apis from '@/apis'
 import usePagination from '@/hooks/usePagination'
 
 defineOptions({
-  name: 'welcome'
+  name: 'Welcome'
 })
 
 const userStore = useUserStore()

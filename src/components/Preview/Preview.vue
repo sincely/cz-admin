@@ -187,7 +187,9 @@ function handleClose() {
  * 上一个
  */
 function handlePrev() {
-  if (cpPrevBtnDisabled.value) return
+  if (cpPrevBtnDisabled.value) {
+    return
+  }
   cur.value -= 1
 }
 
@@ -195,7 +197,9 @@ function handlePrev() {
  * 下一个
  */
 function handleNext() {
-  if (cpNextBtnDisabled.value) return
+  if (cpNextBtnDisabled.value) {
+    return
+  }
   cur.value += 1
 }
 
@@ -210,8 +214,12 @@ function handleZoomIn() {
  * 缩小
  */
 function handleZoomOut() {
-  if (cpZoomOutBtnDisabled.value) return
-  if (scale.value <= 1) return
+  if (cpZoomOutBtnDisabled.value) {
+    return
+  }
+  if (scale.value <= 1) {
+    return
+  }
   scale.value -= 1
 }
 

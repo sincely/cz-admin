@@ -1,13 +1,13 @@
 <template>
-  <div class="x-resize-box" ref="resizeBoxRef" :style="styleComputed">
+  <div ref="resizeBoxRef" class="x-resize-box" :style="styleComputed">
     <div class="x-resize-box-body">
       <slot></slot>
     </div>
     <template v-if="!disabled">
       <div
         v-for="direction in directions"
-        class="x-resize-box-handle"
         :key="direction"
+        class="x-resize-box-handle"
         :class="{
           [`x-resize-box-handle--${direction}`]: true,
           'x-resize-box-handle--active': state.moving && directionEnum.is(direction, state.direction)

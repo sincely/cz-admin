@@ -72,7 +72,7 @@ import EditDialog from './components/EditDialog.vue'
 import Department from './components/Department.vue'
 
 defineOptions({
-  name: 'systemUser'
+  name: 'SystemUser'
 })
 
 const columns = [

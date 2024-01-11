@@ -74,7 +74,7 @@ import { usePagination } from '@/hooks'
 import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
-  name: 'listSearchProjects'
+  name: 'ListSearchProjects'
 })
 
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =

@@ -36,7 +36,7 @@
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: 'resultFail'
+  name: 'ResultFail'
 })
 </script>
 

@@ -63,7 +63,7 @@ import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({
-  name: 'systemMenu'
+  name: 'SystemMenu'
 })
 
 const columns = ref([

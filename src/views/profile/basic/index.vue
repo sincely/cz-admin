@@ -44,7 +44,7 @@
 import { ref } from 'vue'
 
 defineOptions({
-  name: 'profileBasic'
+  name: 'ProfileBasic'
 })
 
 const goodsColumns = [

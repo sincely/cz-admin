@@ -3,7 +3,7 @@
     <a-tabs>
       <!-- 账号登录 -->
       <a-tab-pane key="account" tab="账号登录">
-        <a-form :model="formData" :rules="formRules" ref="formRef">
+        <a-form ref="formRef" :model="formData" :rules="formRules">
           <a-form-item name="username">
             <a-input v-model:value="formData.username" size="large">
               <template #prefix>
@@ -25,7 +25,7 @@
       </a-tab-pane>
       <!-- 手机号登录 -->
       <a-tab-pane key="phone" tab="手机号登录">
-        <a-form :model="formData" :rules="formRules" ref="formRef">
+        <a-form ref="formRef" :model="formData" :rules="formRules">
           <a-form-item name="username">
             <a-input v-model:value="formData.username" size="large" placeholder="手机号码">
               <template #prefix>
@@ -70,7 +70,7 @@ import { useAppStore, useRouterStore, useUserStore } from '@/store'
 import { timeFix } from '@/utils'
 
 defineOptions({
-  name: 'login'
+  name: 'Login'
 })
 
 const { formData, formRef, formRules } = useForm()
@@ -146,7 +146,9 @@ function goIndex() {
     location.href = redirect.value
   } else {
     const indexRoute = getFirstValidRoute()
-    if (!indexRoute) return
+    if (!indexRoute) {
+      return
+    }
     router.push(indexRoute)
   }
   notification.success({

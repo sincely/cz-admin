@@ -22,7 +22,7 @@ import ProjectList from './components/ProjectList.vue'
 import UserInfoCard from './components/UserInfoCard.vue'
 
 defineOptions({
-  name: 'userCenter'
+  name: 'UserCenter'
 })
 
 const tabList = [

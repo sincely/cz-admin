@@ -29,7 +29,7 @@
     <a-divider></a-divider>
     <div class="mb-4-3">团队</div>
     <a-row :gutter="[8, 24]">
-      <a-col v-for="item in teamList" class="display-flex align-items-center" :lg="24" :xl="12" :key="item.id">
+      <a-col v-for="item in teamList" :key="item.id" class="display-flex align-items-center" :lg="24" :xl="12">
         <a-avatar class="mr-4-3" :style="{ backgroundColor: item.color, fontSize: '12px' }" :size="24">
           {{ item.name.slice(0, 1) }}
         </a-avatar>

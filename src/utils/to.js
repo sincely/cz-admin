@@ -6,7 +6,9 @@
  */
 export const toList = (data = [], fieldNames = { children: 'children' }) => {
   let result = []
-  if (!Array.isArray(data)) return result
+  if (!Array.isArray(data)) {
+    return result
+  }
   data.forEach((item) => {
     let temp = []
     result.push(item)

@@ -6,7 +6,7 @@
       </div>
       <template v-if="showSearch">
         <div class="x-transfer-list-search">
-          <a-input allow-clear v-model:value="keyword" @change="onSearchChange">
+          <a-input v-model:value="keyword" allow-clear @change="onSearchChange">
             <template #prefix>
               <search-outlined
                 :style="{
@@ -136,7 +136,9 @@ const cpIndeterminate = computed(
 watch(
   () => props.modelValue,
   (val) => {
-    if (val === curValue.value) return
+    if (val === curValue.value) {
+      return
+    }
     curValue.value = val
     curTargetDataSource.value = props.dataSource.filter((item) => curValue.value.includes(item[props.fieldNames.value]))
   },

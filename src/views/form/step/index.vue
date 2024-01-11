@@ -23,7 +23,7 @@ import Step2 from './components/Step2.vue'
 import Step3 from './components/Step3.vue'
 
 defineOptions({
-  name: 'formStep'
+  name: 'FormStep'
 })
 
 const currentTab = ref(0)

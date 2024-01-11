@@ -100,7 +100,7 @@ import apis from '@/apis'
 import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
-  name: 'listSearchArticles'
+  name: 'ListSearchArticles'
 })
 
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =

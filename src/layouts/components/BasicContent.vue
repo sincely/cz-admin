@@ -2,7 +2,7 @@
   <a-layout-content class="basic-content">
     <router-view v-slot="{ Component, route }">
       <keep-alive :include="cpCacheList">
-        <component v-if="cpKeepAlive" :is="Component" :key="route.name"></component>
+        <component :is="Component" v-if="cpKeepAlive" :key="route.name"></component>
       </keep-alive>
     </router-view>
     <iframe-view></iframe-view>

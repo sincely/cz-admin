@@ -92,7 +92,7 @@ import apis from '@/apis'
 import PageHeader from '../components/PageHeader.vue'
 
 defineOptions({
-  name: 'listSearchApplications'
+  name: 'ListSearchApplications'
 })
 
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =

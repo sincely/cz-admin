@@ -59,7 +59,9 @@ watch(
   () => modelValue.value,
   (val) => {
     const checked = val.includes(props.record?.[fieldNames.value?.value])
-    if (curChecked.value === checked) return
+    if (curChecked.value === checked) {
+      return
+    }
     curChecked.value = checked
   },
   { immediate: true, deep: true }
@@ -69,9 +71,13 @@ watch(
  * 点击
  */
 function handleClick() {
-  if (!cpIsLeft.value) return
+  if (!cpIsLeft.value) {
+    return
+  }
 
-  if (cpDisabled.value) return
+  if (cpDisabled.value) {
+    return
+  }
 
   onToggle()
 }

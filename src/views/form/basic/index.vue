@@ -4,9 +4,9 @@
   </a-page-header>
   <a-card class="mt-8-2">
     <a-form
+      ref="formRef"
       :label-col="{ sm: 7, lg: 7 }"
       :wrapper-col="{ sm: 17, lg: 10 }"
-      ref="formRef"
       :rules="formRules"
       :model="formData"
     >
@@ -55,7 +55,7 @@ import { InfoCircleOutlined } from '@ant-design/icons-vue'
 import { useForm } from '@/hooks'
 
 defineOptions({
-  name: 'formBasic'
+  name: 'FormBasic'
 })
 
 const targetList = [

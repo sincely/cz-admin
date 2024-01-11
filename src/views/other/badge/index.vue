@@ -14,7 +14,7 @@ import { ref } from 'vue'
 import { useMenu } from '@/hooks'
 
 defineOptions({
-  name: 'otherBadge'
+  name: 'OtherBadge'
 })
 
 const { setBadge } = useMenu()

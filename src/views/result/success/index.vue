@@ -54,7 +54,7 @@
 import { DingdingOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: 'resultSuccess'
+  name: 'ResultSuccess'
 })
 </script>
 

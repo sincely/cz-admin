@@ -1,5 +1,5 @@
 <template>
-  <div class="basic-menu" ref="basicMenuRef">
+  <div ref="basicMenuRef" class="basic-menu">
     <a-menu
       v-model:selected-keys="selectedKeys"
       :get-pop-container="() => basicMenuRef"
@@ -149,7 +149,9 @@ function handleClick({ item }) {
  * @param value
  */
 function onOpenChange(value) {
-  if (cpIsHorizontal.value) return
+  if (cpIsHorizontal.value) {
+    return
+  }
   const latestOpenKey = value.find((key) => openKeys.value.indexOf(key) === -1)
   if (rootSubmenuKeys.value.indexOf(latestOpenKey) === -1) {
     openKeys.value = value

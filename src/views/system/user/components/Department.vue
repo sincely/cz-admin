@@ -80,7 +80,9 @@ const selectedKeys = ref([props.value])
 watch(
   () => props.value,
   (val) => {
-    if (val === selectedKeys.value?.[0]) return
+    if (val === selectedKeys.value?.[0]) {
+      return
+    }
     selectedKeys.value = [val]
   }
 )
@@ -141,7 +143,9 @@ function handleDelete({ id }) {
 }
 
 function onSelect(keys) {
-  if (!keys.length) return
+  if (!keys.length) {
+    return
+  }
   selectedKeys.value = keys
   trigger()
 }

@@ -3,7 +3,9 @@ import LoadingConstructor from './Loading.vue'
 import { setStyle } from '@/components/utils'
 
 function show(el, binding) {
-  if (!binding.value) return
+  if (!binding.value) {
+    return
+  }
   const vm = createVNode(LoadingConstructor, { type: 'directive' })
   const container = document.createElement('div')
   if (!el.style.position) {
@@ -28,7 +30,9 @@ export default {
     show(el, binding)
   },
   updated: (el, binding) => {
-    if (binding.value === binding.oldValue) return
+    if (binding.value === binding.oldValue) {
+      return
+    }
     binding.value ? show(el, binding) : hide(el, binding)
   },
   unmounted: (el, binding) => {

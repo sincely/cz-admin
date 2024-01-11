@@ -1,10 +1,10 @@
 <template>
   <div>
     <a-form
+      ref="formRef"
       :model="formData"
       :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
       :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
-      ref="formRef"
       :rules="formRules"
     >
       <a-form-item label="付款账户" name="paymentUser">

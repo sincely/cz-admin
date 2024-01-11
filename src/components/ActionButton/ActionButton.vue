@@ -1,6 +1,6 @@
 <template>
   <span class="x-action-btn-wrap">
-    <component class="x-action-btn" :is="tag">
+    <component :is="tag" class="x-action-btn">
       <slot></slot>
     </component>
     <a-divider v-if="divider" type="vertical" />

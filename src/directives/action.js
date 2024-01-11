@@ -13,7 +13,9 @@ const action = {
     const currentActions = route?.meta?.actions ?? []
     const actions = typeof value === 'string' ? elActions.split() : elActions
 
-    if (currentActions.includes('*')) return
+    if (currentActions.includes('*')) {
+      return
+    }
 
     if (!currentActions.some((action) => actions.includes(action))) {
       el.remove() || (el.style.display = 'none')

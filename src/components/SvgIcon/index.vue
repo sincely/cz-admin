@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 const props = defineProps({
   // icon-class是svg图标名称
   iconClass: {

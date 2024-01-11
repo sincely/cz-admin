@@ -18,7 +18,9 @@ function show() {
 }
 
 function hide() {
-  if (!container) return
+  if (!container) {
+    return
+  }
   container.remove()
   container = null
   setStyle(document.body, {

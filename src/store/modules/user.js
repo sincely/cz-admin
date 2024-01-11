@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { config } from '@/config'
 import storage from '@/utils/storage'
-import apis from '@/apis'
+// import apis from '@/apis'
 
 import useAppStore from './app'
 import useMultiTab from './multiTab'
@@ -22,6 +22,8 @@ const useUserStore = defineStore('user', {
      * @returns {Promise<unknown>}
      */
     login(params) {
+      console.log('登录参数', params)
+      // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
         try {
           // 真实调试请放开
@@ -64,6 +66,7 @@ const useUserStore = defineStore('user', {
      * 获取用户详情
      */
     getUserInfo() {
+      //  eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
         try {
           // const result = await apis.user.getUserDetail().catch(() => {

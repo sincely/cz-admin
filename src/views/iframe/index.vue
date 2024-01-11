@@ -13,7 +13,7 @@ import { useRoute } from 'vue-router'
 import { useMultiTabStore } from '@/store'
 
 defineOptions({
-  name: 'iframePage'
+  name: 'IframePage'
 })
 
 const multiTabStore = useMultiTabStore()

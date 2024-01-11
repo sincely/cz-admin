@@ -6,6 +6,7 @@
     "dev": "vite --mode development",
     "build:uat": "vite build --mode uat",
     "build:demo": "vite build --mode demo",
+    "eslint:fix": "eslint \"src/**/*.{vue,js}\" --fix",
     "lint": "eslint --config .eslintrc.cjs --ext .js,.vue --no-cache --fix src",
     "prettier:fix": "prettier --write \"src/**/*.{js,vue,less,css,json,html}\""
   },
@@ -50,8 +51,7 @@
     "vite-plugin-progress": "0.0.7",
     "vite-plugin-svg-icons": "2.0.1",
     "vite-svg-loader": "4.0.0",
-    "vite-plugin-restart": "0.4.0",
-    "vite-plugin-vue-devtools": "7.0.7"
+    "vite-plugin-restart": "0.4.0"
   },
   "devDependencies": {
     "@plugin-web-update-notification/vite": "1.6.6",

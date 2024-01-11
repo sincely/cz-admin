@@ -140,7 +140,7 @@ import { ref } from 'vue'
 import { DingdingOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: 'profileAdvanced'
+  name: 'ProfileAdvanced'
 })
 
 const tabList = [

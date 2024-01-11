@@ -89,7 +89,7 @@ import { default as Menus } from './components/Menu.vue'
 import { useAppStore } from '@/store'
 
 defineOptions({
-  name: 'systemNewMenu'
+  name: 'SystemNewMenu'
 })
 
 const appStore = useAppStore()

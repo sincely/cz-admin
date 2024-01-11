@@ -4,7 +4,7 @@ import { formatRoutes, generateMenuList, generateRoutes, getFirstValidRoute } fr
 import { findTree } from '@/utils'
 import { config } from '@/config'
 import router from '@/router'
-import apis from '@/apis'
+// import apis from '@/apis'
 import routes from '@/router/routes'
 
 const useRouterStore = defineStore('router', {
@@ -20,6 +20,7 @@ const useRouterStore = defineStore('router', {
      * @returns {Promise}
      */
     getRouterList() {
+      // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
         try {
           let result = {

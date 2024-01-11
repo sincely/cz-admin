@@ -42,8 +42,8 @@
     </a-upload>
     <div
       v-for="(item, index) in fileList"
-      class="x-upload-item j-upload-item"
       :key="item.key"
+      class="x-upload-item j-upload-item"
       :class="{
         'x-upload-item--error': STATUS_ENUM.is('error', item.status)
       }"

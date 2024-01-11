@@ -36,7 +36,9 @@ export function getScrollWidth() {
 }
 
 export function setStyle(el, styles) {
-  if (!el) return
+  if (!el) {
+    return
+  }
   for (const key in styles) {
     el.style[key] = styles[key]
   }

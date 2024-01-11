@@ -65,7 +65,7 @@ import EditDialog from './components/EditDialog.vue'
 import Dict from './components/Dict.vue'
 
 defineOptions({
-  name: 'systemDict'
+  name: 'SystemDict'
 })
 
 const columns = [

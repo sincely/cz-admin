@@ -78,7 +78,7 @@ import { config } from '@/config'
 import { usePagination } from '@/hooks'
 
 defineOptions({
-  name: 'listCard'
+  name: 'ListCard'
 })
 
 const { loading, listData, showLoading, hideLoading, paginationState } = usePagination()

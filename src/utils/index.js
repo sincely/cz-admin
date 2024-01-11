@@ -12,8 +12,12 @@ import { isObject } from './is'
  */
 export const mapping = ({ data, fieldNames = {}, expand = {}, treeFieldName, keepOtherFields = false }) => {
   let result = []
-  if (!Array.isArray(data)) return []
-  if (!fieldNames) return data
+  if (!Array.isArray(data)) {
+    return []
+  }
+  if (!fieldNames) {
+    return data
+  }
   data.forEach((item, index, array) => {
     let temp = keepOtherFields ? { ...item } : {},
       record,

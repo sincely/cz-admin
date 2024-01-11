@@ -1,6 +1,6 @@
 <template>
-  <div class="x-tag-select" ref="tagSelectRef" :style="cpTagSelectStyle">
-    <div class="x-tag-select__content" ref="contentRef">
+  <div ref="tagSelectRef" class="x-tag-select" :style="cpTagSelectStyle">
+    <div ref="contentRef" class="x-tag-select__content">
       <slot>
         <tag-select-option
           v-for="item in options"
@@ -99,7 +99,9 @@ const cpTagSelectStyle = computed(() => {
 watch(
   () => props.modelValue,
   (val) => {
-    if (val === curValue.value) return
+    if (val === curValue.value) {
+      return
+    }
     curValue.value = val
   },
   { immediate: true }
@@ -108,7 +110,9 @@ watch(
 watch(
   () => props.collapsed,
   (val) => {
-    if (val === curCollapsed.value) return
+    if (val === curCollapsed.value) {
+      return
+    }
     curCollapsed.value = val
   }
 )

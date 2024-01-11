@@ -81,7 +81,7 @@
               </a-button>
             </a-tooltip>
             <template #overlay>
-              <a-menu :selectedKeys="[size]" @click="handleSize">
+              <a-menu :selected-keys="[size]" @click="handleSize">
                 <a-menu-item key="default">默认</a-menu-item>
                 <a-menu-item key="middle">中等</a-menu-item>
                 <a-menu-item key="small">紧凑</a-menu-item>
@@ -150,7 +150,7 @@ import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({
-  name: 'listTable'
+  name: 'ListTable'
 })
 
 const columns = [

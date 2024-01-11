@@ -34,7 +34,7 @@ import { useRouter } from 'vue-router'
 import { useMultiTab } from '@/hooks'
 
 defineOptions({
-  name: 'otherMultiTab'
+  name: 'OtherMultiTab'
 })
 
 const router = useRouter()

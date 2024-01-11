@@ -1,8 +1,8 @@
 <template>
   <a-layout-sider
+    v-model:collapsed="config.collapsed"
     breakpoint="lg"
     class="basic-side"
-    v-model:collapsed="config.collapsed"
     :style="cpStyles"
     :collapsible="true"
     :collapsed-width="config.sideCollapsedWidth"

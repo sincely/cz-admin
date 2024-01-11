@@ -27,7 +27,7 @@ import Message from './components/Message.vue'
 import Safe from './components/Safe.vue'
 
 defineOptions({
-  name: 'userSetting'
+  name: 'UserSetting'
 })
 
 const menuList = ref([

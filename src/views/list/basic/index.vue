@@ -83,7 +83,7 @@ import { usePagination } from '@/hooks'
 import EditDialog from './components/EditDialog.vue'
 
 defineOptions({
-  name: 'listBasic'
+  name: 'ListBasic'
 })
 
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =

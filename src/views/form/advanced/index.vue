@@ -95,7 +95,7 @@
 import { PlusOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: 'formAdvanced'
+  name: 'FormAdvanced'
 })
 
 const columns = [

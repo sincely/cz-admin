@@ -49,7 +49,9 @@ onMounted(() => {
 })
 
 onBeforeMount(() => {
-  if (!chart.value) return
+  if (!chart.value) {
+    return
+  }
   chart.value.dispose()
 })
 

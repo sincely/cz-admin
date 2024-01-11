@@ -60,7 +60,9 @@ const useMultiTabStore = defineStore('multiTab', {
       route = route || this.list[this.current]
       const index = findIndex(this.list, { path: route?.path })
       // 判断标签页是否存在
-      if (index < 0) return
+      if (index < 0) {
+        return
+      }
 
       // 禁止关闭最后一个标签页
       // if (this.list.length === 1) {
