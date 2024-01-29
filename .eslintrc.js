@@ -7,19 +7,28 @@ module.exports = defineConfig({
     jest: true,
     es6: true
   },
-  plugins: ['vue'],
+  plugins: ['vue', 'import'],
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@', './src']],
+        extensions: ['.js', '.jsx', '.json', '.vue']
+      }
+    }
+  },
   extends: ['eslint:recommended', 'plugin:vue/essential', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
   rules: {
+    'import/no-unresolved': ['error', { caseSensitive: true }],
     'no-var': 'error', // 要求使用let或const,而不是 var
     'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
     'import/no-extraneous-dependencies': 0, // 禁止使用多余的包
     'import/extensions': 0, // 确保在导入路径内一致使用文件扩展名
-    'import/no-unresolved': 0, // 确保导入指向可以解析的文件/模块
+    // 'import/no-unresolved': 0, // 确保导入指向可以解析的文件/模块
     'vue/no-unused-components': 'error', // 禁止出现未使用的组件
     'no-self-compare': 'error', // 禁止自身比较
     'no-unused-vars': 'error', // 禁止出现未使用过的变量

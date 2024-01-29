@@ -5,7 +5,8 @@ export default () => {
     locale: zhCN,
     theme: {
       token: {
-        borderRadius: 4
+        borderRadius: 4,
+        borderRadiusSM: 2
       },
       components: {
         List: {

@@ -29,7 +29,6 @@
 </template>
 
 <script setup>
-import { theme } from 'ant-design-vue'
 import { ref, watch, computed } from 'vue'
 import { useTransferInject } from './context'
 import { CloseOutlined, RightOutlined } from '@ant-design/icons-vue'
@@ -44,7 +43,6 @@ const props = defineProps({
   }
 })
 
-const { token } = theme.useToken()
 const { modelValue, fieldNames, onCheck, onNext } = useTransferInject()
 
 const curChecked = ref(false)
@@ -101,9 +99,7 @@ function handleNext() {
  */
 function onToggle() {
   curChecked.value = !curChecked.value
-  onCheck(props.record?.[fieldNames.value?.value], {
-    checked: curChecked.value
-  })
+  onCheck(props.record?.[fieldNames.value?.value], { checked: curChecked.value })
 }
 </script>
 
@@ -117,7 +113,7 @@ function onToggle() {
   cursor: pointer;
 
   &:hover {
-    background: v-bind('token.controlItemBgHover');
+    background: @control-item-bg-hover;
   }
 
   &__checkbox {

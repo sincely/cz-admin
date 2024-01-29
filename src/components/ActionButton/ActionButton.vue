@@ -1,6 +1,6 @@
 <template>
-  <span class="x-action-btn-wrap">
-    <component :is="tag" class="x-action-btn">
+  <span class="x-action-btn">
+    <component :is="tag" class="x-action-btn__btn">
       <slot></slot>
     </component>
     <a-divider v-if="divider" type="vertical" />
@@ -14,7 +14,6 @@ defineOptions({
 
 /**
  * 操作按钮
- * @property {string} tag html标签，默认：a
  * @property {boolean} divider 是否显示分割线
  */
 defineProps({
@@ -31,17 +30,23 @@ defineProps({
 
 <style lang="less" scoped>
 .x-action-btn {
-  border-radius: @border-radius;
-  transition: all 0.2s;
-  padding: 4px;
-  color: @color-primary;
-  cursor: pointer;
+  &__btn {
+    color: @color-primary;
+    cursor: pointer;
+    transition: @motion-duration-mid;
 
-  &-wrap {
-    &:last-child {
-      :deep(.ant-divider) {
-        display: none;
-      }
+    &:hover {
+      color: @color-primary-hover;
+    }
+  }
+
+  .ant-divider {
+    margin-inline: 12px;
+  }
+
+  &:last-child {
+    :deep(.ant-divider) {
+      display: none;
     }
   }
 }

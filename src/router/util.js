@@ -27,12 +27,21 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
 
       return indexA - indexB
     })
+    .filter((item) => {
+      let flag = !!find(asyncRoutes, { name: item.name })
+
+      if (!flag) {
+        flag = item.meta?.permission === '*'
+      }
+
+      return flag
+    })
     .map((item) => {
-      const asyncRoute = find(asyncRoutes, { name: item.name })
-      const component = item?.component || 'exception/404'
-      const isLink = item?.meta?.type === 'link'
-      const isIframe = item?.meta?.type === 'iframe'
-      const parentPath = parent?.path ?? ''
+      const asyncRoute = find(asyncRoutes, { name: item.name }) // 异步路由
+      const component = item?.component || 'exception/404' // 路由组件
+      const isLink = item?.meta?.type === 'link' // 是否外链
+      const isIframe = item?.meta?.type === 'iframe' // 是否内嵌网页
+      const parentPath = parent?.path ?? '' // 父级路由地址
 
       const route = {
         // 如果路由设置的 path 是 / 开头或是外链，则默认使用 path，否则动态拼接路由地址
@@ -47,13 +56,13 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
         // meta，页面标题, 图标, 权限等附加信息
         meta: {
           ...(item?.meta || {}),
-          target: item?.meta?.target || '',
-          layout: item?.meta?.layout || parent?.meta?.layout || 'BasicLayout',
-          openKeys: isLink ? [] : [...(parent?.meta?.openKeys ?? []), item?.meta?.active ?? item?.name],
-          isLink,
-          isIframe,
-          actions: asyncRoute?.meta?.actions ?? ['*'],
-          title: asyncRoute?.meta?.title || item?.meta?.title || '未命名'
+          target: item?.meta?.target || '', // 跳转方式 _blank
+          layout: item?.meta?.layout || parent?.meta?.layout || 'BasicLayout', // 当前页面layout布局
+          openKeys: isLink ? [] : [...(parent?.meta?.openKeys ?? []), item?.meta?.active ?? item?.name], // 默认展开的菜单
+          isLink, // 是否外链
+          isIframe, // 是否内嵌网页
+          actions: asyncRoute?.meta?.actions ?? ['*'], // 按钮权限
+          title: asyncRoute?.meta?.title || item?.meta?.title || '未命名' // 菜单标题
         }
       }
       // 面包屑导航
@@ -126,10 +135,10 @@ export function generateRoutes(routes) {
       let index = result.findIndex((o) => o.name === layout)
       if (index === -1) {
         result.push({
-          path: '',
+          path: '', // 用于生成菜单
           name: layout,
-          component: layouts[layout] || modules[`../layouts/${layout}${layout.endsWith('.vue') ? '' : '.vue'}`],
-          children: []
+          component: layouts[layout] || modules[`../layouts/${layout}${layout.endsWith('.vue') ? '' : '.vue'}`], // 布局组件
+          children: [] // 用于存放子路由
         })
         index = result.length - 1
       }
@@ -150,10 +159,10 @@ export function generateMenuList(routes) {
         path: item.path,
         name: item.name,
         meta: {
-          icon: item?.meta?.icon ?? '',
-          title: item?.meta?.title ?? '未命名菜单',
-          target: item?.meta?.target ?? '_self',
-          ...(item?.meta ?? {})
+          icon: item?.meta?.icon ?? '', // 菜单图标
+          title: item?.meta?.title ?? '未命名菜单', // 菜单标题
+          target: item?.meta?.target ?? '_self', // 跳转方式 _blank
+          ...(item?.meta ?? {}) // 其他自定义属性
         }
       }
       const children = generateMenuList(item?.children ?? [])

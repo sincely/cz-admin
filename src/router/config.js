@@ -14,8 +14,8 @@ export const notFoundRoute = {
   path: '/:pathMatch(.*)*',
   redirect: '/exception/404',
   meta: {
-    isLogin: false,
-    isMenu: false
+    isLogin: false, // 是否需要登录
+    isMenu: false // 是否需要显示在菜单栏
   }
 }
 
