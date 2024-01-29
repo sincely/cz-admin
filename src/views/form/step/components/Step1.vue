@@ -78,5 +78,3 @@ function handleNext() {
     .catch(() => {})
 }
 </script>
-
-<style lang="less" scoped></style>

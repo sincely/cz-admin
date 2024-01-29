@@ -85,5 +85,3 @@ async function getPageList() {
   }
 }
 </script>
-
-<style lang="less" scoped></style>

@@ -91,5 +91,3 @@ async function getDynamicList() {
   }
 }
 </script>
-
-<style lang="less" scoped></style>

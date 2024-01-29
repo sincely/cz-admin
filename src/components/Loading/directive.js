@@ -6,7 +6,13 @@ function show(el, binding) {
   if (!binding.value) {
     return
   }
-  const vm = createVNode(LoadingConstructor, { type: 'directive' })
+  const description = el.getAttribute('loading-description') || ''
+  const descriptionStyle = el.getAttribute('loading-description-style') || ''
+  const vm = createVNode(LoadingConstructor, {
+    description,
+    descriptionStyle,
+    type: 'directive'
+  })
   const container = document.createElement('div')
   if (!el.style.position) {
     setStyle(el, {

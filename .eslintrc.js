@@ -81,7 +81,8 @@ module.exports = defineConfig({
     'vue/no-multiple-template-root': 'off',
     'vue/no-v-model-argument': 'off',
     'vue/no-v-for-template-key': 'off',
-    'vue/require-default-prop': 'off'
+    'vue/require-default-prop': 'off',
+    'vue/no-v-html': 'off'
   },
   globals: {
     __APP_INFO__: true

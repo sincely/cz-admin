@@ -28,5 +28,3 @@ defineOptions({
 
 const themeColor = ref(false)
 </script>
-
-<style lang="less" scoped></style>

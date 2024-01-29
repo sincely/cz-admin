@@ -10,34 +10,37 @@ defineOptions({
   name: 'XChart'
 })
 
-/**
- * 图表
- * @property {object} options 配置信息
- * @property {number | string} width 宽
- * @property {number | string} height 高
- */
 const props = defineProps({
-  options: {
+  /**
+   * 图表配置
+   */
+  option: {
     type: Object,
     default: () => ({})
   },
+  /**
+   * 宽，默认：自动
+   */
   width: {
     type: [Number, String],
     default: 'auto'
   },
+  /**
+   * 高，默认：自动
+   */
   height: {
     type: [Number, String],
     default: 'auto'
   }
 })
 
-const emit = defineEmits(['init'])
+const emit = defineEmits(['initialized'])
 
 const chart = ref(null)
 const chartRef = ref()
 
 watch(
-  () => props.options,
+  () => props.option,
   () => init(),
   {
     deep: true
@@ -46,6 +49,8 @@ watch(
 
 onMounted(() => {
   init()
+
+  window.addEventListener('resize', resize)
 })
 
 onBeforeMount(() => {
@@ -53,6 +58,8 @@ onBeforeMount(() => {
     return
   }
   chart.value.dispose()
+
+  window.removeEventListener('resize', resize)
 })
 
 /**
@@ -82,10 +89,17 @@ function init() {
   )
 
   setTimeout(() => {
-    chart.value.setOption(props.options, true)
-    chart.value.resize()
-    emit('init', chart.value)
+    chart.value.setOption(props.option, true)
+    resize()
+    emit('initialized', chart.value)
   }, 100)
+}
+
+function resize() {
+  if (!chart.value) {
+    return
+  }
+  chart.value.resize()
 }
 </script>
 

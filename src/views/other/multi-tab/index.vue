@@ -88,5 +88,3 @@ function handleRevertTitle() {
   setTitle(router.currentRoute.value.meta?.title)
 }
 </script>
-
-<style lang="less" scoped></style>

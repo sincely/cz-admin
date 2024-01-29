@@ -13,27 +13,31 @@
     <x-scrollbar class="pa-8-2">
       <a-spin :spinning="loading">
         <a-tree
-          block-node
+          :field-names="{ key: 'id', children: 'children' }"
           :selected-keys="selectedKeys"
           :tree-data="listData"
-          :field-names="{ key: 'id', children: 'children' }"
+          block-node
           @select="onSelect"
         >
           <template #title="{ title }">
-            <span class="ant-tree-title__name">{{ title }}</span>
-            <span class="ant-tree-title__actions">
-              <a-dropdown :trigger="['click']" @click.stop>
-                <x-action-button>
-                  <more-outlined></more-outlined>
-                </x-action-button>
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item @click="$refs.editDictDialogRef.handleEdit()">编辑</a-menu-item>
-                    <a-menu-item @click="handleDelete">删除</a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
-            </span>
+            <a-row :gutter="8" align="middle">
+              <a-col flex="1">{{ title }}</a-col>
+              <a-col class="lh-1">
+                <a-dropdown :trigger="['click']" @click.stop>
+                  <a-button size="small" type="text">
+                    <template #icon>
+                      <more-outlined></more-outlined>
+                    </template>
+                  </a-button>
+                  <template #overlay>
+                    <a-menu>
+                      <a-menu-item @click="$refs.editDictDialogRef.handleEdit()">编辑</a-menu-item>
+                      <a-menu-item @click="handleDelete">删除</a-menu-item>
+                    </a-menu>
+                  </template>
+                </a-dropdown>
+              </a-col>
+            </a-row>
           </template>
         </a-tree>
         <empty v-if="!listData.length" :image="Empty.PRESENTED_IMAGE_SIMPLE"></empty>
@@ -55,9 +59,9 @@ import { useAppStore } from '@/store'
 import { ref, watch } from 'vue'
 import { usePagination } from '@/hooks'
 import apis from '@/apis'
-import { Empty, Modal, message } from 'ant-design-vue'
+import { Empty, message, Modal } from 'ant-design-vue'
 import { config } from '@/config'
-import { head, get, find } from 'lodash-es'
+import { find, get, head } from 'lodash-es'
 import { MoreOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import EditDictDialog from './EditDictDialog.vue'
 

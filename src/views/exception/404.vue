@@ -19,5 +19,3 @@ const handleBack = () => {
   router.back()
 }
 </script>
-
-<style lang="less" scoped></style>

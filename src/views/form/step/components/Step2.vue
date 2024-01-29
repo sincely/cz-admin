@@ -72,5 +72,3 @@ function handlePrev() {
   emit('prev')
 }
 </script>
-
-<style lang="less" scoped></style>

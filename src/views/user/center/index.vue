@@ -1,9 +1,9 @@
 <template>
   <a-row :gutter="16">
-    <a-col :lg="7" :md="24" class="mb-8-2">
+    <a-col :md="24" :lg="10" :xl="8" :xxl="6" class="mb-8-2">
       <user-info-card></user-info-card>
     </a-col>
-    <a-col :lg="17" :md="24">
+    <a-col :md="24" :lg="14" :xl="16" :xxl="18">
       <a-card :active-tab-key="activeTabKey" :tab-list="tabList" @tabChange="(key) => (activeTabKey = key)">
         <article-list v-if="activeTabKey === 'article'"></article-list>
         <app-list v-if="activeTabKey === 'app'"></app-list>
@@ -32,5 +32,3 @@ const tabList = [
 ]
 const activeTabKey = ref('article')
 </script>
-
-<style lang="less" scoped></style>

@@ -36,5 +36,3 @@ function onTabChange(_activeKey) {
   router.push({ name: _activeKey })
 }
 </script>
-
-<style lang="less" scoped></style>

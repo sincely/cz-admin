@@ -57,5 +57,3 @@ defineOptions({
   name: 'ResultSuccess'
 })
 </script>
-
-<style lang="less" scoped></style>

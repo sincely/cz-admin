@@ -32,5 +32,3 @@ function handleClear() {
   setBadge(form.value?.name, 0)
 }
 </script>
-
-<style lang="less" scoped></style>

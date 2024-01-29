@@ -1,20 +1,18 @@
 <template>
-  <a-cascader
-    v-bind="$attrs"
-    :value="curValue"
-    :options="options"
-    :load-data="onLoadData"
-    :field-names="fieldNames"
-    @change="onChange"
-  ></a-cascader>
+  <a-cascader :value="curValue" :options="options" :load-data="onLoadData" :field-names="fieldNames" @change="onChange">
+    <template v-for="(_, key) in slots" #[key]="slotProps" :key="key">
+      <slot v-bind="getSlotProps(slotProps)" :name="key"></slot>
+    </template>
+  </a-cascader>
 </template>
 
 <script setup>
 import { Form, message } from 'ant-design-vue'
-import { last, pick } from 'lodash-es'
-import { computed, onMounted, ref, watch } from 'vue'
+import { isEqual, last, pick } from 'lodash-es'
+import { computed, onMounted, ref, useSlots, watch } from 'vue'
 import { config } from '@/config'
 import { findTree } from '@/utils'
+import { getSlotProps } from '../utils'
 
 defineOptions({
   name: 'XCascader'
@@ -26,7 +24,7 @@ defineOptions({
  * @property {array} value
  * @property {function | array} loadData
  * @property {object} filedNames
- * @property {number} maxLevel  最深层级，默认：1；
+ * @property {number} level  层级，默认：1；
  *                              loadData 为 function 类型时可以用它来控制数据的最深层级
  *                              loadData 为 array 类型时，通过数组长度自动计算最多层级
  */
@@ -43,7 +41,7 @@ const props = defineProps({
     type: Object,
     default: () => ({ label: 'label', value: 'value', children: 'children' })
   },
-  maxLevel: {
+  level: {
     type: Number,
     default: 1
   }
@@ -51,19 +49,20 @@ const props = defineProps({
 
 const emit = defineEmits(['change', 'update:modelValue'])
 
+const slots = useSlots()
 const { onFieldChange } = Form.useInjectFormItemContext()
 
 const options = ref([])
 const curValue = ref([])
 
-const cpMaxLevel = computed(() => {
-  return typeof props.loadData === 'function' ? props.maxLevel : props.loadData.length || 0
+const cpLevel = computed(() => {
+  return typeof props.loadData === 'function' ? props.level : props.loadData.length || 0
 })
 
 watch(
   () => props.modelValue,
   (val) => {
-    if (val !== curValue.value) {
+    if (!isEqual(val, curValue.value)) {
       getData(0, 1, val)
     }
   }
@@ -107,11 +106,7 @@ async function getData(value = 0, level = 1, defaultValue = []) {
     if (Object.prototype.toString.call(getData) !== '[object AsyncFunction]') {
       throw new Error('请使用异步函数获取数据')
     }
-    const result = await getData({
-      level,
-      value,
-      selected: curValue.value
-    })?.catch(() => {
+    const result = await getData({ level, value, selected: curValue.value })?.catch(() => {
       throw new Error('请求失败')
     })
     const { code, data } = result || {}
@@ -121,7 +116,7 @@ async function getData(value = 0, level = 1, defaultValue = []) {
     if (config('http.code.success') === code) {
       const listData = data.map((item) => ({
         ...item,
-        isLeaf: level === cpMaxLevel.value
+        isLeaf: level === cpLevel.value
       }))
       // 判断层级
       if (!targetOption) {
@@ -133,7 +128,7 @@ async function getData(value = 0, level = 1, defaultValue = []) {
         options.value = [...options.value]
       }
       // 回填默认值
-      if (defaultValue && defaultValue.length && level < cpMaxLevel.value) {
+      if (defaultValue && defaultValue.length && level < cpLevel.value) {
         const next = defaultValue[level - 1]
         if (next) {
           await getData(next, level + 1, defaultValue)
@@ -161,5 +156,3 @@ function onChange(value, selectedOptions) {
   onFieldChange()
 }
 </script>
-
-<style lang="less" scoped></style>

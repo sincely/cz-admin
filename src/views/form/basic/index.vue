@@ -92,5 +92,3 @@ function handleCancel() {
   resetForm()
 }
 </script>
-
-<style lang="less" scoped></style>

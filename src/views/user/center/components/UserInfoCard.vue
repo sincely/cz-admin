@@ -81,5 +81,3 @@ const teamList = [
   }
 ]
 </script>
-
-<style lang="less" scoped></style>

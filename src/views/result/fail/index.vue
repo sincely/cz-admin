@@ -39,5 +39,3 @@ defineOptions({
   name: 'ResultFail'
 })
 </script>
-
-<style lang="less" scoped></style>

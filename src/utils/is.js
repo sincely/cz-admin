@@ -34,3 +34,24 @@ export const isAsyncFunction = (value) => getType(value) === 'asyncfunction'
  * @returns
  */
 export const isEmpty = (value) => value !== '' && value !== null && value !== undefined
+
+/**
+ * 检查是否是字符串
+ * @param value
+ * @returns {boolean}
+ */
+export const isString = (value) => getType(value) === 'string' || value === undefined
+
+/**
+ * 检查是否数字
+ * @param value
+ * @returns {boolean}
+ */
+export const isNumber = (value) => getType(value) === 'number'
+
+/**
+ * 检查是否数组
+ * @param value
+ * @returns {boolean}
+ */
+export const isArray = (value) => getType(value) === 'array'

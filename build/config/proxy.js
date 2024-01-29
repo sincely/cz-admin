@@ -1,6 +1,6 @@
 const proxyServer = {
   '/api': {
-    target: 'https://mock.apifox.cn/m1/3156808-0-default',
+    target: 'https://mock.apifox.com/m1/3156808-0-default',
     changeOrigin: true,
     rewrite: (path) => path.replace('/api', '')
   }

@@ -143,5 +143,3 @@ const progressList = ref([
   }
 ])
 </script>
-
-<style lang="less" scoped></style>

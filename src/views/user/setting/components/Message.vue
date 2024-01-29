@@ -42,5 +42,3 @@ const listData = ref([
   }
 ])
 </script>
-
-<style lang="less" scoped></style>

@@ -160,5 +160,3 @@ const tabList = [
 
 const activeTabKey = ref('1')
 </script>
-
-<style lang="less" scoped></style>

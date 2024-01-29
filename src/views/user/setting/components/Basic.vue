@@ -56,5 +56,3 @@ defineOptions({
   name: 'Basic'
 })
 </script>
-
-<style lang="less" scoped></style>

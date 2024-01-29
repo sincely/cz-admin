@@ -1,24 +1,23 @@
 <template>
   <div
     ref="uploadImageRef"
-    class="x-upload x-upload-image"
     :class="{
       'x-upload--round': round,
       'x-upload--disabled': disabled
     }"
+    class="x-upload x-upload-image"
   >
     <a-upload
       v-if="showUploadBtn"
-      :show-upload-list="false"
-      :multiple="multiple"
+      :accept="accept"
       :before-upload="onBeforeUpload"
       :custom-request="({ file }) => customRequest(file)"
-      :accept="accept"
       :disabled="disabled"
+      :multiple="multiple"
+      :show-upload-list="false"
     >
       <slot>
         <div
-          class="x-upload-btn"
           :class="{
             'x-upload-btn--hover': !disabled
           }"
@@ -26,6 +25,7 @@
             width: `${width}px`,
             height: `${height}px`
           }"
+          class="x-upload-btn"
         >
           <div class="x-upload-btn__icon">
             <slot name="icon">
@@ -43,7 +43,6 @@
     <div
       v-for="(item, index) in fileList"
       :key="item.key"
-      class="x-upload-item j-upload-item"
       :class="{
         'x-upload-item--error': STATUS_ENUM.is('error', item.status)
       }"
@@ -51,6 +50,7 @@
         width: `${width}px`,
         height: `${height}px`
       }"
+      class="x-upload-item j-upload-item"
     >
       <img :src="item.src" alt="" />
       <template v-if="['error', 'done'].includes(STATUS_ENUM.getKey(item.status))">
@@ -67,7 +67,7 @@
         <div class="x-upload-status">
           <template v-if="STATUS_ENUM.is('uploading', item.status)">
             <div>{{ item.percent }}%</div>
-            <a-progress :show-info="false" :stroke-width="4" :percent="item.percent" />
+            <a-progress :percent="item.percent" :show-info="false" :stroke-width="4" />
           </template>
           <template v-if="STATUS_ENUM.is('wait', item.status)">
             <div>{{ STATUS_ENUM.getDesc(item.status) }}</div>
@@ -79,13 +79,7 @@
   </div>
 
   <!--裁剪-->
-  <cropper-dialog
-    v-if="cropper && !multiple"
-    ref="cropperDialogRef"
-    :aspect-ratio="aspectRatio"
-    :quality="quality"
-    @ok="(file) => customRequest(file)"
-  />
+  <cropper-dialog v-if="cropper && !multiple" ref="cropperDialogRef" @ok="(_, { file }) => customRequest(file)" />
 </template>
 
 <script setup>
@@ -95,7 +89,7 @@ import filesizeParser from 'filesize-parser'
 import { findIndex, includes, some } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import Sortable from 'sortablejs'
-import { computed, onMounted, ref, useSlots, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { DeleteOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { deepMerge } from '@/utils'
 import CropperDialog from '../Cropper/CropperDialog.vue'
@@ -170,15 +164,13 @@ const props = defineProps({
     type: Number,
     default: 1
   },
-  dragSort: {
+  draggable: {
     type: Boolean,
     default: false
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
-
-useSlots(['icon', 'text'])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 
@@ -189,7 +181,7 @@ const sortable = ref(null)
 
 const loading = computed(() => fileList.value.some((o) => STATUS_ENUM.is('uploading', o.status)))
 const showUploadBtn = computed(() => props.multiple || !fileList.value.length)
-const dragSortDisabled = computed(() => !(props.dragSort && !props.disabled))
+const dragSortDisabled = computed(() => !(props.draggable && !props.disabled))
 
 watch(
   () => props.modelValue,
@@ -307,7 +299,11 @@ function onBeforeUpload(file) {
     const fileReader = new FileReader()
     fileReader.readAsDataURL(file)
     fileReader.onload = (e) => {
-      cropperDialogRef.value?.handleOpen(e.target.result)
+      cropperDialogRef.value?.open({
+        src: e.target.result,
+        quality: props.quality,
+        aspectRatio: props.aspectRatio
+      })
     }
   }
   return checkFileSize && checkCropper
@@ -352,9 +348,7 @@ async function doUpload() {
   if (!some(fileList.value, { status: STATUS_ENUM.getValue('wait') })) {
     return
   }
-  const index = findIndex(fileList.value, {
-    status: STATUS_ENUM.getValue('wait')
-  })
+  const index = findIndex(fileList.value, { status: STATUS_ENUM.getValue('wait') })
   const record = fileList.value[index]
   record.status = STATUS_ENUM.getValue('uploading')
 
@@ -411,7 +405,8 @@ function trigger() {
     // 单选
     value = (fileList.value.length ? fileList.value[0]?.src : fileList.value[0]) ?? ''
   }
-  emit('update:modelValue', value)
+  emits('update:modelValue', value)
+  emits('change', value)
   onFieldChange()
 }
 </script>
@@ -460,7 +455,7 @@ function trigger() {
     }
 
     &__txt {
-      margin: 8pxs 0 0;
+      margin: 8px 0 0;
     }
   }
 

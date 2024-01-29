@@ -118,5 +118,3 @@ function onMenuChange(payload) {
   selectedMenu.value = payload
 }
 </script>
-
-<style lang="less" scoped></style>

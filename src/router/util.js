@@ -6,12 +6,13 @@ import * as layouts from '@/layouts'
  * 格式化路由
  * 格式化成符合 vue-router 标准的路由结构
  * @param {array} routes 路由
- * @param {array} asyncRoutes 异步路由
+ * @param {array | boolean} asyncRoutes 异步路由
  * @param {object} parent 父级路由
  * @return {*}
  */
 export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
   const modules = import.meta.glob('../views/**/*.vue')
+  asyncRoutes = asyncRoutes === false ? routes : asyncRoutes
   return routes
     .toSorted((a, b) => {
       const indexA = findIndex(asyncRoutes, { name: a.name })
@@ -28,13 +29,7 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
       return indexA - indexB
     })
     .filter((item) => {
-      let flag = !!find(asyncRoutes, { name: item.name })
-
-      if (!flag) {
-        flag = item.meta?.permission === '*'
-      }
-
-      return flag
+      return find(asyncRoutes, { name: item.name })
     })
     .map((item) => {
       const asyncRoute = find(asyncRoutes, { name: item.name }) // 异步路由
@@ -76,7 +71,6 @@ export function formatRoutes(routes, asyncRoutes = [], parent = {}) {
       }
       return route
     })
-  // .filter((item) => item.component || item.children?.length)
 }
 
 /**
@@ -160,7 +154,7 @@ export function generateMenuList(routes) {
         name: item.name,
         meta: {
           icon: item?.meta?.icon ?? '', // 菜单图标
-          title: item?.meta?.title ?? '未命名菜单', // 菜单标题
+          title: item?.meta?.title ?? '未命名',
           target: item?.meta?.target ?? '_self', // 跳转方式 _blank
           ...(item?.meta ?? {}) // 其他自定义属性
         }
@@ -177,7 +171,7 @@ export function generateMenuList(routes) {
 /**
  * 获取首页路由
  * @param {array} list
- * @param {object | function | array}
+ * @param predicate
  * @return {null}
  */
 export function getFirstValidRoute(list, predicate) {

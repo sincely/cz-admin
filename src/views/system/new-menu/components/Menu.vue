@@ -19,24 +19,26 @@
           @select="onSelect"
         >
           <template #title="record">
-            <span class="ant-tree-title__name">
-              {{ record.title }}
-            </span>
-            <span class="ant-tree-title__actions">
-              <a-dropdown :trigger="['click']" @click.stop>
-                <x-action-button>
-                  <more-outlined></more-outlined>
-                </x-action-button>
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item>添加下级</a-menu-item>
-                    <a-menu-item>克隆</a-menu-item>
-                    <a-menu-item>编辑</a-menu-item>
-                    <a-menu-item @click="handleDelete(record)">删除</a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
-            </span>
+            <a-row align="middle">
+              <a-col flex="1">{{ record.title }}</a-col>
+              <a-col class="lh-1">
+                <a-dropdown :trigger="['click']" @click.stop>
+                  <a-button type="text" size="small">
+                    <template #icon>
+                      <more-outlined></more-outlined>
+                    </template>
+                  </a-button>
+                  <template #overlay>
+                    <a-menu>
+                      <a-menu-item>添加下级</a-menu-item>
+                      <a-menu-item>克隆</a-menu-item>
+                      <a-menu-item>编辑</a-menu-item>
+                      <a-menu-item @click="handleDelete(record)">删除</a-menu-item>
+                    </a-menu>
+                  </template>
+                </a-dropdown>
+              </a-col>
+            </a-row>
           </template>
         </a-tree>
         <a-empty v-if="!listData.length" :image="Empty.PRESENTED_IMAGE_SIMPLE"></a-empty>
@@ -152,5 +154,3 @@ function trigger() {
   emit('change', record)
 }
 </script>
-
-<style lang="less" scoped></style>

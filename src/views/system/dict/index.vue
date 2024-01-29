@@ -163,5 +163,3 @@ async function onOk() {
   await getPageList()
 }
 </script>
-
-<style lang="less" scoped></style>

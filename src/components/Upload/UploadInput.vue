@@ -1,11 +1,11 @@
 <template>
-  <a-input v-model:value="currentValue" class="x-upload x-upload-input" :allow-clear="allowClear" @input="onInput">
+  <a-input v-model:value="currentValue" :allow-clear="allowClear" class="x-upload x-upload-input" @input="onInput">
     <template #addonAfter>
       <a-button v-if="loading" loading>
-        {{ loadingBtnText }}
+        {{ loadingText }}
       </a-button>
-      <a-upload v-else :show-upload-list="false" :custom-request="customRequest">
-        <a-button>{{ btnText }}</a-button>
+      <a-upload v-else :custom-request="customRequest" :show-upload-list="false">
+        <a-button>{{ text }}</a-button>
       </a-upload>
     </template>
   </a-input>
@@ -19,23 +19,16 @@ defineOptions({
   name: 'XUploadInput'
 })
 
-/**
- * 文件上传
- * @property {string} modelValue v-model
- * @property {string} btnText 按钮内容。默认：选择文件
- * @property {string} loadingBtnText 上传中按钮内容。默认：上传中
- * @property {boolean} allowClear 允许清空。默认：true
- */
 const props = defineProps({
   modelValue: {
     type: String,
     default: ''
   },
-  btnText: {
+  text: {
     type: String,
     default: '选择文件'
   },
-  loadingBtnText: {
+  loadingText: {
     type: String,
     default: '上传中'
   },
@@ -45,7 +38,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'change'])
+const emits = defineEmits(['update:modelValue', 'change'])
 
 const { onFieldChange } = Form.useInjectFormItemContext()
 const loading = ref(false)
@@ -103,8 +96,8 @@ async function customRequest(info) {
  * 触发
  */
 function trigger(value) {
-  emit('update:modelValue', value)
-  emit('change', value)
+  emits('update:modelValue', value)
+  emits('change', value)
   onFieldChange()
 }
 </script>

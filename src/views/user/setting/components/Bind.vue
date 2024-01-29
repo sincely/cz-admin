@@ -58,5 +58,3 @@ const listData = [
   }
 ]
 </script>
-
-<style lang="less" scoped></style>

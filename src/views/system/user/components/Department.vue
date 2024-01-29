@@ -20,21 +20,27 @@
           @select="onSelect"
         >
           <template #title="{ title }">
-            <span class="ant-tree-title__name">{{ title }}</span>
-            <span class="ant-tree-title__actions">
-              <a-dropdown :trigger="['click']" @click.stop>
-                <x-action-button>
-                  <more-outlined></more-outlined>
-                </x-action-button>
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item @click="$refs.editDepartmentDialogRef.handleEdit()">添加子部门</a-menu-item>
-                    <a-menu-item @click="$refs.editDepartmentDialogRef.handleEdit()">编辑</a-menu-item>
-                    <a-menu-item @click="handleDelete">删除</a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
-            </span>
+            <a-row align="middle">
+              <a-col flex="1">
+                {{ title }}
+              </a-col>
+              <a-col class="lh-1">
+                <a-dropdown :trigger="['click']" @click.stop>
+                  <a-button size="small" type="text">
+                    <template #icon>
+                      <more-outlined></more-outlined>
+                    </template>
+                  </a-button>
+                  <template #overlay>
+                    <a-menu>
+                      <a-menu-item @click="$refs.editDepartmentDialogRef.handleEdit()">添加子部门</a-menu-item>
+                      <a-menu-item @click="$refs.editDepartmentDialogRef.handleEdit()">编辑</a-menu-item>
+                      <a-menu-item @click="handleDelete">删除</a-menu-item>
+                    </a-menu>
+                  </template>
+                </a-dropdown>
+              </a-col>
+            </a-row>
           </template>
         </a-tree>
         <empty v-if="!listData.length" :image="Empty.PRESENTED_IMAGE_SIMPLE"></empty>
@@ -161,5 +167,3 @@ function trigger() {
   emit('change', record)
 }
 </script>
-
-<style lang="less" scoped></style>

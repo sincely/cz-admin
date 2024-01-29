@@ -11,5 +11,3 @@ defineOptions({
   name: '403'
 })
 </script>
-
-<style lang="less" scoped></style>

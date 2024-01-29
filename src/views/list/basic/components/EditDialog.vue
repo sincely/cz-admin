@@ -32,7 +32,7 @@ import { useForm, useModal } from '@/hooks'
 
 const emit = defineEmits(['ok'])
 
-const { modal, showModal, hideModal, showLoading, hideLoading } = useModal()
+const { modal, openModal, closeModal, showLoading, hideLoading } = useModal()
 const { formRef, formRules, formRecord, formData, resetForm } = useForm()
 
 formRules.value = {
@@ -45,7 +45,7 @@ formRules.value = {
  * 新建
  */
 function handleCreate() {
-  showModal({
+  openModal({
     type: 'create',
     title: '新建'
   })
@@ -55,7 +55,7 @@ function handleCreate() {
  * 编辑
  */
 function handleEdit(record = {}) {
-  showModal({
+  openModal({
     type: 'edit',
     title: '编辑'
   })
@@ -90,7 +90,7 @@ function handleOk() {
         }
         hideLoading()
         if (200 === result?.code) {
-          hideModal()
+          closeModal()
           emit('ok')
         }
       } catch (error) {
@@ -106,7 +106,7 @@ function handleOk() {
  * 取消
  */
 function handleCancel() {
-  hideModal()
+  closeModal()
 }
 
 /**
@@ -121,5 +121,3 @@ defineExpose({
   handleEdit
 })
 </script>
-
-<style lang="less" scoped></style>

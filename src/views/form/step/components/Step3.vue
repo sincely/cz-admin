@@ -48,5 +48,3 @@ function handleFinish() {
   emit('finish')
 }
 </script>
-
-<style lang="less" scoped></style>

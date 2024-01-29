@@ -20,5 +20,3 @@ const slots = useSlots(['default', 'extra'])
 
 const cpShowExtra = computed(() => !!slots.extra)
 </script>
-
-<style lang="less" scoped></style>
