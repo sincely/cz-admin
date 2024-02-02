@@ -2,10 +2,10 @@
   <div>
     <a-form
       ref="formRef"
-      :model="formData"
       :label-col="{ lg: { span: 5 }, sm: { span: 5 } }"
-      :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
+      :model="formData"
       :rules="formRules"
+      :wrapper-col="{ lg: { span: 19 }, sm: { span: 19 } }"
     >
       <a-form-item label="付款账户" name="paymentUser">
         <a-select v-model:value="formData.paymentUser" placeholder="******@***.com">
@@ -13,15 +13,15 @@
         </a-select>
       </a-form-item>
       <a-form-item label="收款账户" name="payType">
-        <a-input-group style="display: inline-block; vertical-align: middle" :compact="true">
+        <a-space-compact block>
           <a-form-item-rest>
-            <a-select default-value="alipay" style="width: 100px">
+            <a-select default-value="alipay" :style="{ width: '100px' }">
               <a-select-option value="alipay">支付宝</a-select-option>
               <a-select-option value="wexinpay">微信</a-select-option>
             </a-select>
           </a-form-item-rest>
-          <a-input v-model:value="formData.payType" :style="{ width: 'calc(100% - 100px)' }" />
-        </a-input-group>
+          <a-input v-model:value="formData.payType" />
+        </a-space-compact>
       </a-form-item>
       <a-form-item label="收款人姓名" name="name">
         <a-input v-model:value="formData.name" />
@@ -78,3 +78,5 @@ function handleNext() {
     .catch(() => {})
 }
 </script>
+
+<style lang="less" scoped></style>

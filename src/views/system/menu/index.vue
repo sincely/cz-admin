@@ -1,20 +1,20 @@
 <template>
   <a-card>
-    <x-action-bar class="mb-8-2">
+    <x-toolbar class="mb-8-2">
       <a-button type="primary" @click="$refs.editDialogRef.handleCreate()">
         <template #icon>
           <plus-outlined></plus-outlined>
         </template>
         新建菜单
       </a-button>
-    </x-action-bar>
+    </x-toolbar>
 
     <a-table
       :columns="columns"
       :data-source="listData"
+      :expand-icon-column-index="1"
       :loading="loading"
       :pagination="false"
-      :expand-icon-column-index="1"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="'menuType' === column.key">
@@ -52,9 +52,9 @@
 </template>
 
 <script setup>
-import { Modal, message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
 import { ref } from 'vue'
-import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
+import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
 import { menuTypeEnum } from '@/enums/system'
@@ -127,3 +127,5 @@ function handleDelete({ id }) {
   })
 }
 </script>
+
+<style lang="less" scoped></style>

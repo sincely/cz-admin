@@ -1,8 +1,8 @@
 <template>
   <page-header></page-header>
   <a-card class="mb-8-2">
-    <x-filter-form :label-col="{ style: { width: '100px' } }">
-      <a-form-item label="所属类目">
+    <x-filter :label-col="{ style: { width: '100px' } }">
+      <x-filter-item label="所属类目">
         <x-tag-select
           :options="[
             { label: '我自己', value: 0 },
@@ -12,8 +12,8 @@
           ]"
           @change="handleSearch"
         ></x-tag-select>
-      </a-form-item>
-      <a-form-item label="owner">
+      </x-filter-item>
+      <x-filter-item label="owner">
         <a-space :size="16">
           <a-select
             v-model:value="searchFormData.owner"
@@ -28,20 +28,20 @@
           ></a-select>
           <a @click="() => (searchFormData.owner = [0])">只看自己的</a>
         </a-space>
-      </a-form-item>
+      </x-filter-item>
       <a-row>
         <a-col>
-          <a-form-item label="活跃用户">
+          <x-filter-item label="活跃用户">
             <a-select placeholder="不限" :style="{ minWidth: '120px' }"></a-select>
-          </a-form-item>
+          </x-filter-item>
         </a-col>
         <a-col>
-          <a-form-item label="好评度">
+          <x-filter-item label="好评度">
             <a-select placeholder="不限" :style="{ minWidth: '120px' }"></a-select>
-          </a-form-item>
+          </x-filter-item>
         </a-col>
       </a-row>
-    </x-filter-form>
+    </x-filter>
   </a-card>
 
   <a-card>
@@ -178,3 +178,5 @@ function handleSearch() {
   getPageList()
 }
 </script>
+
+<style lang="less" scoped></style>

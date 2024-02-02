@@ -1,62 +1,49 @@
 <template>
-  <x-search-bar class="mb-8-2">
-    <template #default="{ gutter, colSpan }">
-      <a-form :label-col="{ style: { width: '100px' } }" :model="searchFormData" layout="inline">
-        <a-row :gutter="gutter">
-          <a-col v-bind="colSpan">
-            <a-form-item name="title">
-              <template #label>
-                规则名称
-                <a-tooltip title="规则名称是唯一的 key">
-                  <question-circle-outlined class="ml-4-1 color-placeholder" />
-                </a-tooltip>
-              </template>
-              <a-input v-model:value="searchFormData.title"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col v-bind="colSpan">
-            <a-form-item label="描述">
-              <a-input></a-input>
-            </a-form-item>
-          </a-col>
-          <template v-if="searchBarExpand">
-            <a-col v-bind="colSpan">
-              <a-form-item label="服务调用次数">
-                <a-input></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col v-bind="colSpan">
-              <a-form-item label="状态">
-                <a-select></a-select>
-              </a-form-item>
-            </a-col>
-            <a-col v-bind="colSpan">
-              <a-form-item label="上次调度时间">
-                <a-date-picker placeholder=""></a-date-picker>
-              </a-form-item>
-            </a-col>
+  <x-search
+    :collapsed="collapsed"
+    :columns="{ sm: 1, md: 2, lg: 3, xl: 3, xxl: 4 }"
+    :label-col="{ style: { width: '100px' } }"
+    :model="searchFormData"
+  >
+    <x-search-item name="title">
+      <template #label>
+        规则名称
+        <a-tooltip title="规则名称是唯一的 key">
+          <question-circle-outlined class="ml-4-1 color-placeholder" />
+        </a-tooltip>
+      </template>
+      <a-input v-model:value="searchFormData.title"></a-input>
+    </x-search-item>
+    <x-search-item label="描述" name="description">
+      <a-input v-model:value="searchFormData.description"></a-input>
+    </x-search-item>
+    <x-search-item label="服务调用次数">
+      <a-input></a-input>
+    </x-search-item>
+    <x-search-item label="状态">
+      <a-select></a-select>
+    </x-search-item>
+    <x-search-item label="上次调度时间">
+      <a-date-picker placeholder=""></a-date-picker>
+    </x-search-item>
+    <x-search-item class="align-right" suffix>
+      <a-space>
+        <a-button>重置</a-button>
+        <a-button ghost type="primary" @click="handleSearch">搜索</a-button>
+        <a @click="() => (collapsed = !collapsed)">
+          展开
+          <template v-if="collapsed">
+            <down-outlined class="fs-12"></down-outlined>
           </template>
-          <a-col class="align-right" v-bind="colSpan">
-            <a-space>
-              <a-button>重置</a-button>
-              <a-button ghost type="primary" @click="handleSearch">搜索</a-button>
-              <a @click="() => (searchBarExpand = !searchBarExpand)">
-                展开
-                <template v-if="searchBarExpand">
-                  <up-outlined :style="{ fontSize: '12px' }"></up-outlined>
-                </template>
-                <template v-else>
-                  <down-outlined :style="{ fontSize: '12px' }"></down-outlined>
-                </template>
-              </a>
-            </a-space>
-          </a-col>
-        </a-row>
-      </a-form>
-    </template>
-  </x-search-bar>
-  <a-card>
-    <x-action-bar class="mb-8-2">
+          <template v-else>
+            <up-outlined class="fs-12"></up-outlined>
+          </template>
+        </a>
+      </a-space>
+    </x-search-item>
+  </x-search>
+  <a-card class="mt-8-2">
+    <x-toolbar>
       <a-button type="primary" @click="$refs.editDialogRef.handleCreate()">
         <template #icon>
           <plus-outlined></plus-outlined>
@@ -97,13 +84,14 @@
           </a-tooltip>
         </a-space>
       </template>
-    </x-action-bar>
+    </x-toolbar>
     <a-table
       :columns="columns"
       :data-source="listData"
       :loading="loading"
       :pagination="paginationState"
       :size="size"
+      class="mt-8-2"
       row-key="id"
       @change="onTableChange"
     >
@@ -137,12 +125,12 @@ import { ref } from 'vue'
 import {
   ColumnHeightOutlined,
   DownOutlined,
+  MoreOutlined,
+  PlusOutlined,
   QuestionCircleOutlined,
   ReloadOutlined,
   SettingOutlined,
-  UpOutlined,
-  PlusOutlined,
-  MoreOutlined
+  UpOutlined
 } from '@ant-design/icons-vue'
 import apis from '@/apis'
 import { config } from '@/config'
@@ -162,7 +150,7 @@ const columns = [
 const { listData, paginationState, loading, showLoading, hideLoading, resetPagination, searchFormData } =
   usePagination()
 const editDialogRef = ref()
-const searchBarExpand = ref(false)
+const collapsed = ref(true)
 const size = ref('default')
 
 getPageList()
@@ -255,3 +243,5 @@ function onOk() {
   getPageList()
 }
 </script>
+
+<style lang="less" scoped></style>

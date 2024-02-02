@@ -9,7 +9,7 @@
           <span>{{ selectedDict?.title }}</span>
           <span class="fs-14 fw-400 ml-8-2">{{ selectedDict?.key }}</span>
         </template>
-        <x-action-bar class="mb-8-2">
+        <x-toolbar class="mb-8-2">
           <a-button type="primary" @click="$refs.editDialogRef.handleCreate()">
             <template #icon>
               <plus-outlined></plus-outlined>
@@ -17,22 +17,12 @@
             新建项
           </a-button>
           <template #extra>
-            <x-search-bar :body-style="{ padding: 0 }" :bordered="false">
-              <a-form layout="inline">
-                <a-row :gutter="12" type="flex">
-                  <a-col>
-                    <a-form-item>
-                      <a-input></a-input>
-                    </a-form-item>
-                  </a-col>
-                  <a-col>
-                    <a-button ghost type="primary">搜索</a-button>
-                  </a-col>
-                </a-row>
-              </a-form>
-            </x-search-bar>
+            <a-space>
+              <a-input></a-input>
+              <a-button ghost type="primary">搜索</a-button>
+            </a-space>
           </template>
-        </x-action-bar>
+        </x-toolbar>
         <a-table
           :columns="columns"
           :data-source="listData"
@@ -151,7 +141,6 @@ function onTableChange({ current, pageSize }) {
  */
 function onDictChange(payload) {
   selectedDict.value = payload
-  console.log(payload)
   resetPagination()
   getPageList()
 }
@@ -163,3 +152,5 @@ async function onOk() {
   await getPageList()
 }
 </script>
+
+<style lang="less" scoped></style>

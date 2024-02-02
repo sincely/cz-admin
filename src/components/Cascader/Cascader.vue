@@ -25,8 +25,8 @@ defineOptions({
  * @property {function | array} loadData
  * @property {object} filedNames
  * @property {number} level  层级，默认：1；
- *                              loadData 为 function 类型时可以用它来控制数据的最深层级
- *                              loadData 为 array 类型时，通过数组长度自动计算最多层级
+ * loadData 为 function 类型时可以用它来控制数据的最深层级
+ * loadData 为 array 类型时，通过数组长度自动计算最多层级
  */
 const props = defineProps({
   modelValue: {
