@@ -38,7 +38,7 @@ import { computed, onMounted, ref, toRefs, watch } from 'vue'
 import { ReloadOutlined, CheckOutlined } from '@ant-design/icons-vue'
 
 defineOptions({
-  name: 'XQrcode'
+  name: 'XQrCode'
 })
 
 const props = defineProps({
