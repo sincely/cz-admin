@@ -52,3 +52,15 @@ export const toTree = (
   })
   return result
 }
+
+/**
+ * 转布尔
+ */
+export const toBoolean = (value) => {
+  if (value === 'true' || value === true) {
+    return true
+  }
+  if (value === 'false' || value === false) {
+    return false
+  }
+}
