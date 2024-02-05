@@ -7,3 +7,5 @@ defineOptions({
   name: 'RouteViewLayout'
 })
 </script>
+
+<style lang="less" scoped></style>

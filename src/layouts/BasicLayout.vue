@@ -12,13 +12,13 @@
           </basic-header>
           <a-layout>
             <basic-side
-              :theme="config.sideTheme"
               :style="{
                 height: `calc(100vh - ${config.headerHeight}px)`,
                 top: `${config.headerHeight}px`
               }"
+              :theme="config.sideTheme"
             >
-              <basic-menu :theme="config.sideTheme" :data-list="sideMenuList"></basic-menu>
+              <basic-menu :data-list="sideMenuList" :theme="config.sideTheme"></basic-menu>
             </basic-side>
             <a-layout>
               <multi-tab v-if="config.multiTab"></multi-tab>
@@ -33,18 +33,18 @@
             <template #left>
               <brand :theme="config.headerTheme"></brand>
             </template>
-            <basic-menu mode="horizontal" :theme="config.headerTheme" :data-list="topMenuList"></basic-menu>
+            <basic-menu :data-list="topMenuList" :theme="config.headerTheme" mode="horizontal"></basic-menu>
           </basic-header>
           <a-layout>
             <template v-if="sideMenuList.length">
               <basic-side
-                :theme="config.sideTheme"
                 :style="{
                   height: `calc(100vh - ${config.headerHeight}px)`,
                   top: `${config.headerHeight}px`
                 }"
+                :theme="config.sideTheme"
               >
-                <basic-menu :theme="config.sideTheme" :data-list="sideMenuList"></basic-menu>
+                <basic-menu :data-list="sideMenuList" :theme="config.sideTheme"></basic-menu>
               </basic-side>
             </template>
             <a-layout>
@@ -60,16 +60,16 @@
         <!-- 侧边菜单 -->
         <template v-if="config.menuMode === 'side'">
           <basic-side
-            :theme="config.sideTheme"
             :style="{
               height: `100vh`,
               top: 0
             }"
+            :theme="config.sideTheme"
           >
             <template #header>
               <brand :theme="config.sideTheme"></brand>
             </template>
-            <basic-menu :theme="config.sideTheme" :data-list="sideMenuList"></basic-menu>
+            <basic-menu :data-list="sideMenuList" :theme="config.sideTheme"></basic-menu>
           </basic-side>
           <a-layout>
             <basic-header :theme="config.headerTheme" @config="$refs.configDialogRef.handleOpen()"></basic-header>
@@ -80,20 +80,20 @@
         <!-- 混合菜单 -->
         <template v-if="config.menuMode === 'mix'">
           <basic-side
-            :theme="config.sideTheme"
             :style="{
               height: `100vh`,
               top: 0
             }"
+            :theme="config.sideTheme"
           >
             <template #header>
               <brand :theme="config.sideTheme"></brand>
             </template>
-            <basic-menu :theme="config.sideTheme" :data-list="sideMenuList"></basic-menu>
+            <basic-menu :data-list="sideMenuList" :theme="config.sideTheme"></basic-menu>
           </basic-side>
           <a-layout>
             <basic-header :theme="config.headerTheme" @config="$refs.configDialogRef.handleOpen()">
-              <basic-menu mode="horizontal" :theme="config.headerTheme" :data-list="topMenuList"></basic-menu>
+              <basic-menu :data-list="topMenuList" :theme="config.headerTheme" mode="horizontal"></basic-menu>
             </basic-header>
             <multi-tab v-if="config.multiTab"></multi-tab>
             <basic-content></basic-content>
@@ -107,7 +107,7 @@
           <template #left>
             <brand :theme="config.headerTheme"></brand>
           </template>
-          <basic-menu mode="horizontal" :theme="config.headerTheme" :data-list="topMenuList"></basic-menu>
+          <basic-menu :data-list="topMenuList" :theme="config.headerTheme" mode="horizontal"></basic-menu>
         </basic-header>
         <multi-tab v-if="config.multiTab"></multi-tab>
         <basic-content></basic-content>

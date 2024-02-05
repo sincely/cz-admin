@@ -1,6 +1,6 @@
 <template>
-  <div class="brand" :class="cpClass" :style="cpStyle">
-    <img alt="" :src="config('app.logo')" />
+  <div :class="cpClass" :style="cpStyle" class="brand">
+    <img :src="config('app.logo')" alt="" />
     <h1>{{ config('app.title') }}</h1>
   </div>
 </template>

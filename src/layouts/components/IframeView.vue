@@ -4,8 +4,8 @@
       v-for="item in iframeList"
       v-show="$route.meta.url === item.meta.url"
       :key="item.meta.url"
-      class="iframe"
       :src="item.meta.url"
+      class="iframe"
     ></iframe>
   </div>
 </template>
