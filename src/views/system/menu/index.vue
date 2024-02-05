@@ -127,5 +127,3 @@ function handleDelete({ id }) {
   })
 }
 </script>
-
-<style lang="less" scoped></style>

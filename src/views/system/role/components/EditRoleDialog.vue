@@ -111,5 +111,3 @@ defineExpose({
   handleEdit
 })
 </script>
-
-<style lang="less" scoped></style>

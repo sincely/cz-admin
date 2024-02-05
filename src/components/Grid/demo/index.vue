@@ -10,5 +10,3 @@ import ResponsiveColumns from './ResponsiveColumns.vue'
 import Responsive from './Responsive.vue'
 import Suffix from './Suffix.vue'
 </script>
-
-<style lang="less" scoped></style>

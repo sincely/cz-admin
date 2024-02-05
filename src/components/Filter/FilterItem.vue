@@ -17,5 +17,3 @@ defineOptions({
 
 const slots = useSlots()
 </script>
-
-<style lang="less" scoped></style>

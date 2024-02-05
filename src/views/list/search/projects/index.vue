@@ -144,5 +144,3 @@ function handleSearch() {
   getPageList()
 }
 </script>
-
-<style lang="less" scoped></style>

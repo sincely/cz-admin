@@ -164,5 +164,3 @@ function trigger() {
   emit('change', record)
 }
 </script>
-
-<style lang="less" scoped></style>

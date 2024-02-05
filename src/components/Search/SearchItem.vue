@@ -44,5 +44,3 @@ defineProps({
 const slots = useSlots()
 const attrs = useAttrs()
 </script>
-
-<style lang="less" scoped></style>

@@ -132,5 +132,3 @@ defineExpose({
   setShow
 })
 </script>
-
-<style lang="less" scoped></style>

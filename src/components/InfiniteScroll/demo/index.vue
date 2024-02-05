@@ -7,5 +7,3 @@ import Basic from './Basic.vue'
 import Error from './Error.vue'
 import Hook from './Hook.vue'
 </script>
-
-<style lang="less" scoped></style>

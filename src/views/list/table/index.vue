@@ -243,5 +243,3 @@ function onOk() {
   getPageList()
 }
 </script>
-
-<style lang="less" scoped></style>

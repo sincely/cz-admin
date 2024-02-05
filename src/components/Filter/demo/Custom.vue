@@ -44,5 +44,4 @@ formData.value = {
 }
 </script>
 
-<style lang="less" scoped></style>
 <!-- #endregion snippet -->
