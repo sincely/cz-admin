@@ -1,9 +1,3 @@
-<demo>
-## 间隔
-设定水平、垂直间隔。
-</demo>
-
-<!-- #region snippet -->
 <template>
   <x-grid :columns="4" :gutter="[12, 8]">
     <x-grid-item>
@@ -46,4 +40,3 @@
   background-color: #bae0ff;
 }
 </style>
-<!-- #endregion snippet -->

@@ -1,9 +1,3 @@
-<demo>
-## 使用 hooks
-使用 hooks
-</demo>
-
-<!-- #region snippet -->
 <template>
   <div ref="infiniteRef" class="infinite">
     <div v-for="item in count" :key="item" class="infinite-item">
@@ -61,4 +55,3 @@ function loadData() {
   background: @control-item-bg-hover;
 }
 </style>
-<!-- #endregion snippet -->

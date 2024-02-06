@@ -1,9 +1,3 @@
-<demo>
-## 响应式列数
-响应式列数
-</demo>
-
-<!-- #region snippet -->
 <template>
   <x-grid :columns="{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6 }" :gutter="[12, 12]">
     <x-grid-item v-for="(item, index) in 6" :key="item">
@@ -32,4 +26,3 @@ import { GridItem as XGridItem } from '@/components'
   background-color: #bae0ff;
 }
 </style>
-<!-- #endregion snippet -->

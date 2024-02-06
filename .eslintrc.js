@@ -47,7 +47,7 @@ module.exports = {
     'no-else-return': 'error', // 禁止 if 语句中 return 语句之后有 else 块
     'no-multi-spaces': 'error', // 禁止使用多个空格
     'no-redeclare': 'error', // 禁止多次声明同一变量
-    'no-return-await': 'error', // 禁用不必要的 return await
+    'no-return-await': 'off', // 禁用不必要的 return await
     'no-self-assign': 'error', // 禁止自我赋值
     'no-useless-catch': 'error', // 禁止不必要的 catch 子句
     'no-useless-return': 'error', // 禁止多余的 return 语句

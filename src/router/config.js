@@ -2,6 +2,9 @@ import { UserLayout } from '@/layouts'
 
 /**
  * @description 白名单页面，无需控制权限的路由或需要在未登录情况访问的路由，
+ * 例如登录页、注册页、404、500等页面
+ * @type {string[]}
+ */
 export const whiteList = ['login', 'logout', '404']
 
 /**

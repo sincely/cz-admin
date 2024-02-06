@@ -1,9 +1,3 @@
-<demo>
-## 折叠
-折叠在响应式布局下依然生效。
-</demo>
-
-<!-- #region snippet -->
 <template>
   <x-grid :columns="2">
     <x-grid-item>
@@ -75,4 +69,3 @@ const showSuffix = ref(true)
   justify-content: center;
 }
 </style>
-<!-- #endregion snippet -->

@@ -1,8 +1,3 @@
-<demo>
-## 错误提示
-若列表数据加载失败，将 `error` 设置成 `true` 即可显示错误提示，用户点击错误提示后会重新触发 `load` 事件。
-</demo>
-
 <!-- #region snippet -->
 <template>
   <x-infinite-scroll
@@ -55,4 +50,3 @@ function loadData() {
   background: @control-item-bg-hover;
 }
 </style>
-<!-- #endregion snippet -->

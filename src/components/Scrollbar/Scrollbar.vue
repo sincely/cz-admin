@@ -94,5 +94,3 @@ defineExpose({
   scrollTo
 })
 </script>
-
-<style scoped lang="less"></style>
