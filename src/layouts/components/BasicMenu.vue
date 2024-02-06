@@ -170,8 +170,8 @@ function onOpenChange(value) {
 
     :deep(.basic-menu) {
       &__title {
-        flex: 1;
         display: flex;
+        flex: 1;
         align-items: center;
         min-width: 0;
         overflow: hidden;
@@ -188,8 +188,8 @@ function onOpenChange(value) {
   }
 
   :deep(.ant-badge) {
-    zoom: 0.8;
     margin: 0 1px 0 2px;
+    zoom: 0.8;
   }
 }
 </style>

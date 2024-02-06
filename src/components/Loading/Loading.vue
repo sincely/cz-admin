@@ -87,8 +87,8 @@ const classComputed = computed(() => {
 .x-loading {
   &__mask {
     inset: 0;
-    background: rgba(255, 255, 255, 0.45);
     z-index: 1000;
+    background: rgb(255 255 255 / 45%);
   }
 
   &__content {
@@ -103,16 +103,16 @@ const classComputed = computed(() => {
 
       &__content {
         position: fixed;
-        left: 50%;
         top: 50%;
+        left: 50%;
         transform: translate(-50%, -50%);
       }
     }
   }
 
   &--directive {
-    inset: 0;
     position: absolute;
+    inset: 0;
     display: flex;
 
     .x-loading {
@@ -121,12 +121,12 @@ const classComputed = computed(() => {
       }
 
       &__content {
-        width: 100%;
-        inset: 0;
         position: absolute;
+        inset: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 100%;
         max-height: 400px;
       }
     }

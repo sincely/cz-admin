@@ -76,9 +76,9 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
   transition-property: background-color, width, flex, max-width, min-width;
 
   :deep(.ant-layout-sider-children) {
-    height: 100%;
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
   &__header {
@@ -108,17 +108,17 @@ const cpShowFooterSlot = computed(() => !!slots.footer)
   }
 
   :deep(.ant-layout-sider-trigger) {
-    background: transparent;
     height: auto;
-    line-height: 1;
     padding: 4px;
+    line-height: 1;
+    background: transparent;
   }
 
   &__trigger {
-    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 40px;
     border-radius: @border-radius;
     transition: all 0.2s;
 

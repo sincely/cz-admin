@@ -108,9 +108,9 @@ function onToggle() {
   display: flex;
   align-items: center;
   padding: 8px;
+  cursor: pointer;
   border-radius: @border-radius;
   transition: all 0.2s;
-  cursor: pointer;
 
   &:hover {
     background: @control-item-bg-hover;
@@ -122,10 +122,10 @@ function onToggle() {
   }
 
   &__icon {
-    flex-shrink: 0;
-    margin-right: 8px;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
+    margin-right: 8px;
   }
 
   &__avatar {
@@ -138,18 +138,18 @@ function onToggle() {
   }
 
   &__description {
+    margin-top: 2px;
     font-size: 12px;
     color: @color-text-description;
-    margin-top: 2px;
   }
 
   &__extra {
-    margin: 0 0 0 auto;
     display: flex;
+    gap: 4px;
     align-items: center;
     justify-content: center;
+    margin: 0 0 0 auto;
     font-size: 12px;
-    gap: 4px;
 
     :deep(.ant-btn) {
       &.ant-btn-text {

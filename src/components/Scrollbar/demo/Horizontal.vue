@@ -16,15 +16,15 @@
 }
 
 .scrollbar-demo-item {
-  flex-shrink: 0;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: 100px;
   height: 50px;
   margin: 10px;
   text-align: center;
-  border-radius: 4px;
   background: @control-item-bg-hover;
+  border-radius: 4px;
 }
 </style>

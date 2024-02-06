@@ -42,20 +42,20 @@ const title = config('app.title')
 <style lang="less" scoped>
 .user-layout {
   &-container {
+    display: flex;
     min-height: 100vh;
     background-repeat: no-repeat;
     background-position: center 110px;
     background-size: 100%;
-    display: flex;
   }
 
   &-aside {
-    width: 538px;
-    flex: 0 0 538px;
-    display: flex;
-    flex-direction: column;
-    background: #235bda url('@/assets/login_aside_bg.jpg') no-repeat left top / 100% auto;
     position: relative;
+    display: flex;
+    flex: 0 0 538px;
+    flex-direction: column;
+    width: 538px;
+    background: #235bda url('@/assets/login_aside_bg.jpg') no-repeat left top / 100% auto;
 
     .aside {
       &-header {
@@ -72,8 +72,8 @@ const title = config('app.title')
 
       &-body {
         flex: 1;
-        text-align: center;
         padding: 48px 0 0;
+        text-align: center;
 
         img {
           width: 80%;
@@ -84,21 +84,21 @@ const title = config('app.title')
         }
 
         p {
-          color: rgba(255, 255, 255, 0.85);
+          color: rgb(255 255 255 / 85%);
         }
       }
 
       &-footer {
-        color: rgba(255, 255, 255, 0.65);
-        font-size: 12px;
         padding: 48px;
+        font-size: 12px;
+        color: rgb(255 255 255 / 65%);
       }
     }
   }
 
   &-main {
-    flex: 1;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: center;
     padding: 64px 0 144px;

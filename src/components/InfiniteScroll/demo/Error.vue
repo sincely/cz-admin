@@ -39,6 +39,7 @@ function loadData() {
 .infinite {
   height: 400px;
 }
+
 .infinite-item {
   display: flex;
   align-items: center;
@@ -46,7 +47,7 @@ function loadData() {
   height: 50px;
   margin: 10px;
   text-align: center;
-  border-radius: 4px;
   background: @control-item-bg-hover;
+  border-radius: 4px;
 }
 </style>

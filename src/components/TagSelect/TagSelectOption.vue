@@ -40,22 +40,22 @@ function handleClick() {
 
 <style lang="less" scoped>
 .x-tag-select-option {
-  padding: 0 8px;
   display: inline-flex;
   align-items: center;
-  line-height: @control-height-sm;
-  border-radius: @border-radius-sm;
-  cursor: pointer;
-  transition: all 0.2s;
+  padding: 0 8px;
   margin-right: 8px;
+  line-height: @control-height-sm;
+  cursor: pointer;
+  border-radius: @border-radius-sm;
+  transition: all 0.2s;
 
   &:hover:not(.x-tag-select-option--active) {
     background: @control-item-bg-hover;
   }
 
   &--active {
-    background: @control-item-bg-active;
     color: @color-primary;
+    background: @control-item-bg-active;
   }
 }
 </style>

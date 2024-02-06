@@ -34,10 +34,7 @@ const cpIsIframe = computed(() => route?.meta?.isIframe)
 
   &-view {
     position: absolute;
-    left: -16px;
-    right: -16px;
-    top: -16px;
-    bottom: -16px;
+    inset: -16px;
   }
 }
 </style>

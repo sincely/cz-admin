@@ -232,21 +232,21 @@ defineExpose({
 <style lang="less" scoped>
 .x-qrcode {
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   border-radius: @border-radius;
 
   &__mask {
-    background: rgba(255, 255, 255, 0.96);
     position: absolute;
     inset: 0;
     z-index: 10;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    background: rgb(255 255 255 / 96%);
 
     .ant-spin {
       line-height: 1;

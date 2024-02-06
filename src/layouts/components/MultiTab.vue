@@ -109,11 +109,11 @@ function initDragSort() {
 
 <style lang="less" scoped>
 .multi-tab {
-  background: #fff;
   position: sticky;
   top: v-bind('config.headerHeight + "px"');
   z-index: 100;
   padding-block: 8px 0;
+  background: #fff;
 
   &__icon {
     margin-left: 8px;

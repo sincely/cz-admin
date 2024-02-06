@@ -26,9 +26,9 @@ const { fieldNames } = useTransferInject()
 
 <style lang="less" scoped>
 .x-transfer-list-body {
-  padding: 0 12px 12px;
-  margin-top: 12px;
   flex: 1;
   height: 0;
+  padding: 0 12px 12px;
+  margin-top: 12px;
 }
 </style>

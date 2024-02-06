@@ -288,8 +288,8 @@ defineExpose({
 <style lang="less">
 .x-preview-wrap {
   .ant-modal {
-    max-width: 100%;
     top: 0;
+    max-width: 100%;
     padding-bottom: 0;
     margin: 0;
   }
@@ -299,18 +299,18 @@ defineExpose({
     flex-direction: column;
     height: 100vh;
     max-height: none;
+    padding: 0;
     background: transparent;
     border-radius: 0;
-    padding: 0;
   }
 
   .ant-modal-body {
-    flex: 1;
-    padding: 0;
     position: relative;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: center;
+    padding: 0;
     overflow: hidden;
     user-select: none;
   }
@@ -321,57 +321,54 @@ defineExpose({
 .x-preview {
   &__content {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-    text-align: center;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
   }
 
   &__image {
-    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-    cursor: grab;
     max-width: 100%;
     max-height: 100%;
+    cursor: grab;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
   }
 
   &__top {
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     display: flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgb(0 0 0 / 10%);
   }
 
   &__pages {
-    color: rgba(255, 255, 255, 0.8);
     margin: 16px;
+    color: rgb(255 255 255 / 80%);
   }
 
   &__action {
-    margin: 0 0 0 auto;
     display: flex;
     align-items: center;
+    margin: 0 0 0 auto;
 
     &-btn {
-      min-width: 44px;
-      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 44px;
+      height: 44px;
       font-size: 16px;
+      color: rgb(255 255 255 / 80%);
       cursor: pointer;
-      color: rgba(255, 255, 255, 0.8);
 
       &--disabled {
+        color: rgb(255 255 255 / 25%);
         cursor: not-allowed;
-        color: rgba(255, 255, 255, 0.25);
       }
     }
   }
@@ -379,9 +376,9 @@ defineExpose({
   &__prev-btn,
   &__next-btn {
     position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
     top: 50%;
+    background: rgb(255 255 255 / 10%);
+    border-radius: 50%;
     transform: translate(0, -50%);
   }
 

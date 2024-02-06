@@ -31,7 +31,7 @@ const cpKeepAlive = computed(() => multiTabStore.keepAlive)
 
 <style lang="less" scoped>
 .basic-content {
-  margin: v-bind('config.mainMargin + "px"');
   position: relative;
+  margin: v-bind('config.mainMargin + "px"');
 }
 </style>

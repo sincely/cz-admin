@@ -195,16 +195,16 @@ function onMoveEnd(e) {
   @size: 2px;
 
   &-body {
-    overflow: hidden;
     height: 100%;
+    overflow: hidden;
     overflow: auto;
   }
 
   &-handle {
     position: absolute;
-    transition: all 0.2s;
     z-index: 999;
     user-select: none;
+    transition: all 0.2s;
 
     &::after {
       position: absolute;
@@ -221,16 +221,16 @@ function onMoveEnd(e) {
 
     &--left,
     &--right {
-      width: calc(@handle-size + @size * 2);
       top: 0;
       bottom: 0;
+      width: calc(@handle-size + @size * 2);
       cursor: col-resize;
 
       &::after {
         top: 0;
         bottom: 0;
-        width: @handle-size;
         left: 50%;
+        width: @handle-size;
         transform: translateX(-50%);
       }
     }
@@ -247,16 +247,16 @@ function onMoveEnd(e) {
 
     &--top,
     &--bottom {
-      left: 0;
       right: 0;
+      left: 0;
       height: calc(@handle-size + @size * 2);
       cursor: row-resize;
 
       &::after {
-        left: 0;
-        right: 0;
-        height: @handle-size;
         top: 50%;
+        right: 0;
+        left: 0;
+        height: @handle-size;
         transform: translateY(-50%);
       }
     }

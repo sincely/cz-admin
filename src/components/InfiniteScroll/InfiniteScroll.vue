@@ -126,8 +126,8 @@ function check() {
 
   &__text {
     padding-block: 8px;
-    text-align: center;
     color: @color-text-placeholder;
+    text-align: center;
 
     &--error {
       cursor: pointer;

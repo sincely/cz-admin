@@ -48,22 +48,22 @@ const cpStyle = computed(() => {
 
 <style lang="less" scoped>
 .brand {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  position: relative;
 
   img {
     height: 28px;
   }
 
   h1 {
-    font-size: 18px;
-    margin: 0;
     padding: 0 12px;
-    text-overflow: ellipsis;
+    margin: 0;
     overflow: hidden;
+    font-size: 18px;
+    text-overflow: ellipsis;
   }
 
   &--light {

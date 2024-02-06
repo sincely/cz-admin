@@ -245,8 +245,8 @@ useTagSelectProvide({
   }
 
   &__collapse {
-    margin: 0 0 0 8px;
     flex-shrink: 0;
+    margin: 0 0 0 8px;
     color: @color-primary;
     cursor: pointer;
   }

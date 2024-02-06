@@ -43,29 +43,29 @@ const showSuffix = ref(true)
 
 <style lang="less" scoped>
 .suffix {
-  height: 108px;
-  border: 1px solid #bae0ff;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 108px;
+  border: 1px solid #bae0ff;
 }
 
 .light-green {
-  height: 108px;
-  background-color: #e6f4ff;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 108px;
+  background-color: #e6f4ff;
 }
 
 .green {
-  height: 108px;
-  background-color: #bae0ff;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 108px;
+  background-color: #bae0ff;
 }
 </style>

@@ -26,14 +26,14 @@ function handleClick() {
 
 <style lang="less" scoped>
 .action-btn {
+  position: relative;
   min-width: 36px;
   height: 36px;
-  border: none;
-  position: relative;
+  padding-right: 11px;
+  padding-left: 11px;
   font-size: 14px;
   color: currentColor;
-  padding-left: 11px;
-  padding-right: 11px;
+  border: none;
 
   &:hover {
     color: currentColor;
@@ -41,10 +41,10 @@ function handleClick() {
 
   :deep(.ant-badge) {
     position: absolute;
-    right: 0;
     top: 0;
-    transform: translate(50%, 0);
+    right: 0;
     margin: 0;
+    transform: translate(50%, 0);
   }
 }
 </style>

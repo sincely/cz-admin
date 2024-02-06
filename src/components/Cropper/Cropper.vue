@@ -151,15 +151,15 @@ defineExpose({
 
 <style lang="less" scoped>
 .x-cropper {
-  height: 300px;
   display: flex;
+  height: 300px;
 
   &__img {
-    width: 400px;
     flex: 0 0 400px;
+    width: 400px;
     height: 100%;
-    background: hsv(0, 0, 96%);
     margin: 0 16px 0 0;
+    background: hsv(0, 0, 96%);
 
     img {
       display: none;
@@ -167,20 +167,20 @@ defineExpose({
   }
 
   &__preview {
-    width: 120px;
     flex: 0 0 120px;
+    width: 120px;
 
     h4 {
-      font-weight: normal;
-      font-size: 12px;
       margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: normal;
     }
 
     &-img {
       width: 100%;
       height: 120px;
-      border: 1px solid @color-border;
       overflow: hidden;
+      border: 1px solid @color-border;
     }
   }
 

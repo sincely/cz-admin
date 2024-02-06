@@ -257,14 +257,14 @@ useTransferProvide({
 <style lang="less" scoped>
 .x-transfer {
   display: flex;
+  height: 400px;
+  background: #fff;
   border: @color-border solid 1px;
   border-radius: @border-radius;
-  background: #fff;
-  height: 400px;
 
   &-list {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
 
     &:first-child {
@@ -272,11 +272,11 @@ useTransferProvide({
     }
 
     &-header {
-      display: flex;
-      align-items: center;
-      flex: 0 0 44px;
-      padding-inline: 12px;
       box-sizing: content-box;
+      display: flex;
+      flex: 0 0 44px;
+      align-items: center;
+      padding-inline: 12px;
       border-bottom: @color-split solid 1px;
 
       &__extra {
@@ -285,23 +285,23 @@ useTransferProvide({
     }
 
     &-search {
+      flex-shrink: 0;
       padding-inline: 12px;
       margin-top: 12px;
-      flex-shrink: 0;
     }
 
     &-breadcrumb {
+      flex-shrink: 0;
       padding-inline: 12px;
       margin-top: 12px;
-      flex-shrink: 0;
     }
 
     &-footer {
+      display: flex;
       flex: 0 0 44px;
+      align-items: center;
       padding-inline: 12px;
       border-top: @color-split solid 1px;
-      display: flex;
-      align-items: center;
     }
   }
 }

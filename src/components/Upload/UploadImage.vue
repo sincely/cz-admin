@@ -428,25 +428,25 @@ function trigger() {
   // 禁用
   &--disabled {
     .x-upload-btn {
-      opacity: 0.5;
       cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 
   &-btn {
-    border: @color-border dashed 1px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
+    border: @color-border dashed 1px;
     border-radius: @border-radius;
+    transition: all 0.2s;
 
     &--hover {
       &:hover {
-        border-color: @color-primary;
         color: @color-primary;
+        border-color: @color-primary;
       }
     }
 
@@ -460,10 +460,10 @@ function trigger() {
   }
 
   &-item {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     overflow: hidden;
     background: hsv(0, 0, 96%);
     border-radius: @border-radius;
@@ -483,63 +483,63 @@ function trigger() {
     &--error {
       &::before {
         position: absolute;
-        content: '';
+        z-index: 2;
         width: 100%;
         height: 100%;
-        border: @color-error dashed 1px;
-        z-index: 2;
         pointer-events: none;
+        content: '';
+        border: @color-error dashed 1px;
       }
     }
   }
 
   &-actions {
     position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
+    gap: 4px;
     align-items: center;
     justify-content: center;
-    gap: 4px;
     width: 100%;
     height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgb(0 0 0 / 25%);
     opacity: 0;
     transition: all 0.15s;
   }
 
   &-action {
-    min-width: 24px;
-    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    border-radius: 2px;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.25);
-    transition: all 0.15s;
-    font-size: 12px;
+    min-width: 24px;
+    height: 24px;
     padding: 0 4px;
+    font-size: 12px;
+    color: #fff;
+    cursor: pointer;
+    background: rgb(0 0 0 / 25%);
+    border-radius: 2px;
+    transition: all 0.15s;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgb(0 0 0 / 50%);
     }
   }
 
   &-status {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
     top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
     padding: 0 16px;
     color: #fff;
+    background: rgb(0 0 0 / 25%);
 
     &--error {
       color: @color-error;

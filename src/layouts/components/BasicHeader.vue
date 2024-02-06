@@ -117,18 +117,18 @@ function handleConfig() {
 
 <style lang="less" scoped>
 .basic-header {
-  height: v-bind('config.headerHeight + "px"');
-  line-height: 1;
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
+  height: v-bind('config.headerHeight + "px"');
   padding-inline: 16px;
+  line-height: 1;
   // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   &__left {
-    flex-shrink: 0;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
   }
 
@@ -138,15 +138,15 @@ function handleConfig() {
   }
 
   &__right {
-    flex-shrink: 0;
-    margin: 0 0 0 auto;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
+    margin: 0 0 0 auto;
   }
 
   :deep(.ant-menu-horizontal) {
-    border: none;
     line-height: v-bind('config.headerHeight + "px"');
+    border: none;
   }
 
   &--light {
