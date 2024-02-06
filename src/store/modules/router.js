@@ -20,6 +20,7 @@ const useRouterStore = defineStore('router', {
      * @returns {Promise}
      */
     getRouterList() {
+      // 不需要权限控制的，找到 getRouterList 方法
       // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
         try {
@@ -360,6 +361,8 @@ const useRouterStore = defineStore('router', {
           const { code, data } = result
           if (config('http.code.success') === code) {
             const validRoutes = formatRoutes(routes, data)
+            // 不需要权限控制的，用下面这行代码
+            // const validRoutes = formatRoutes(routes, false)
             console.log(validRoutes)
             const menuList = generateMenuList(validRoutes)
             const routeList = [...generateRoutes(validRoutes), notFoundRoute]
