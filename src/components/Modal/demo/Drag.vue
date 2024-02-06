@@ -1,4 +1,3 @@
-<!-- #region snippet -->
 <template>
   <a-button type="primary" @click="handleOpen()">打开</a-button>
 
