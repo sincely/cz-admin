@@ -20,6 +20,8 @@ const props = defineProps({
    * 显示的栅格数量
    */
   columns: {
+    // :columns="{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6 }"
+
     type: [Number, Object],
     default: 24
   },

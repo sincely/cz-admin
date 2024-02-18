@@ -25,7 +25,8 @@ const action = {
 
 /**
  * 校验权限
- * @param {string | array} actions
+ * @param {string | array} actions - 权限 支持字符串或数组
+ * @returns {boolean}
  */
 export const checkAction = (actions = '') => {
   const route = router.currentRoute.value
@@ -45,6 +46,6 @@ export const checkAction = (actions = '') => {
 
 export const setupActionDirective = (app) => {
   app.directive('action', action)
-  app.config.globalProperties.$checkAction = checkAction
+  app.config.globalProperties.$checkAction = checkAction // 挂载到全局
   return app
 }
