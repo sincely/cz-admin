@@ -32,11 +32,11 @@ export const checkAction = (actions = '') => {
   const route = router.currentRoute.value
   const currentActions = route?.meta?.actions ?? []
   actions = typeof actions === 'string' ? actions.split() : actions
-
+  // 如果当前路由的权限中包含*，则直接返回true
   if (currentActions.includes('*')) {
     return true
   }
-
+  // 如果当前路由的权限中不包含actions中的任何一个，则返回false
   if (!currentActions.some((action) => actions.includes(action))) {
     return false
   }

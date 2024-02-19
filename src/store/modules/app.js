@@ -4,8 +4,8 @@ import useRouterStore from './router'
 import { config } from '@/config'
 
 const defaultConfig = {
-  layout: 'leftRight', // 页面布局【topBottom=上下布局，leftRight=左右布局】
-  menuMode: 'side', // 菜单模式【side=侧边菜单，top=顶部菜单，mix=混合菜单】
+  layout: '页面布局【topBottom', // 页面布局【topBottom=上下布局，leftRight=左右布局】
+  menuMode: 'mix', // 菜单模式【side=侧边菜单，top=顶部菜单，mix=混合菜单】
   collapsed: false, // 侧边菜单折叠
   sideCollapsedWidth: 60,
   sideWidth: 220,

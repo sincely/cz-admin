@@ -8,7 +8,7 @@
 
 <script setup>
 import { Form, message } from 'ant-design-vue'
-import { isEqual, last, pick } from 'lodash-es'
+import { isEqual, isFunction, last, pick } from 'lodash-es'
 import { computed, onMounted, ref, useSlots, watch } from 'vue'
 import { config } from '@/config'
 import { findTree } from '@/utils'
@@ -33,14 +33,23 @@ const props = defineProps({
     type: Array,
     default: () => []
   },
+  /**
+   * 加载数据
+   */
   loadData: {
     type: [Array, Function],
     default: () => async function () {}
   },
+  /**
+   * 自定义节点
+   */
   fieldNames: {
     type: Object,
     default: () => ({ label: 'label', value: 'value', children: 'children' })
   },
+  /**
+   * 层级
+   */
   level: {
     type: Number,
     default: 1
@@ -56,7 +65,7 @@ const options = ref([])
 const curValue = ref([])
 
 const cpLevel = computed(() => {
-  return typeof props.loadData === 'function' ? props.level : props.loadData.length || 0
+  return isFunction(props.loadData) ? props.level : props.loadData.length || 0
 })
 
 watch(

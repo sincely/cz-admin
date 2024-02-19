@@ -6,8 +6,8 @@ import { setupRouter } from '@/router' // 引入路由模块
 import { setupStore } from '@/store' // 引入pina模块
 import { setupException } from './exception' // 引入异常处理模块
 import './permission' // 引入权限模块
-import 'ant-design-vue/dist/reset.css'
-import '@/styles/index.less'
+import 'ant-design-vue/dist/reset.css' // 引入样式重置
+import '@/styles/index.less' // 引入全局样式
 
 export const useCore = (app) => {
   app.use(antd)
