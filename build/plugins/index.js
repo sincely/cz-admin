@@ -6,7 +6,6 @@ import legacy from './legacy' // 浏览器兼容
 import restartPlugin from './restart' // 重启服务
 import htmlPlugin from './html' // html插件
 import svgIconPlugin from './svgIcon' // svg图标集成
-import vueDevToolsPlugin from './vueDevtool' // vue开发工具
 /**
  * @description  创建vite插件
  * @param viteEnv - 环境变量配置
@@ -17,7 +16,7 @@ export default function createVitePlugins(viteEnv, isBuild = false) {
   if (isBuild) {
     vitePlugins.push(compression(), legacy())
   } else {
-    vitePlugins.push(inspect(), vueDevToolsPlugin(viteEnv))
+    vitePlugins.push(inspect())
   }
   return vitePlugins
 }
