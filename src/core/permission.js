@@ -26,13 +26,11 @@ router.beforeEach((to, from, next) => {
   } else {
     // 判断当前登录状态
     if (isLogin) {
-      console.log(111111111)
       // 判断是否初始化完成
       if (complete) {
         // 初始化完成
         next()
       } else {
-        console.log(22222222)
         // 初始化未加载完成
         appStore.init().then(() => {
           next({ ...to, replace: true })
